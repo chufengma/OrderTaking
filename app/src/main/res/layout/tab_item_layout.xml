@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="65dip"
+    android:layout_height="65dip"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="15dip"
+        android:layout_height="15dip"
+        android:layout_alignTop="@+id/tab_layout"
+        android:id="@+id/red_dot"
+        android:layout_alignRight="@+id/tab_layout"
+        android:background="@drawable/ic_red_dot_1"
+        android:text="23"
+        android:textColor="#fff"
+        android:visibility="gone"
+        android:textSize="10dip"
+        android:layout_marginTop="1dip"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="60dip"
+        android:orientation="vertical"
+        android:id="@+id/tab_layout"
+        android:gravity="center"
+        android:layout_height="60dip">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_width="25dip"
+            android:layout_height="25dip" />
+
+        <TextView
+            android:id="@+id/text"
+            android:text="买家中心"
+            android:textColor="@color/tab_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="买家中心"
+        android:layout_height="wrap_content" />
+
+    <ordertaking.itaobuxiu.com.ordertaking.TestLayout1
+        android:layout_width="match_parent"
+        android:background="#000000"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:layout_height="100dip">
+
+        <ordertaking.itaobuxiu.com.ordertaking.TestLayout3
+            android:layout_width="match_parent"
+            android:background="#000000"
+            android:clickable="true"
+            android:layout_height="100dip" />
+
+    </ordertaking.itaobuxiu.com.ordertaking.TestLayout1>
+
+
+    <ordertaking.itaobuxiu.com.ordertaking.TestLayout2
+        android:layout_width="match_parent"
+        android:background="#00ff00"
+        android:layout_height="100dip">
+
+    </ordertaking.itaobuxiu.com.ordertaking.TestLayout2>
+
+</LinearLayout>

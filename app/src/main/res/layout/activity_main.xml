@@ -23,6 +23,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         app:tabSelectedTextColor="#00ff00"
+        android:elevation="10dip"
         app:tabIndicatorHeight="0dip"
         app:tabTextColor="#ff0000"
         android:layout_height="65dip" />

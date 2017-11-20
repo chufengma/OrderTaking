@@ -22,6 +22,7 @@ import ordertaking.itaobuxiu.com.ordertaking.engine.GlideImageLoader
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import ordertaking.itaobuxiu.com.ordertaking.apis.HomePriceData
 import org.jetbrains.anko.custom.asyncResult
 import org.jetbrains.anko.dip
 import java.text.SimpleDateFormat
@@ -32,6 +33,8 @@ import java.util.*
  * Created by chufengma on 2017/11/19.
  */
 class HomeFragment: Fragment() {
+
+    var todayDataList: List<HomePriceData>? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_home, null)
@@ -75,8 +78,8 @@ class HomeFragment: Fragment() {
 
             override fun formatLabel(time: Double, isValueX: Boolean): String {
                 return if (isValueX) {
-                    Log.e("TEST2", "${time.toLong()}")
-                    SimpleDateFormat("HH:mm").format(Date(time.toLong()))
+                    var data: HomePriceData? = todayDataList?.get(time.toInt() * 2)
+                    SimpleDateFormat("HH:mm").format(Date(data?.createTime))
                 } else {
                     super.formatLabel(time, isValueX)
                 }
@@ -101,23 +104,13 @@ class HomeFragment: Fragment() {
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { result ->
-                    var todayData = result.data.subList(result.data.size - 10, result.data.size).map {
-                        Log.e("TEST", "${(it.createTime/1000).toLong() * 1000}:${it.currentPrice}")
-                        DataPoint(Date(it.createTime), it.currentPrice.toDouble())
+                    var index = -1
+                    todayDataList = result.data.subList(result.data.size - 20, result.data.size)
+                    var todayData = todayDataList?.map {
+                        index++
+                        DataPoint(index, it.currentPrice.toDouble())
                     }.toTypedArray()
-
-//                    graph.getViewport().setXAxisBoundsManual(true)
-//                    graph.getViewport().setMinX(todayData[0].x)
-//                    graph.getViewport().setMaxX(todayData[todayData.size - 1].x)
-
-
-                    graph.getViewport().setMinX(todayData[0].x);
-                    graph.getViewport().setMaxX(todayData[todayData.size - 1].x);
-                    graph.getViewport().setXAxisBoundsManual(true);
-//                    graph.getGridLabelRenderer().setHumanRounding(false);
-
                     series.resetData(todayData)
-
                 }
     }
 

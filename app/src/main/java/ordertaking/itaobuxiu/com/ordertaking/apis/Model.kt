@@ -11,3 +11,7 @@ data class HomeAdsModelDataItem(val url:String)
 
 data class HomePriceModel(val code: String, val message: String, val data: List<HomePriceData>)
 data class HomePriceData(val currentPrice: String, val createTime: Long)
+
+
+data class HomePriceMonthModel(val code: String, val message: String, val data: List<HomePriceMonthData>)
+data class HomePriceMonthData(val endPrice: String, val logTime: Long)

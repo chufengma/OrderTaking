@@ -15,4 +15,7 @@ interface HomeApiService {
     @GET("/api/main/photoLME")
     fun getPriceToday(): Observable<HomePriceModel>
 
+
+    @GET("/api/main/threeMonthLME")
+    fun getPriceMonth(): Observable<HomePriceMonthModel>
 }

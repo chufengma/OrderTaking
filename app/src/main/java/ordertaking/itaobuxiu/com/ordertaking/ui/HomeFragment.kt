@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.LabelFormatter
-import com.jjoe64.graphview.Viewport
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.youth.banner.BannerConfig
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,8 +20,9 @@ import ordertaking.itaobuxiu.com.ordertaking.engine.GlideImageLoader
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import com.jjoe64.graphview.series.Series
 import ordertaking.itaobuxiu.com.ordertaking.apis.HomePriceData
-import org.jetbrains.anko.custom.asyncResult
+import ordertaking.itaobuxiu.com.ordertaking.apis.HomePriceMonthData
 import org.jetbrains.anko.dip
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +34,37 @@ import java.util.*
 class HomeFragment: Fragment() {
 
     var todayDataList: List<HomePriceData>? = null
+    var monthDataList: List<HomePriceMonthData>? = null
+
+    private var labelFormatter: LabelFormatter = object : DefaultLabelFormatter() {
+        override fun formatLabel(time: Double, isValueX: Boolean): String {
+            return if (isValueX) {
+                var data: HomePriceData? = todayDataList?.get(time.toInt())
+                if (data != null) {
+                    SimpleDateFormat("HH:mm").format(Date(data?.createTime!!))
+                } else {
+                    super.formatLabel(time, isValueX)
+                }
+            } else {
+                super.formatLabel(time, isValueX)
+            }
+        }
+    }
+
+    private var monthlabelFormatter: LabelFormatter = object : DefaultLabelFormatter() {
+        override fun formatLabel(time: Double, isValueX: Boolean): String {
+            return if (isValueX) {
+                var data: HomePriceMonthData? = monthDataList?.get(time.toInt())
+                if (data != null) {
+                    SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(data?.logTime!!))
+                } else {
+                    super.formatLabel(time, isValueX)
+                }
+            } else {
+                super.formatLabel(time, isValueX)
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_home, null)
@@ -47,23 +77,6 @@ class HomeFragment: Fragment() {
     }
 
     private fun setupGripView() {
-        val series = LineGraphSeries(arrayOf(
-                DataPoint(0.0, 1000.0),
-                DataPoint(2.0, 5000.0),
-                DataPoint(4.0, 3000.0),
-                DataPoint(8.0, 2000.0),
-                DataPoint(12.0, 6000.0),
-                DataPoint(16.0, 5000.0),
-                DataPoint(18.0, 3000.0),
-                DataPoint(24.0, 2000.0),
-                        DataPoint(18.0, 3000.0),
-                DataPoint(24.0, 2000.0)))
-        series.color = Color.parseColor("#ffffff")
-        series.backgroundColor = Color.parseColor("#3ff8f8f8")
-        series.isDrawBackground = true
-        series.thickness = context.dip(1)
-
-        graph.addSeries(series)
         graph.gridLabelRenderer.isHighlightZeroLines = false
         graph.gridLabelRenderer.textSize = context.dip(8).toFloat()
         graph.gridLabelRenderer.gridColor = Color.parseColor("#f8f8f8")
@@ -71,47 +84,105 @@ class HomeFragment: Fragment() {
         graph.gridLabelRenderer.verticalLabelsColor = Color.parseColor("#f8f8f8")
         graph.gridLabelRenderer.gridColor = Color.parseColor("#81f8f8f8")
         graph.gridLabelRenderer.numHorizontalLabels = 10
+        graph.gridLabelRenderer.labelFormatter = labelFormatter
 
-        todayPrice.isSelected = true
-//
-        graph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
 
-            override fun formatLabel(time: Double, isValueX: Boolean): String {
-                return if (isValueX) {
-                    var data: HomePriceData? = todayDataList?.get(time.toInt() * 2)
-                    SimpleDateFormat("HH:mm").format(Date(data?.createTime))
-                } else {
-                    super.formatLabel(time, isValueX)
-                }
-            }
+        graphMonth.gridLabelRenderer.isHighlightZeroLines = false
+        graphMonth.gridLabelRenderer.textSize = context.dip(8).toFloat()
+        graphMonth.gridLabelRenderer.gridColor = Color.parseColor("#f8f8f8")
+        graphMonth.gridLabelRenderer.horizontalLabelsColor = Color.parseColor("#f8f8f8")
+        graphMonth.gridLabelRenderer.verticalLabelsColor = Color.parseColor("#f8f8f8")
+        graphMonth.gridLabelRenderer.gridColor = Color.parseColor("#81f8f8f8")
+        graphMonth.gridLabelRenderer.numHorizontalLabels = 3
+        graphMonth.gridLabelRenderer.labelFormatter = monthlabelFormatter
 
+        var refreshTodayData = {
+            priceLoading.visibility = View.VISIBLE
+            Network.create(HomeApiService::class.java)
+                    ?.getPriceToday()
+                    ?.subscribeOn(Schedulers.io())
+                    ?.observeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe(
+                            { result ->
+                                var todayData: MutableList<DataPoint> = mutableListOf();
+                                todayDataList = result.data.subList(result.data.size - 20, result.data.size)
+                                todayDataList!!.mapIndexedTo(todayData) { index, value -> DataPoint(index.toDouble(), value.currentPrice.toDouble()) }
+
+                                var series = graph.tag
+                                if (series == null) {
+                                    val series = LineGraphSeries(todayData.toTypedArray())
+                                    series.color = Color.parseColor("#ffffff")
+                                    series.backgroundColor = Color.parseColor("#3ff8f8f8")
+                                    series.isDrawBackground = true
+                                    series.thickness = context.dip(1)
+
+                                    graph.addSeries(series)
+
+                                    graph.tag = series
+                                } else {
+                                    (series as LineGraphSeries<DataPoint>).resetData(todayData.toTypedArray())
+                                }
+                                priceLoading.visibility = View.GONE
+                            },
+                            {
+                                priceLoading.visibility = View.GONE
+                            }
+                    )
         }
 
-//        graph.gridLabelRenderer.labelFormatter = DateAsXAxisLabelFormatter(getActivity())
+        var refreshMonthData = {
+            priceLoading.visibility = View.VISIBLE
+            Network.create(HomeApiService::class.java)
+                    ?.getPriceMonth()
+                    ?.subscribeOn(Schedulers.io())
+                    ?.observeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe(
+                            { result ->
+                                var todayData: MutableList<DataPoint> = mutableListOf()
+                                monthDataList = result.data.subList(result.data.size - 21, result.data.size)
+                                monthDataList!!.mapIndexedTo(todayData) { index, value ->
+                                    DataPoint(index.toDouble(), value.endPrice.toDouble())
+                                }
 
+                                var series = graphMonth.tag
+                                if (series == null) {
+                                    val seriesMonth = LineGraphSeries(todayData.toTypedArray())
+                                    seriesMonth.color = Color.parseColor("#ffffff")
+                                    seriesMonth.backgroundColor = Color.parseColor("#3ff8f8f8")
+                                    seriesMonth.isDrawBackground = true
+                                    seriesMonth.thickness = context.dip(1)
+                                    graphMonth.addSeries(seriesMonth)
+
+                                    graphMonth.tag = seriesMonth
+                                } else {
+                                    (series as LineGraphSeries<DataPoint>).resetData(todayData.toTypedArray())
+                                }
+                                    priceLoading.visibility = View.GONE
+                            },
+                            {
+                                priceLoading.visibility = View.GONE
+                            }
+                    )
+        }
 
         todayPrice.setOnClickListener {
             todayPrice.isSelected = true
             monthPrice.isSelected = false
+            graph.visibility = View.VISIBLE
+            graphMonth.visibility = View.GONE
+            refreshTodayData()
         }
 
         monthPrice.setOnClickListener {
             monthPrice.isSelected = true
             todayPrice.isSelected = false
+            graph.visibility = View.GONE
+            graphMonth.visibility = View.VISIBLE
+            refreshMonthData()
         }
-        Network.create(HomeApiService::class.java)
-                ?.getPriceToday()
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe { result ->
-                    var index = -1
-                    todayDataList = result.data.subList(result.data.size - 20, result.data.size)
-                    var todayData = todayDataList?.map {
-                        index++
-                        DataPoint(index, it.currentPrice.toDouble())
-                    }.toTypedArray()
-                    series.resetData(todayData)
-                }
+
+
+        todayPrice.performClick()
     }
 
     private fun setupBanner() {

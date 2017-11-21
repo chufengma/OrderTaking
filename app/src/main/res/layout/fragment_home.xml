@@ -49,16 +49,19 @@
                         android:id="@+id/todayPrice"
                         android:layout_width="wrap_content"
                         android:text="今日"
+                        android:gravity="center"
                         android:textColor="@color/price_grid_color"
-                        android:layout_marginRight="10dip"
-                        android:layout_height="wrap_content" />
+                        android:padding="10dip"
+                        android:layout_height="match_parent" />
 
                     <TextView
                         android:id="@+id/monthPrice"
                         android:layout_width="wrap_content"
                         android:textColor="@color/price_grid_color"
                         android:text="近三个月"
-                        android:layout_height="wrap_content" />
+                        android:padding="10dip"
+                        android:gravity="center"
+                        android:layout_height="match_parent" />
                 </LinearLayout>
 
                 <View
@@ -66,21 +69,20 @@
                     android:background="#f1f8f8f8"
                     android:layout_height="1px" />
 
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/graph"
-                    android:layout_width="wrap_content"
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dip"
-                    android:layout_height="200dip"
-                    android:layout_gravity="center"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
 
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/graphMonth"
-                    android:layout_width="wrap_content"
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chartMonth"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dip"
-                    android:layout_height="200dip"
-                    android:visibility="gone"
-                    android:layout_gravity="center"/>
-
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
             </LinearLayout>
 
             <ProgressBar
@@ -92,6 +94,7 @@
                 android:layout_height="40dip" />
 
         </RelativeLayout>
+
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

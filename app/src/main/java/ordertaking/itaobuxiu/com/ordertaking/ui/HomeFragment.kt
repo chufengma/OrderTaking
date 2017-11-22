@@ -1,9 +1,13 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +32,8 @@ import java.text.SimpleDateFormat
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
+import com.sdsmdg.tastytoast.TastyToast
+import ordertaking.itaobuxiu.com.ordertaking.apis.HomeSellerDataItem
 
 
 /**
@@ -37,6 +43,10 @@ class HomeFragment: Fragment() {
 
     var todayDataList: List<HomePriceData>? = null
     var monthDataList: List<HomePriceMonthData>? = null
+
+    var sellerAdapter: SellerTabAdapter?= null
+    var marketPriceAdapter: MarketPriceAdapter?= null
+    var ironInfoAdapter: IronInfoAdapter?= null
 
     var refreshTodayData = {
         priceLoading.visibility = View.VISIBLE
@@ -98,6 +108,72 @@ class HomeFragment: Fragment() {
                 )
     }
 
+    var refreshSellerData = {
+        Network.create(HomeApiService::class.java)
+                ?.getSellers()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                        { result ->
+                            Log.e("refreshSellerData",  "${daySellers.isSelected},${allSellers.isSelected}")
+                            if (!allSellers.isSelected) {
+                                if (result.data.day != null && result.data.day.size >= 8) {
+                                    var allData = mutableListOf<List<HomeSellerDataItem>>()
+                                    allData.add(result.data.day.subList(0, 4))
+                                    allData.add(result.data.day.subList(4, 8))
+                                    sellerAdapter?.updateData(allData)
+                                }
+                            } else {
+                                if (result.data.all != null && result.data.all.size >= 8) {
+                                    var allData = mutableListOf<List<HomeSellerDataItem>>()
+                                    allData.add(result.data.all.subList(0, 4))
+                                    allData.add(result.data.all.subList(4, 8))
+                                    sellerAdapter?.updateData(allData)
+                                }
+                            }
+                        },
+                        {
+
+                        }
+                )
+    }
+
+    var refreshMarketPriceData = {
+        Network.create(HomeApiService::class.java)
+                ?.getMarketPrice()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                        { result ->
+                            marketPriceAdapter?.updateData(result.data)
+                            if (result.data != null && result.data.size > 0) {
+                                marketPriceUpdateTime.text = "最后更新于" + SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(result.data[0].createTime)
+                            }
+                        },
+                        {
+
+                        }
+                )
+    }
+
+
+    var refreshIronInfoData = {
+        Network.create(HomeApiService::class.java)
+                ?.getIronInfos()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(
+                        { result ->
+                            Log.e("refreshIronInfoData", result.data.size.toString())
+                            ironInfoAdapter?.updateData(result.data)
+                        },
+                        {  error ->
+                            error.printStackTrace()
+                            Log.e("refreshIronInfoData", error.message)
+                        }
+                )
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_home, null)
     }
@@ -106,6 +182,66 @@ class HomeFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
         setupBanner()
         setupGripView()
+        setupSellerLayout()
+        setupMarketPriceLayout()
+        setupIronInfoLayout()
+
+        swipeRefresh.setColorSchemeResources(R.color.main_blue);
+        swipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.white)
+        swipeRefresh.setOnRefreshListener {
+            TastyToast.makeText(context, "首页数据更新中，请稍后...", TastyToast.LENGTH_LONG, TastyToast.SUCCESS)
+            refreshAllData()
+            swipeRefresh.isRefreshing = false
+        }
+
+        refreshAllData()
+    }
+
+    private fun refreshAllData() {
+        daySellers.performClick()
+        todayPrice.performClick()
+        refreshIronInfoData()
+        refreshMarketPriceData()
+    }
+
+    private fun setupIronInfoLayout() {
+        ironInfoAdapter = IronInfoAdapter()
+        ironInfoRecycler.adapter = ironInfoAdapter
+        ironInfoRecycler.layoutManager = GridLayoutManager(context, 2)
+
+        ironInfoRecycler.isNestedScrollingEnabled = false
+    }
+
+
+    private fun setupMarketPriceLayout() {
+        marketPriceAdapter = MarketPriceAdapter()
+        marketPriceRecycler.adapter = marketPriceAdapter
+        var layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        marketPriceRecycler.layoutManager = layoutManager
+
+        allMarketPrice.setOnClickListener {
+            startActivity(Intent(context, DayPriceAllActivity::class.java))
+        }
+    }
+
+    private fun setupSellerLayout() {
+        sellerAdapter = SellerTabAdapter()
+        sellerRecycler.adapter = sellerAdapter
+        var layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        sellerRecycler.layoutManager = layoutManager
+
+        daySellers.setOnClickListener {
+            daySellers.isSelected = true
+            allSellers.isSelected = false
+            refreshSellerData()
+        }
+
+        allSellers.setOnClickListener {
+            allSellers.isSelected = true
+            daySellers.isSelected = false
+            refreshSellerData()
+        }
+
     }
 
     private fun setupGripView() {
@@ -125,7 +261,6 @@ class HomeFragment: Fragment() {
             refreshMonthData()
         }
 
-        todayPrice.performClick()
     }
 
     private fun setupBanner() {
@@ -164,6 +299,8 @@ class HomeFragment: Fragment() {
         chart.axisLeft.textColor = Color.parseColor("#f8f8f8")
         chart.xAxis.axisLineColor = Color.parseColor("#f8f8f8")
         chart.setScaleEnabled(false)
+        chart.setNoDataText("暂无数据")
+        chart.setNoDataTextColor(Color.WHITE)
 
         dataSet.axisDependency = YAxis.AxisDependency.LEFT
         dataSet.setDrawCircles(false)

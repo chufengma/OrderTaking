@@ -65,8 +65,13 @@ class MainActivity : BaseActivity() {
         sellerTab?.text?.text = "卖家中心"
         meTab?.text?.text = "我的"
 
-        buyerTab?.redDot?.text = "11"
-        buyerTab?.redDot?.visibility = View.VISIBLE
+        homeTab?.icon?.setImageResource(R.drawable.tab_layout_button_home)
+        buyerTab?.icon?.setImageResource(R.drawable.tab_layout_button_buyer)
+        sellerTab?.icon?.setImageResource(R.drawable.tab_layout_button_seller)
+        meTab?.icon?.setImageResource(R.drawable.tab_layout_button_me)
+
+//        buyerTab?.redDot?.text = "11"
+//        buyerTab?.redDot?.visibility = View.VISIBLE
     }
 
     inner class TabExt {

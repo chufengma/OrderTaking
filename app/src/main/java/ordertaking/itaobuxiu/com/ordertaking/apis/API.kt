@@ -18,4 +18,14 @@ interface HomeApiService {
 
     @GET("/api/main/threeMonthLME")
     fun getPriceMonth(): Observable<HomePriceMonthModel>
+
+
+    @GET("/api/main/countSellActive")
+    fun getSellers(): Observable<HomeSellerModel>
+
+    @GET("/api/main/queryIronNew")
+    fun getMarketPrice(): Observable<HomeMarketPriceModel>
+
+    @GET("/api/main/queryIronInfo")
+    fun getIronInfos(): Observable<IronInfoModel>
 }

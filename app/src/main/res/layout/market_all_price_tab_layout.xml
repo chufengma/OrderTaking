@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="10dip"
+        android:layout_marginRight="5dip"
+        android:id="@+id/layout"
+        android:padding="10dip"
+        android:background="@drawable/seller_tab_bg"
+        android:elevation="5dip"
+        android:orientation="vertical"
+        android:baselineAligned="false"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="0dip">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:baselineAligned="false"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="￥16100"
+                    android:textColor="@color/main_red"
+                    android:id="@+id/price"
+                    android:textSize="20dip"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="32dip"
+                    android:src="@drawable/ic_price_up_2"
+                    android:layout_marginLeft="10dip"
+                    android:id="@+id/upDown"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="泰山钢铁"
+                android:textColor="#333"
+                android:singleLine="true"
+                android:textSize="13dip"
+                android:id="@+id/proPlace"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dip"
+                android:textColor="#333333"
+                android:textSize="12dip"
+                android:layout_weight="1"
+                android:text="304/2B  1219 切边 3.0mm 卷"
+                android:id="@+id/materialSurface"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="无锡"
+                android:textColor="#333333"
+                android:singleLine="true"
+                android:textSize="12dip"
+                android:id="@+id/area"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

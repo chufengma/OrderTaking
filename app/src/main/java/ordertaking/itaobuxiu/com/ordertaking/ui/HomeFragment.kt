@@ -22,18 +22,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
 import ordertaking.itaobuxiu.com.ordertaking.R
-import ordertaking.itaobuxiu.com.ordertaking.apis.HomeApiService
 import ordertaking.itaobuxiu.com.ordertaking.engine.GlideImageLoader
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
-import ordertaking.itaobuxiu.com.ordertaking.apis.HomePriceData
-import ordertaking.itaobuxiu.com.ordertaking.apis.HomePriceMonthData
 import org.jetbrains.anko.dip
 import java.text.SimpleDateFormat
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
 import com.sdsmdg.tastytoast.TastyToast
-import ordertaking.itaobuxiu.com.ordertaking.apis.HomeSellerDataItem
+import ordertaking.itaobuxiu.com.ordertaking.apis.*
 
 
 /**
@@ -50,10 +47,7 @@ class HomeFragment: Fragment() {
 
     var refreshTodayData = {
         priceLoading.visibility = View.VISIBLE
-        Network.create(HomeApiService::class.java)
-                ?.getPriceToday()
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
+        networkWrap(Network.create(HomeApiService::class.java)?.getPriceToday())
                 ?.subscribe(
                         { result ->
                             var todayData: MutableList<Entry> = mutableListOf();
@@ -70,8 +64,9 @@ class HomeFragment: Fragment() {
                             priceLoading.visibility = View.GONE
                             chart.invalidate()
                         },
-                        {
+                        {  error ->
                             priceLoading.visibility = View.GONE
+                            TastyToast.makeText(context, error.message, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
                         }
                 )
     }

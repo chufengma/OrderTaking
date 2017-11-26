@@ -30,7 +30,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
 import com.sdsmdg.tastytoast.TastyToast
+import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
+import ordertaking.itaobuxiu.com.ordertaking.engine.gotoPostRequest
+import ordertaking.itaobuxiu.com.ordertaking.engine.isLogin
 
 
 /**
@@ -180,6 +183,7 @@ class HomeFragment: Fragment() {
         setupSellerLayout()
         setupMarketPriceLayout()
         setupIronInfoLayout()
+        setupButtons()
 
         swipeRefresh.setColorSchemeResources(R.color.main_blue);
         swipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.white)
@@ -190,6 +194,16 @@ class HomeFragment: Fragment() {
         }
 
         refreshAllData()
+    }
+
+    private fun setupButtons() {
+        post.setOnClickListener {
+            if (!isLogin()) {
+                (context as BaseActivity).showLoginDialog()
+                return@setOnClickListener
+            }
+            gotoPostRequest(context)
+        }
     }
 
     private fun refreshAllData() {

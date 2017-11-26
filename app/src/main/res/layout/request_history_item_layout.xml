@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="125dip">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="2017-12-13 12:35"
+        android:textColor="#666"
+        android:layout_marginTop="5dip"
+        android:textSize="12dip"
+        android:id="@+id/time"
+        android:layout_toRightOf="@+id/lineLayout"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_toRightOf="@+id/lineLayout"
+        android:layout_below="@+id/time"
+        android:layout_width="match_parent"
+        android:background="@drawable/seller_tab_bg"
+        android:orientation="vertical"
+        android:elevation="5dip"
+        android:padding="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="10dip"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ironType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不锈钢板"
+                android:layout_centerVertical="true"
+                android:textColor="#333" />
+
+            <View
+                android:layout_width="5dip"
+                android:layout_height="5dip"
+                android:layout_toRightOf="@+id/ironType"
+                android:id="@+id/item_dot"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="@drawable/ic_blue_dot_1" />
+
+            <TextView
+                android:id="@+id/baseInfo"
+                android:layout_toRightOf="@+id/item_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="30405"
+                android:textColor="#333" />
+
+            <TextView
+                android:id="@+id/proPlace"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:background="@drawable/icon_info_item_proplace_bg"
+                android:paddingBottom="1dip"
+                android:paddingLeft="3dip"
+                android:paddingRight="3dip"
+                android:paddingTop="1dip"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="山东澳新"
+                android:textColor="@color/main_blue"
+                android:textSize="10dip" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dip"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/surface"
+                android:text="表面"
+                android:textColor="#333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="1dip"
+                android:background="#ccc"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:layout_height="10dip" />
+
+            <TextView
+                android:id="@+id/to"
+                android:text="公差"
+                android:textColor="#333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="1dip"
+                android:background="#ccc"
+                android:id="@+id/toLine"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:layout_height="10dip" />
+
+            <TextView
+                android:id="@+id/spec"
+                android:text="规格"
+                android:textColor="#333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200T 300吨"
+                android:textColor="#333" />
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical">
+
+                <ImageView
+                    android:layout_width="13dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dip"
+                    android:text="无锡"
+                    android:textColor="#333" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="20dip"
+        android:orientation="vertical"
+        android:id="@+id/lineLayout"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="1dip"
+            android:background="#ddd"
+            android:id="@+id/upLine"
+            android:layout_centerHorizontal="true"
+            android:layout_height="12dip" />
+
+        <View
+            android:layout_width="5dip"
+            android:layout_marginTop="-2dip"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_blue_dot_1"
+            android:layout_height="5dip" />
+
+        <View
+            android:layout_width="1dip"
+            android:background="#ddd"
+            android:id="@+id/missLine"
+            android:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

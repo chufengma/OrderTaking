@@ -45,4 +45,9 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
+
+    implementation 'com.orhanobut:hawk:2.0.1'
+    implementation 'com.kaopiz:kprogresshud:1.0.2'
+    implementation 'cn.wolfspider:autowraplinelayout:1.0.1'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 }

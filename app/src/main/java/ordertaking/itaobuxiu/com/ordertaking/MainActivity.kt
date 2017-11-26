@@ -1,8 +1,14 @@
 package ordertaking.itaobuxiu.com.ordertaking
 
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,11 +16,14 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.orhanobut.hawk.Hawk
+import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_main.*;
-import ordertaking.itaobuxiu.com.ordertaking.ui.BuyerFragment
-import ordertaking.itaobuxiu.com.ordertaking.ui.HomeFragment
-import ordertaking.itaobuxiu.com.ordertaking.ui.MeFragment
-import ordertaking.itaobuxiu.com.ordertaking.ui.SellerFragment
+import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
+import ordertaking.itaobuxiu.com.ordertaking.apis.UserBean
+import ordertaking.itaobuxiu.com.ordertaking.apis.UserLoginData
+import ordertaking.itaobuxiu.com.ordertaking.engine.isLogin
+import ordertaking.itaobuxiu.com.ordertaking.ui.*
 
 class MainActivity : BaseActivity() {
 
@@ -59,7 +68,6 @@ class MainActivity : BaseActivity() {
         tabLayout.getTabAt(2)?.customView = sellerTab?.view
         tabLayout.getTabAt(3)?.customView = meTab?.view
 
-
         homeTab?.text?.text = "首页"
         buyerTab?.text?.text = "买家中心"
         sellerTab?.text?.text = "卖家中心"
@@ -70,8 +78,26 @@ class MainActivity : BaseActivity() {
         sellerTab?.icon?.setImageResource(R.drawable.tab_layout_button_seller)
         meTab?.icon?.setImageResource(R.drawable.tab_layout_button_me)
 
-//        buyerTab?.redDot?.text = "11"
-//        buyerTab?.redDot?.visibility = View.VISIBLE
+        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position != 0) {
+                    if (!isLogin()) {
+//                        TastyToast.makeText(this@MainActivity, "暂未登陆", TastyToast.LENGTH_SHORT, TastyToast.ERROR)
+                        viewPager.currentItem = 0
+                        showLoginDialog()
+                    } else {
+                        TastyToast.makeText(this@MainActivity, Hawk.get<UserBean>(LOGIN_USER).realName, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
+                    }
+                }
+            }
+
+        })
     }
 
     inner class TabExt {
@@ -85,5 +111,4 @@ class MainActivity : BaseActivity() {
         Log.e("activity", "activity onTouchEvent:" + event?.action);
         return super.onTouchEvent(event)
     }
-
 }

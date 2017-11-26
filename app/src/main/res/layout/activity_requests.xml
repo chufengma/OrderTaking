@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    tools:context="ordertaking.itaobuxiu.com.ordertaking.ui.RequestsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:layout_height="55dip">
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="55dip"
+            android:padding="15dip"
+            android:src="@drawable/ic_back_arrow"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="55dip"
+            android:clickable="true"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="#000"
+            android:text="发布求购"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="18dip" />
+
+        <TextView
+            android:id="@+id/right"
+            android:padding="15dip"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="55dip"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="编辑"
+            android:textColor="@color/main_blue"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/emptyLayout"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/emptyView"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="180dip"
+                android:src="@drawable/ic_empty_request"
+                android:layout_height="180dip" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="暂无数据"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:padding="10dip"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="历史新增"
+                android:background="@drawable/post_normal_bg"
+                android:layout_weight="1"
+                android:layout_margin="10dip"
+                android:paddingTop="10dip"
+                android:id="@+id/addFromHistory"
+                android:paddingBottom="10dip"
+                android:clickable="true"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="空白新增"
+                android:background="@drawable/post_selected_bg"
+                android:layout_weight="1"
+                android:paddingTop="10dip"
+                android:paddingBottom="10dip"
+                android:textColor="#fff"
+                android:id="@+id/addFromEmpty"
+                android:gravity="center"
+                android:clickable="true"
+                android:layout_margin="10dip"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/normalLayout"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/requestRecycler"
+            android:background="#fff"
+            android:layout_marginTop="10dip"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:id="@+id/actionLayout"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:layout_height="45dip">
+
+            <CheckBox
+                android:layout_width="40dip"
+                android:id="@+id/selectAll"
+                android:gravity="center"
+                android:layout_marginLeft="10dip"
+                android:layout_centerVertical="true"
+                android:layout_height="50dip" />
+            
+            <TextView
+                android:id="@+id/selectAllText"
+                android:text="全选"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/selectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:background="@drawable/post_all_btn_bg_color"
+                android:layout_width="100dip"
+                android:layout_alignParentRight="true"
+                android:text="发布"
+                android:textColor="#fff"
+                android:id="@+id/postALl"
+                android:gravity="center"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/selectFromHistoryForNormal"
+            android:layout_width="match_parent"
+            android:text="从历史中选择（最近6条）"
+            android:background="#e8f3fd"
+            android:gravity="right"
+            android:layout_above="@+id/actionLayout"
+            android:padding="6dip"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="50dip"
+            android:id="@+id/addNewForNormal"
+            android:layout_marginBottom="15dip"
+            android:layout_marginRight="20dip"
+            android:layout_alignParentRight="true"
+            android:elevation="8dip"
+            android:layout_above="@+id/selectFromHistoryForNormal"
+            android:background="@drawable/post_add_new_normal_bg"
+            android:layout_height="50dip" />
+    </RelativeLayout>
+
+</LinearLayout>

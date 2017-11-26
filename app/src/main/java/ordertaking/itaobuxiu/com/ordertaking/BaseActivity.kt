@@ -1,14 +1,20 @@
 package ordertaking.itaobuxiu.com.ordertaking
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.kaopiz.kprogresshud.KProgressHUD
+import ordertaking.itaobuxiu.com.ordertaking.ui.LoginActivity
 import org.jetbrains.anko.find
 
 /**
  * Created by chufengma on 2017/11/19.
  */
 open class BaseActivity : AppCompatActivity() {
+
+    var ks : KProgressHUD? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,4 +28,27 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun showLoading() {
+        if (ks == null) {
+            ks = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show()
+        } else {
+            ks?.show()
+        }
+    }
+
+    fun hideLoading() {
+        ks?.dismiss()
+    }
+
+    fun showLoginDialog() {
+        AlertDialog.Builder(this)
+                .setMessage("您还没有登陆，请先登陆")
+                .setPositiveButton("去登陆") { dialog, which -> startActivity(Intent(this, LoginActivity::class.java)) }
+                .setNegativeButton("取消") { dialog, which -> }.show()
+    }
 }

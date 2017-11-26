@@ -9,4 +9,11 @@
     <color name="main_red">#FC4C56</color>
     <color name="main_light_dark">#999999</color>
     <color name="main_bg">#F8F8F8</color>
+    <color name="content_bg">#f4f5f5</color>
+
+    <color name="simple_item_normal">#fff</color>
+    <color name="simple_item_pressed">#81f8f8f8</color>
+
+    <color name="post_all_normal">@color/main_blue</color>
+    <color name="post_all_disable_pressed">#ccc</color>
 </resources>

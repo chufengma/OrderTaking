@@ -10,7 +10,7 @@ import ordertaking.itaobuxiu.com.ordertaking.apis.PostRequestBean
 import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
 import ordertaking.itaobuxiu.com.ordertaking.apis.toastInfo
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
-import ordertaking.itaobuxiu.com.ordertaking.engine.gotoNewRequest
+import ordertaking.itaobuxiu.com.ordertaking.apis.gotoNewRequest
 
 class RequestHistoryActivity : BaseActivity() {
 

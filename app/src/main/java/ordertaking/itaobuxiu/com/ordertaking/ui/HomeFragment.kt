@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -32,8 +31,8 @@ import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
 import com.sdsmdg.tastytoast.TastyToast
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
-import ordertaking.itaobuxiu.com.ordertaking.engine.gotoPostRequest
-import ordertaking.itaobuxiu.com.ordertaking.engine.isLogin
+import ordertaking.itaobuxiu.com.ordertaking.apis.gotoPostRequest
+import ordertaking.itaobuxiu.com.ordertaking.apis.isLogin
 
 
 /**

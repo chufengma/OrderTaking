@@ -22,7 +22,7 @@ class RequestsActivity : BaseActivity() {
 
         addFromEmpty.setOnClickListener { gotoNewRequest(this, null) }
         addNewForNormal.setOnClickListener { gotoNewRequest(this, null) }
-        selectFromHistoryForNormal.setOnClickListener { gotoHistoryPostRequest(this)  }
+        selectFromHistoryForNormal.setOnClickListener { gotoHistoryPostRequest(this) }
         addFromHistory.setOnClickListener { gotoHistoryPostRequest(this) }
 
         adapter = PostRequestAdapter()

@@ -1,14 +1,13 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.os.Bundle
-import com.kaopiz.kprogresshud.KProgressHUD
 import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_login.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.Response
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserLoginData
-import ordertaking.itaobuxiu.com.ordertaking.engine.doLogin
+import ordertaking.itaobuxiu.com.ordertaking.apis.doLogin
 
 //13921167896,13921167896
 //15251698271,123456
@@ -31,7 +30,7 @@ class LoginActivity : BaseActivity() {
             showLoading()
             doLogin(mobileText, passwordText)?.subscribe({ result: Response<UserLoginData> ->
                         hideLoading()
-                        finish()
+                        gotoHome()
                     },
                     {
                         error ->
@@ -39,5 +38,7 @@ class LoginActivity : BaseActivity() {
                         hideLoading()
                     })
         }
+
+
     }
 }

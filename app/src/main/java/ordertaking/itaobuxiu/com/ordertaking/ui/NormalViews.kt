@@ -12,6 +12,7 @@ import com.daimajia.swipe.SwipeLayout
 import com.sdsmdg.tastytoast.TastyToast
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.CityModel
+import ordertaking.itaobuxiu.com.ordertaking.apis.IronBuyInfo
 import ordertaking.itaobuxiu.com.ordertaking.apis.PostRequestBean
 import ordertaking.itaobuxiu.com.ordertaking.apis.SuggestSpecModel
 import org.jetbrains.anko.find
@@ -20,6 +21,116 @@ import java.text.SimpleDateFormat
 /**
  * Created by dev on 2017/11/25.
  */
+
+
+interface OnIronBuyInfoActionListener {
+    fun onCopy(request: IronBuyInfo)
+    fun onDelete(request: IronBuyInfo)
+    fun onEdit(request: IronBuyInfo)
+    fun onItemClick(request: IronBuyInfo)
+}
+
+
+class IronBuyInfoAdapter : RecyclerView.Adapter<VHIronBuyInfo>() {
+
+    var data: List<IronBuyInfo>? = null
+    var listener: OnIronBuyInfoActionListener? = null
+
+    fun updateData(data: List<IronBuyInfo>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: VHIronBuyInfo?, position: Int) {
+        holder?.update(data!![position])
+        holder?.copy?.setOnClickListener {
+            this.listener?.onCopy(data!![position])
+        }
+        holder?.delete?.setOnClickListener {
+            this.listener?.onDelete(data!![position])
+        }
+        holder?.edit?.setOnClickListener {
+            this.listener?.onEdit(data!![position])
+        }
+        holder?.itemView?.setOnClickListener {
+            this@IronBuyInfoAdapter.listener?.onItemClick(data!![position])
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return if(data == null) 0 else data!!.size
+    }
+
+    fun getAllData(): List<IronBuyInfo>? {
+        return data
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VHIronBuyInfo {
+        return VHIronBuyInfo((LayoutInflater.from(
+                parent?.context).inflate(R.layout.iron_buy_item_layout, parent,
+                false)))
+    }
+
+    fun setActionListener(listener: OnIronBuyInfoActionListener) {
+        this.listener = listener
+    }
+
+}
+
+class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    var ironType: TextView? = null
+    var baseInfo: TextView? = null
+    var proPlace: TextView? = null
+    var surface: TextView? = null
+    var to: TextView? = null
+    var toLayout: View? = null
+    var spec: TextView? = null
+    var unit: TextView? = null
+    var remark: TextView? = null
+    var copy: View?= null
+    var delete: View?= null
+    var edit: View?= null
+    var new: View?= null
+    var updateTime: TextView?= null
+
+    init {
+        ironType = itemView.find(R.id.ironType)
+        baseInfo = itemView.find(R.id.baseInfo)
+        proPlace = itemView.find(R.id.proPlace)
+        surface = itemView.find(R.id.surface)
+        to = itemView.find(R.id.to)
+        toLayout = itemView.find(R.id.toLayout)
+        spec = itemView.find(R.id.spec)
+        unit = itemView.find(R.id.unit)
+        remark = itemView.find(R.id.remark)
+        copy = itemView.find(R.id.copy)
+        delete = itemView.find(R.id.delete)
+        edit = itemView.find(R.id.edit)
+        new = itemView.find(R.id.newIcon)
+        updateTime = itemView.find(R.id.updateTime)
+    }
+
+    fun update(data: IronBuyInfo?) {
+        ironType?.text = data?.ironTypeName
+        baseInfo?.text = "${data?.materialName}"
+        proPlace?.text = data?.proPlacesName
+        surface?.text = data?.surfaceName
+        to?.text = if (data?.tolerance.isNullOrBlank()) "--" else data?.tolerance
+        spec?.text = if (data?.specifications.isNullOrBlank()) "${data?.height}*${data?.width}*${data?.length}" else data?.specifications
+        remark?.text = data?.remark
+
+        unit?.text = when {
+            data?.numbers.isNullOrBlank() && !data?.weights.isNullOrBlank() -> "${data?.weights}${data?.weightUnit}"
+            !data?.numbers.isNullOrBlank() && data?.weights.isNullOrBlank() -> "${data?.numbers}${data?.numberUnit}"
+            else -> "${data?.numbers}${data?.numberUnit}/${data?.weights}${data?.weightUnit}"
+        }
+
+        new?.visibility = if (data?.hasNewoffer == 0) View.VISIBLE else View.GONE
+        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
+    }
+
+}
 
 interface OnHistoryPostRequestActionListener {
     fun onItemClick(request: PostRequestBean)

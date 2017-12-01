@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
 import retrofit2.http.*
 
 
@@ -104,6 +105,11 @@ interface IronRequestService {
 
     @GET("/demands/ironBuy/queryIronBuyInfo")
     fun getRequestHistory(): Observable<Response<List<PostRequestHistoryBean>>>
+
+
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/queryIronBuyInfoPage")
+    fun getIronBuyInfo(@Field("currentPage") currentPage: Int, @Field("pageSize") pageSize: Int,  @Field("buyStatus") buyStatus: Int, @Field("today") today: Int) : Observable<Response<IronBuyInfoData>>
 }
 
 fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<T>>? {
@@ -113,6 +119,8 @@ fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<
                 Log.e("HTTPResponse", Gson().toJson(response))
                 when(response.code) {
                     "403","401" -> {
+                        MainApplication.instance()?.getCurrentActivity()?.gotoLoginActivity()
+                        clearLogin()
                         throw ResponseReturnErrorException(response.code, "请先登录")
                     }
                     "1002" -> {

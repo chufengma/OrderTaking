@@ -11,15 +11,15 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="#fff"
-        android:layout_height="55dip">
+        android:layout_height="@dimen/title_height">
 
         <ImageView
             android:id="@+id/backArrow"
-            android:layout_width="55dip"
+            android:layout_width="@dimen/title_height"
             android:padding="15dip"
             android:src="@drawable/ic_back_arrow"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_height="55dip"
+            android:layout_height="@dimen/title_height"
             android:clickable="true"
             />
 
@@ -38,8 +38,8 @@
             android:padding="15dip"
             android:visibility="invisible"
             android:src="?android:attr/actionModeShareDrawable"
-            android:layout_width="55dip"
-            android:layout_height="55dip"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
             android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
             />

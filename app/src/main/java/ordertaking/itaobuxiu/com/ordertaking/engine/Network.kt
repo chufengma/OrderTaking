@@ -1,5 +1,6 @@
 package ordertaking.itaobuxiu.com.ordertaking.engine
 
+import android.util.Log
 import com.orhanobut.hawk.Hawk
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -22,22 +23,31 @@ object Network {
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(
                         RxJava2CallAdapterFactory.create())
-                .addConverterFactory(
-                        GsonConverterFactory.create())
+//                .addConverterFactory(
+//                        GsonConverterFactory.create())
 //        .baseUrl("http://jiedan8.cn/")
                 .baseUrl("http://111.231.134.170/")
+                .addConverterFactory(GsonConvert.create())
                 .client(OkHttpClient.Builder()
                         .addInterceptor { chain ->
-                            var loginData: UserLoginData = Hawk.get(USER_LOGIN_INFO)
-                            var request = chain?.request()
-                                    ?.newBuilder()
-                                    ?.addHeader("loginId", loginData.loginId)
-                                    ?.addHeader("authorization", loginData.authorization)
-                                    ?.build()
-                            chain?.proceed(request)!!
+                            try {
+                                var loginData: UserLoginData? = Hawk.get(USER_LOGIN_INFO)
+                                var request = chain?.request()
+                                        ?.newBuilder()
+                                        ?.addHeader("loginId", loginData?.loginId)
+                                        ?.addHeader("authorization", loginData?.authorization)
+                                        ?.build()
+                                Log.e("HTTPResponseRequest", request.toString())
+                                chain?.proceed(request)!!
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                chain?.proceed(chain?.request())!!
+                            }
                         }
                         .build())
                 .build()
+
+
     }
 
     fun <T> create(service: Class<T>): T? {

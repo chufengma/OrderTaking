@@ -1,15 +1,10 @@
 package ordertaking.itaobuxiu.com.ordertaking
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -21,8 +16,7 @@ import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_main.*;
 import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserBean
-import ordertaking.itaobuxiu.com.ordertaking.apis.UserLoginData
-import ordertaking.itaobuxiu.com.ordertaking.engine.isLogin
+import ordertaking.itaobuxiu.com.ordertaking.apis.isLogin
 import ordertaking.itaobuxiu.com.ordertaking.ui.*
 
 class MainActivity : BaseActivity() {
@@ -110,5 +104,10 @@ class MainActivity : BaseActivity() {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         Log.e("activity", "activity onTouchEvent:" + event?.action);
         return super.onTouchEvent(event)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        viewPager.currentItem = 0
     }
 }

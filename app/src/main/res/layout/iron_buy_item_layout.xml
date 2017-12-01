@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:paddingBottom="5dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:id="@+id/mainContent"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="10dip"
+        android:background="#fff"
+        android:paddingBottom="5dip">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/ironType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不锈钢板"
+                android:textColor="@color/iron_buy_color" />
+
+            <View
+                android:layout_width="5dip"
+                android:layout_height="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="@drawable/ic_blue_dot_1" />
+
+            <TextView
+                android:id="@+id/baseInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30405"
+                android:textColor="@color/iron_buy_color" />
+
+            <TextView
+                android:id="@+id/proPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:background="@drawable/icon_info_item_proplace_bg"
+                android:paddingBottom="1dip"
+                android:paddingLeft="2dip"
+                android:paddingRight="2dip"
+                android:paddingTop="1dip"
+                android:text="山东澳新"
+                android:textColor="@color/iron_buy_blue_color"
+                android:textSize="10dip" />
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="表面:"
+                    android:textColor="#999" />
+
+                <TextView
+                    android:id="@+id/surface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="301"
+                    android:textColor="@color/iron_buy_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/toLayout"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公差:"
+                    android:textColor="#999" />
+
+                <TextView
+                    android:id="@+id/to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="2000-123123"
+                    android:textColor="@color/iron_buy_color" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="规格:"
+                    android:textColor="#999" />
+
+                <TextView
+                    android:id="@+id/spec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="1000*123*090"
+                    android:textColor="@color/iron_buy_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单位:"
+                    android:textColor="#999" />
+
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="2000-123123"
+                    android:textColor="@color/iron_buy_color" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注:"
+                android:textColor="#999" />
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="Noting to say"
+                android:textColor="@color/iron_buy_color" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@id/mainContent"
+        android:background="#ddd" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dip"
+        android:paddingBottom="8dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:background="#fff"
+        android:layout_below="@id/line"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:layout_marginRight="2dip"
+            android:src="@drawable/iron_info_time_bg" />
+
+        <TextView
+            android:id="@+id/updateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="1dip"
+            android:paddingLeft="2dip"
+            android:paddingRight="2dip"
+            android:paddingTop="1dip"
+            android:text="2017-12-12 12:22"
+            android:textColor="#999999"
+            android:textSize="13dip" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="编辑"
+            android:textColor="#999999"
+            android:paddingLeft="13dip"
+            android:paddingRight="13dip"
+            android:paddingTop="3dip"
+            android:paddingBottom="3dip"
+            android:background="@drawable/iron_buy_info_item_action_bg"
+            android:layout_marginRight="8dip"
+            android:textSize="12dip" />
+
+        <TextView
+            android:id="@+id/copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="13dip"
+            android:paddingRight="13dip"
+            android:paddingTop="3dip"
+            android:paddingBottom="3dip"
+            android:text="复制"
+            android:textColor="#999999"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/iron_buy_info_item_action_bg"
+            android:textSize="12dip" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="13dip"
+            android:paddingRight="13dip"
+            android:paddingTop="3dip"
+            android:layout_marginRight="8dip"
+            android:paddingBottom="3dip"
+            android:layout_alignParentRight="true"
+            android:text="删除"
+            android:background="@drawable/iron_buy_info_item_action_bg"
+            android:textColor="#999999"
+            android:textSize="12dip" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/newIcon"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_new"
+        android:layout_width="30dip"
+        android:layout_height="30dip" />
+
+</RelativeLayout>

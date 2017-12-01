@@ -1,14 +1,12 @@
-package ordertaking.itaobuxiu.com.ordertaking.engine
+package ordertaking.itaobuxiu.com.ordertaking.apis
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import com.google.gson.Gson
 import com.orhanobut.hawk.Hawk
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ordertaking.itaobuxiu.com.ordertaking.apis.*
+import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import ordertaking.itaobuxiu.com.ordertaking.ui.NewRequestActivity
 import ordertaking.itaobuxiu.com.ordertaking.ui.RequestHistoryActivity
 import ordertaking.itaobuxiu.com.ordertaking.ui.RequestsActivity
@@ -31,6 +29,11 @@ fun doLogin(mobile: String, password: String): Observable<Response<UserLoginData
 
 fun isLogin(): Boolean {
     return Hawk.get<UserLoginData>(USER_LOGIN_INFO) != null
+}
+
+fun clearLogin() {
+    Hawk.delete(USER_LOGIN_INFO)
+    Hawk.delete(LOGIN_USER)
 }
 
 fun gotoPostRequest(context: Context) {

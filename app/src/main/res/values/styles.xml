@@ -21,4 +21,10 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="customTabText"
+        parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">14dip</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

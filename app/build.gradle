@@ -50,4 +50,5 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.0.2'
     implementation 'cn.wolfspider:autowraplinelayout:1.0.1'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.android.support:support-v4:25.4.0'
 }

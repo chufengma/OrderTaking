@@ -2,6 +2,8 @@ package ordertaking.itaobuxiu.com.ordertaking.apis
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import com.orhanobut.hawk.Hawk
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,6 +13,9 @@ import ordertaking.itaobuxiu.com.ordertaking.ui.NewRequestActivity
 import ordertaking.itaobuxiu.com.ordertaking.ui.RequestHistoryActivity
 import ordertaking.itaobuxiu.com.ordertaking.ui.RequestsActivity
 import java.util.*
+import android.support.v4.content.ContextCompat.startActivity
+import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
+
 
 /**
  * Created by dev on 2017/11/25.
@@ -44,10 +49,11 @@ fun gotoHistoryPostRequest(context: Context) {
     context.startActivity(Intent(context, RequestHistoryActivity::class.java))
 }
 
-fun gotoNewRequest(context: Context, postRequestBean: PostRequestBean?) {
+fun gotoNewRequest(context: Context, postRequestBean: PostRequestBean?, edit: Boolean) {
     var intent = Intent(context, NewRequestActivity::class.java)
     if (postRequestBean != null) {
         intent.putExtra("postRequestBean", postRequestBean)
+        intent.putExtra("isEdit", edit)
     }
     context.startActivity(intent)
 }
@@ -108,6 +114,67 @@ fun doPostReuqest(request: PostRequestBean?): Observable<Response<Object>>? {
             request?.unitModel?.weightUnitCName
     ))
 }
+
+fun doEditIronBuy(request: IronBuyInfo, edit: Boolean): Observable<Response<Object>>?  {
+    return networkWrap(Network.create(IronRequestService::class.java)?.editIronBuy(
+            request?.ironTypeId,
+            request?.ironTypeName,
+            request?.materialId,
+            request?.materialName,
+            request?.surfaceId,
+            request?.surfaceName,
+            request?.proPlacesId,
+            request?.proPlacesName,
+            request?.locationId,
+            request?.locationName,
+            request?.remark,
+            request?.length,
+            request?.width,
+            request?.height,
+            request?.specifications,
+            request?.tolerance,
+            (24*60*60*1000).toString(),
+            request?.numbers,
+            request?.numberUnitId,
+            request?.numberUnit,
+            request?.weights,
+            request?.weightUnitId,
+            request?.weightUnit,
+            request?.id,
+            if (edit) "1" else "0"
+    ))
+}
+
+fun doEditIronBuy(request: PostRequestBean?): Observable<Response<Object>>? {
+    return networkWrap(Network.create(IronRequestService::class.java)?.editIronBuy(
+            request?.ironType?.id,
+            request?.ironType?.name,
+            request?.materialModel?.id,
+            request?.materialModel?.name,
+            request?.surfaceModel?.id,
+            request?.surfaceModel?.name,
+            request?.proPlaceModel?.id,
+            request?.proPlaceModel?.name,
+            request?.location?.id,
+            request?.location?.shortName,
+            request?.remark,
+            request?.length,
+            request?.width,
+            request?.height,
+            request?.specifications,
+            request?.tolerance,
+            (24*60*60*1000).toString(),
+            request?.numbers,
+            request?.unitModel?.numUnitId,
+            request?.unitModel?.numUnitCName,
+            request?.weights,
+            request?.unitModel?.weightUnitId,
+            request?.unitModel?.weightUnitCName,
+            request?.id,
+            "1"
+    ))
+}
+
 
 fun id(): String {
     return UUID.randomUUID().toString()

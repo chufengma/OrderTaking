@@ -9,12 +9,14 @@ import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import android.text.InputFilter
+import android.view.View
 import ordertaking.itaobuxiu.com.ordertaking.engine.*
 
 
 class NewRequestActivity : BaseActivity() {
 
     var postRequestBean: PostRequestBean? = null
+    var editFlag: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,8 @@ class NewRequestActivity : BaseActivity() {
         if (postRequestBean == null) {
             postRequestBean = PostRequestBean()
         }
+
+        editFlag = intent.getBooleanExtra("isEdit", false)
 
         if (postRequestBean?.localId.isNullOrBlank()) {
             postRequestBean?.localId = id()
@@ -41,6 +45,15 @@ class NewRequestActivity : BaseActivity() {
             })
         }
 
+        if (editFlag) {
+            postEdit.visibility = View.VISIBLE
+            save.visibility = View.GONE
+            justPost.visibility = View.GONE
+        } else {
+            postEdit.visibility = View.GONE
+            save.visibility = View.VISIBLE
+            justPost.visibility = View.VISIBLE
+        }
 
         weightUnit.isEnabled = false
         numUnit.isEnabled = false
@@ -154,6 +167,7 @@ class NewRequestActivity : BaseActivity() {
                     hideLoading()
                     deleteRequest(postRequestBean)
                     toastInfo("发布成功")
+                    BuyerFragment.notifyRefrsh()
                     finish()
                 }, { error ->
                     hideLoading()
@@ -167,6 +181,22 @@ class NewRequestActivity : BaseActivity() {
                 saveRequest(postRequestBean)
                 toastInfo("保存成功")
                 finish()
+            }
+        }
+
+        postEdit.setOnClickListener {
+            if (doCheck()) {
+                showLoading()
+                doEditIronBuy(postRequestBean)?.subscribe({
+                    hideLoading()
+                    deleteRequest(postRequestBean)
+                    toastInfo("保存修改成功")
+                    BuyerFragment.notifyRefrsh()
+                    finish()
+                }, { error ->
+                    hideLoading()
+                    toastInfo("保存修改失败：" + error.message)
+                })
             }
         }
     }

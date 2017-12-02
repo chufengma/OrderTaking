@@ -197,11 +197,11 @@ data class PostRequestBean(var localId: String = "",
 
 
 data class IronBuyInfoData(
-        var all:String?,                //类型：Number  必有字段  备注：所有求购数（仅在第一页是返回）
-        var ing:String?,                //类型：Number  必有字段  备注：进行中求购数（仅在第一页是返回）
-        var get:String?,                //类型：Number  必有字段  备注：成交求购数（仅在第一页是返回）
-        var end:String?,                //类型：Number  必有字段  备注：失效求购数（仅在第一页是返回）
-        var totalCount:String ?,              //类型：Number  必有字段  备注：当前请求数据数
+        var all: String?,                //类型：Number  必有字段  备注：所有求购数（仅在第一页是返回）
+        var ing: String?,                //类型：Number  必有字段  备注：进行中求购数（仅在第一页是返回）
+        var get: String?,                //类型：Number  必有字段  备注：成交求购数（仅在第一页是返回）
+        var end: String?,                //类型：Number  必有字段  备注：失效求购数（仅在第一页是返回）
+        var totalCount: String?,              //类型：Number  必有字段  备注：当前请求数据数
         var list: List<IronBuyInfo>?
 )
 
@@ -210,7 +210,7 @@ data class IronBuyInfo(
         val proPlacesId: String?,                //类型：String?  必有字段  备注：产地编号
         val surfaceName: String?,                //类型：String?  必有字段  备注：编号名称
         val numbers: String?,                //类型：Number  必有字段  备注：数量
-        val editStatus: String?,                //类型：String?  必有字段  备注：编辑状态（0可编辑 1不可编辑）
+        val editStatus: Int?,                //类型：String?  必有字段  备注：编辑状态（0可编辑 1不可编辑）
         val remark: String?,                //类型：String?  必有字段  备注：描述
         val appFlag: String?,                //类型：String?  必有字段  备注：来源（ 1:PC发布 2.H5 3.ios 4.android）
         val specifications: String?,                //类型：String?  必有字段  备注：规格
@@ -234,10 +234,11 @@ data class IronBuyInfo(
         val createTime: Long?,                //类型：Number  必有字段  备注：求购发布时间（用这个）
         val ironTypeName: String?,                //类型：String?  必有字段  备注：品类名称
         val width: String?,                //类型：String?  必有字段  备注：宽
-        val buyStatus: String?,                //类型：String?  必有字段  备注：求购状态（1进行中2成交3失效）
+        val buyStatus: Int?,                //类型：String?  必有字段  备注：求购状态（1进行中2成交3失效）
         val sellNum: String?,                //类型：Number  必有字段  备注：报价数（有几家公司与你竞价）
         val weightUnit: String?,               //类型：String?  必有字段  备注：重量单位
-        val hasNewoffer: Int?
+        val hasNewoffer: Int?,
+        val ironSell: IronSellerListInfo?
 
 ) {
     fun toPostReuqestBean(): PostRequestBean {
@@ -262,6 +263,62 @@ data class IronBuyInfo(
         return bean
     }
 }
+
+data class IronSellerListInfo(var missSell: List<IronBuySellerInfo>?, var validSell: List<IronBuySellerInfo>?)
+
+data class IronBuySellerInfo(
+        var offerRemark: String?,                //类型：String  必有字段  备注：报价备注
+        var offerPrice: String?,                //类型：Number  必有字段  备注：报价总价
+        var companyName: String?,                //类型：String  必有字段  备注：报价公司名称
+        var sellGetNum: String?,                //类型：Number  必有字段  备注：报价人报价中标次数
+        var storeHouseName: String?,                //类型：String  必有字段  备注：报价人仓库地址
+        var contactNum: String?,                //类型：String  必有字段  备注：报价人联系电话
+        var baseUnit: String?,                //类型：String  必有字段  备注：报价计量单位
+        var offerPlacesId: String?,                //类型：String  必有字段  备注：报价产地编号
+        var hasNewOffer: String?,                //类型：String  必有字段  备注：是否新报价（0是1否）
+        var contact: String?,                //类型：String  必有字段  备注：报价联系人
+        var storeHousePlace: String?,                //类型：String  必有字段  备注：报价人仓库地址
+        var fax: String?,                //类型：String  必有字段  备注：报价人传真
+        var storeHouseId: String?,                //类型：String  必有字段  备注：仓库编号
+        var day: String?,                //类型：String  必有字段  备注：报价人作为买家的活跃登记
+        var tolerance: String?,                //类型：String  必有字段  备注：报价公差
+        var offerUserId: String?,                //类型：String  必有字段  备注：报价人编号
+        var QQ: String?,                //类型：String  必有字段  备注：报价人qq
+        var ironBuyId: String?,                //类型：String  必有字段  备注：求购编号
+        var address: String?,                //类型：String  必有字段  备注：报价人地址
+        var baseUnitId: String?,                //类型：String  必有字段  备注：报价人编号
+        var level: String?,                //类型：String  必有字段  备注：报价人作为卖家活跃等级
+        var offerPerPrice: String?,                //类型：Number  必有字段  备注：报价单价
+        var buyGetNum: String?,                //类型：Number  必有字段  备注：报价人发布求购成交数
+        var offerStatus: String?,                //类型：String  必有字段  备注：报价状态（1已报价2中标3未中标4放弃报价）
+        var createTime: String?,                //类型：Number  必有字段  备注：报价时间
+        var isFaithUser: String?,                //类型：String  必有字段  备注：是否诚信商户（0否1是）
+        var buyAllNum: String?,                //类型：Number  必有字段  备注：报价人发布的求购总数
+        var ironSellId: String?,                //类型：String  必有字段  备注：报价编号
+        var offerPlaces: String?,                //类型：String  必有字段  备注：报价产地
+        var proInfo: String?,                //类型：String  必有字段  备注：报价人优惠信息
+        var sellAllNum: String?,                //类型：Number  必有字段  备注：报价人总的报价次数
+        var user: String?,                //类型：String  必有字段  备注：报价人编号
+        var isGuaranteeUser: String?,                //类型：String  必有字段  备注：是否担保商户（0否1是）
+        var ironSell: List<IronBuySellerOfferInfo>?
+)
+
+data class IronBuySellerOfferInfo(
+        var ironBuyId: String?,                //类型：String  必有字段  备注：求购编号
+        var offerRemark: String?,                //类型：String  必有字段  备注：报价备注
+        var offerPrice: String?,                //类型：Number  必有字段  备注：报价总价
+        var baseUnitId: String?,                //类型：String  必有字段  备注：报价计量单位
+        var offerPerPrice: String?,                //类型：Number  必有字段  备注：报价单价
+        var offerStatus: String?,                //类型：String  必有字段  备注：报价状态（1已报价2中标3未中标4放弃报价）
+        var baseUnit: String?,                //类型：String  必有字段  备注：报价计量单位
+        var offerPlacesId: String?,                //类型：String  必有字段  备注：报价产地编号
+        var hasNewOffer: String?,                //类型：String  必有字段  备注：是否新报价（0是1否）
+        var createTime: Long?,                //类型：Number  必有字段  备注：报价时间
+        var ironSellId: String?,                //类型：String  必有字段  备注：求购编号
+        var offerPlaces: String?,                //类型：String  必有字段  备注：报价产地
+        var tolerance: String?,                //类型：String  必有字段  备注：报价公差
+        var offerUserId: String?                //类型：String  必有字段  备注：报价人编号
+)
 
 data class LocalRequests(var requests: MutableList<PostRequestBean>)
 

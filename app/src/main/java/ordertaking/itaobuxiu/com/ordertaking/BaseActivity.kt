@@ -1,7 +1,12 @@
 package ordertaking.itaobuxiu.com.ordertaking
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -76,5 +81,24 @@ open class BaseActivity : AppCompatActivity() {
     public override fun onResume() {
         super.onResume()
         MainApplication.instance()?.enterActivity(this)
+    }
+
+    var currentCallNumTmp: String? = ""
+
+    fun doCall(num: String?) {
+        currentCallNumTmp = num
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num))
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            MainApplication.instance()?.getCurrentActivity()?.startActivity(intent)
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), 1000)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            doCall(currentCallNumTmp)
+        }
     }
 }

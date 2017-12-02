@@ -3,6 +3,7 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -56,20 +57,74 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
 
         configSwipe(ironBuySwipeLayout)
 
+        adapter?.setActionListener(object: OnIronBuyInfoActionListener {
+            override fun onCopy(request: IronBuyInfo) {
+                gotoNewRequest(context, request.toPostReuqestBean(), false)
+            }
+
+            override fun onDelete(request: IronBuyInfo) {
+                AlertDialog.Builder(context).setMessage("确认删除")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", {dialog, which ->
+                            (context as BaseActivity).showLoading()
+                            doEditIronBuy(request, false)?.subscribe({
+                                (context as BaseActivity).hideLoading()
+                                (context as BaseActivity).toastInfo("删除成功")
+                                BuyerFragment.notifyRefrsh()
+                            }, { error ->
+                                (context as BaseActivity).hideLoading()
+                                (context as BaseActivity).toastInfo("删除失败：" + error.message)
+                            })
+
+                            dialog.dismiss()
+                        }).show()
+            }
+
+            override fun onEdit(request: IronBuyInfo) {
+                gotoNewRequest(context, request.toPostReuqestBean(), true)
+            }
+
+            override fun onContact(request: IronBuyInfo) {
+                if (request.buyStatus == 2) {
+                    AlertDialog.Builder(context).setMessage(request.ironSell?.validSell?.get(0)?.contactNum)
+                            .setNegativeButton("取消", null)
+                            .setPositiveButton("呼叫", {dialog, which ->
+                                (context as BaseActivity).doCall(request.ironSell?.validSell?.get(0)?.contactNum)
+                                dialog.dismiss()
+                            }).show()
+                }
+            }
+
+            override fun onItemClick(request: IronBuyInfo) {
+
+            }
+
+        })
+
         ironBuySwipeLayout.setOnRefreshListener {
-            fetchData(false)
+            refreshData()
         }
 
         if (isLogin()) {
             ironBuySwipeLayout.isRefreshing = true
             fetchData(true)
         }
+
+        BuyerFragment.addRefreshListener {
+            refreshData()
+        }
+    }
+
+    fun refreshData() {
+        currentPage = 1
+        fetchData(false)
     }
 
     fun fetchData(withLoading: Boolean) {
         if (withLoading) {
             (activity as BaseActivity).showLoading()
         }
+        var startCurrentPage = currentPage
         networkWrap(Network.create(IronRequestService::class.java)?.getIronBuyInfo(currentPage ,15, buyStatus, today))
                 ?.subscribe({ result ->
                     if (!result.data.ing.isNullOrBlank()
@@ -78,6 +133,9 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
                         BuyerFragment.notify(result.data.ing, result.data.get, result.data.end, today)
                     }
                     if (result.data.list != null) {
+                        if (currentPage == 1) {
+                            data.clear()
+                        }
                         data.addAll(result.data.list!!)
                     }
                     updateData()
@@ -92,7 +150,6 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
     }
 
     fun updateData() {
-
         if (data == null || data.isEmpty()) {
             emptyView.visibility = View.VISIBLE
             ironInfoDataRecycler.visibility = View.GONE

@@ -27,6 +27,7 @@ interface OnIronBuyInfoActionListener {
     fun onCopy(request: IronBuyInfo)
     fun onDelete(request: IronBuyInfo)
     fun onEdit(request: IronBuyInfo)
+    fun onContact(request: IronBuyInfo)
     fun onItemClick(request: IronBuyInfo)
 }
 
@@ -51,6 +52,9 @@ class IronBuyInfoAdapter : RecyclerView.Adapter<VHIronBuyInfo>() {
         }
         holder?.edit?.setOnClickListener {
             this.listener?.onEdit(data!![position])
+        }
+        holder?.contact?.setOnClickListener {
+            this.listener?.onContact(data!![position])
         }
         holder?.itemView?.setOnClickListener {
             this@IronBuyInfoAdapter.listener?.onItemClick(data!![position])
@@ -90,9 +94,17 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var remark: TextView? = null
     var copy: View?= null
     var delete: View?= null
+    var contact: View?= null
     var edit: View?= null
     var new: View?= null
     var updateTime: TextView?= null
+    var doneText: TextView?= null
+    var endText: TextView?= null
+    var doingLayout: View?= null
+    var offerNum: TextView?= null
+    var blueDot: View?= null
+    var iconTime: View?=null
+
 
     init {
         ironType = itemView.find(R.id.ironType)
@@ -104,11 +116,20 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
         spec = itemView.find(R.id.spec)
         unit = itemView.find(R.id.unit)
         remark = itemView.find(R.id.remark)
+        new = itemView.find(R.id.newIcon)
+        updateTime = itemView.find(R.id.updateTime)
+        doingLayout = itemView.find(R.id.doingLayout)
+        offerNum = itemView.find(R.id.offerNum)
+        doneText = itemView.find(R.id.doneText)
+        endText = itemView.find(R.id.endText)
+        blueDot = itemView.find(R.id.blueDot)
+        iconTime = itemView.find(R.id.iconTime)
+
+
         copy = itemView.find(R.id.copy)
         delete = itemView.find(R.id.delete)
         edit = itemView.find(R.id.edit)
-        new = itemView.find(R.id.newIcon)
-        updateTime = itemView.find(R.id.updateTime)
+        contact = itemView.find(R.id.contactSell)
     }
 
     fun update(data: IronBuyInfo?) {
@@ -127,7 +148,60 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         new?.visibility = if (data?.hasNewoffer == 0) View.VISIBLE else View.GONE
-        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
+        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)
+
+        var changeEnable = { enable: Boolean ->
+            ironType?.isEnabled = enable
+            baseInfo?.isEnabled = enable
+            proPlace?.isEnabled = enable
+            surface?.isEnabled = enable
+            to?.isEnabled = enable
+            spec?.isEnabled = enable
+            unit?.isEnabled = enable
+            remark?.isEnabled = enable
+            blueDot?.isEnabled = enable
+            iconTime?.isEnabled = enable
+        }
+
+        when(data?.buyStatus) {
+            1 -> {
+                doneText?.visibility = View.GONE
+                endText?.visibility = View.GONE
+                doingLayout?.visibility = View.VISIBLE
+                offerNum?.text = "${data?.ironSell?.validSell?.size}"
+                changeEnable(true)
+                copy?.visibility = View.VISIBLE
+                delete?.visibility = View.VISIBLE
+                contact?.visibility = View.GONE
+
+                edit?.visibility = if (data?.editStatus == 0) View.VISIBLE else View.GONE
+            }
+            2 -> {
+                doneText?.visibility = View.VISIBLE
+                endText?.visibility = View.GONE
+                doingLayout?.visibility = View.GONE
+                doneText?.text = "￥${data?.ironSell?.validSell?.get(0)?.offerPrice}"
+                changeEnable(true)
+
+                copy?.visibility = View.VISIBLE
+                delete?.visibility = View.GONE
+                contact?.visibility = View.VISIBLE
+                edit?.visibility = View.GONE
+            }
+            else -> {
+                doneText?.visibility = View.GONE
+                endText?.visibility = View.VISIBLE
+                doingLayout?.visibility = View.GONE
+                changeEnable(false)
+
+                copy?.visibility = View.VISIBLE
+                delete?.visibility = View.GONE
+                contact?.visibility = View.GONE
+                edit?.visibility = View.GONE
+            }
+         }
+
+
     }
 
 }

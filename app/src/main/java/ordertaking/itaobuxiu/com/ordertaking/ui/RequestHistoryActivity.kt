@@ -36,7 +36,7 @@ class RequestHistoryActivity : BaseActivity() {
 
         adapter.setActionListener(object: OnHistoryPostRequestActionListener {
             override fun onItemClick(request: PostRequestBean) {
-                gotoNewRequest(this@RequestHistoryActivity, request)
+                gotoNewRequest(this@RequestHistoryActivity, request, false)
             }
         })
 

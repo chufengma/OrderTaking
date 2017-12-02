@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.fragment_buyer.*
 import ordertaking.itaobuxiu.com.ordertaking.R
+import ordertaking.itaobuxiu.com.ordertaking.apis.gotoPostRequest
 import org.jetbrains.anko.dip
 
 /**
@@ -72,17 +73,34 @@ class BuyerFragment: Fragment() {
         tabTwo.setOnClickListener {
             mainViewPager.setCurrentItem(1, true)
         }
+
+        right.setOnClickListener {
+            gotoPostRequest(context)
+        }
     }
 
     companion object {
-        var listener: ((ing:String?, get:String?, end:String?, status: Int) -> Unit)? = null
+        var listeners: MutableList<((ing:String?, get:String?, end:String?, status: Int) -> Unit)?> = mutableListOf()
+        var refreshListeners: MutableList<(() -> Unit)?> = mutableListOf()
 
         fun addListener(listener: (ing:String?, get:String?, end:String?, status: Int) -> Unit) {
-            this.listener = listener
+            this.listeners.add(listener)
         }
 
         fun notify(ing:String?, get:String?, end:String?, status: Int) {
-            this.listener?.invoke(ing, get, end, status)
+            this.listeners.forEach {
+                it?.invoke(ing, get, end, status)
+            }
+        }
+
+        fun addRefreshListener(listener: (() -> Unit)?) {
+            this.refreshListeners.add(listener)
+        }
+
+        fun notifyRefrsh() {
+            this.refreshListeners.forEach {
+                it?.invoke()
+            }
         }
     }
 }

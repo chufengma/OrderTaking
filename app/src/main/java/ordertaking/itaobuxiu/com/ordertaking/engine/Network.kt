@@ -37,7 +37,7 @@ object Network {
                                         ?.addHeader("loginId", loginData?.loginId)
                                         ?.addHeader("authorization", loginData?.authorization)
                                         ?.build()
-                                Log.e("HTTPResponseRequest", request.toString())
+                                Log.e("HTTPResponseRequest", "${request?.url()} ${request?.body().toString()}")
                                 chain?.proceed(request)!!
                             } catch (e: Exception) {
                                 e.printStackTrace()

@@ -102,13 +102,40 @@ interface IronRequestService {
                     @Field("weightUnit") weightUnit: String?,
                     @Field("appFlag") appFlag: String = "4") : Observable<Response<Object>>
 
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/saveAndUpdateIronBuy")
+    fun editIronBuy(@Field("ironTypeId") ironTypeId: String ?,
+                    @Field("ironTypeName") ironTypeName: String ?,
+                    @Field("materialId") materialId: String?,
+                    @Field("materialName") materialName: String?,
+                    @Field("surfaceId") surfaceId: String?,
+                    @Field("surfaceName") surfaceName: String?,
+                    @Field("proPlacesId") proPlacesId: String?,
+                    @Field("proPlacesName") proPlacesName: String?,
+                    @Field("locationId") locationId: String?,
+                    @Field("locationName") locationName: String?,
+                    @Field("remark") remark: String?,
+                    @Field("length") length: String?,
+                    @Field("width") width: String?,
+                    @Field("height") height: String?,
+                    @Field("specifications") specifications: String?,
+                    @Field("tolerance") tolerance: String?,
+                    @Field("timeLimit") timeLimit: String?,
+                    @Field("numbers") numbers: String?,
+                    @Field("numberUnitId") numberUnitId: String?,
+                    @Field("numberUnit") numberUnit: String?,
+                    @Field("weights") weights: String?,
+                    @Field("weightUnitId") weightUnitId: String?,
+                    @Field("weightUnit") weightUnit: String?,
+                    @Field("id") id: String? = null,
+                    @Field("status") status: String? = "1",
+                    @Field("appFlag") appFlag: String = "4") : Observable<Response<Object>>
 
     @GET("/demands/ironBuy/queryIronBuyInfo")
     fun getRequestHistory(): Observable<Response<List<PostRequestHistoryBean>>>
 
-
     @FormUrlEncoded
-    @POST("/demands/ironBuy/queryIronBuyInfoPage")
+    @POST("/demands/ironBuy/queryIronBuyAllInfo")
     fun getIronBuyInfo(@Field("currentPage") currentPage: Int, @Field("pageSize") pageSize: Int,  @Field("buyStatus") buyStatus: Int, @Field("today") today: Int) : Observable<Response<IronBuyInfoData>>
 }
 

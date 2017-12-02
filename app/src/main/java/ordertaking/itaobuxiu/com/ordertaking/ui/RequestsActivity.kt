@@ -20,8 +20,8 @@ class RequestsActivity : BaseActivity() {
         setContentView(R.layout.activity_requests)
         useNormalBack()
 
-        addFromEmpty.setOnClickListener { gotoNewRequest(this, null) }
-        addNewForNormal.setOnClickListener { gotoNewRequest(this, null) }
+        addFromEmpty.setOnClickListener { gotoNewRequest(this, null, false) }
+        addNewForNormal.setOnClickListener { gotoNewRequest(this, null, false) }
         selectFromHistoryForNormal.setOnClickListener { gotoHistoryPostRequest(this) }
         addFromHistory.setOnClickListener { gotoHistoryPostRequest(this) }
 
@@ -33,7 +33,7 @@ class RequestsActivity : BaseActivity() {
         adapter?.setActionListener(object : OnPostRequestActionListener {
 
             override fun onItemClick(request: PostRequestBean) {
-                gotoNewRequest(this@RequestsActivity, request)
+                gotoNewRequest(this@RequestsActivity, request, false)
             }
 
             override fun onDelete(request: PostRequestBean) {

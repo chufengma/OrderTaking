@@ -86,7 +86,7 @@ class MainActivity : BaseActivity() {
                         viewPager.currentItem = 0
                         showLoginDialog()
                     } else {
-                        TastyToast.makeText(this@MainActivity, Hawk.get<UserBean>(LOGIN_USER).realName, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
+//                        TastyToast.makeText(this@MainActivity, Hawk.get<UserBean>(LOGIN_USER).realName, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
                     }
                 }
             }

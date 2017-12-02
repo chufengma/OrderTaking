@@ -34,6 +34,7 @@
             <View
                 android:layout_width="5dip"
                 android:layout_height="5dip"
+                android:id="@+id/blueDot"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
                 android:background="@drawable/ic_blue_dot_1" />
@@ -66,6 +67,54 @@
                 android:gravity="right|center_vertical">
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:id="@+id/doingLayout"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="20"
+                    android:textSize="12dip"
+                    android:id="@+id/offerNum"
+                    android:textColor="@color/main_blue"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="个报价"
+                    android:textSize="12dip"
+                    android:textColor="#333333"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="已失效"
+                android:id="@+id/endText"
+                android:visibility="gone"
+                android:textSize="12dip"
+                android:textColor="#ffc107"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="￥1999123"
+                android:id="@+id/doneText"
+                android:visibility="gone"
+                android:textSize="13dip"
+                android:textColor="#ff5555"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -204,6 +253,7 @@
             android:layout_width="15dip"
             android:layout_height="15dip"
             android:layout_marginRight="2dip"
+            android:id="@+id/iconTime"
             android:src="@drawable/iron_info_time_bg" />
 
         <TextView
@@ -263,13 +313,31 @@
             android:background="@drawable/iron_buy_info_item_action_bg"
             android:textColor="#999999"
             android:textSize="12dip" />
+
+        <TextView
+            android:id="@+id/contactSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="13dip"
+            android:paddingRight="13dip"
+            android:paddingTop="3dip"
+            android:layout_marginRight="8dip"
+            android:visibility="gone"
+            android:paddingBottom="3dip"
+            android:layout_alignParentRight="true"
+            android:text="联系卖家"
+            android:background="@drawable/iron_buy_info_item_action_blue_bg"
+            android:textColor="@color/main_blue"
+            android:textSize="12dip" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/newIcon"
+        android:visibility="gone"
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_new"
         android:layout_width="30dip"
         android:layout_height="30dip" />
+
 
 </RelativeLayout>

@@ -41,6 +41,10 @@ interface UserApiService {
     @FormUrlEncoded
     @POST("/login/userLogin")
     fun login(@Field("mobile") mobile: String , @Field("password") password: String): Observable<Response<UserLoginData>>
+
+    @FormUrlEncoded
+    @POST("/api/user/findCurrentUser")
+    fun getUserInfo(@Field("mobile") mobile: String) : Observable<Response<UserInfo>>
 }
 
 interface IronRequestService {
@@ -137,6 +141,10 @@ interface IronRequestService {
     @FormUrlEncoded
     @POST("/demands/ironBuy/queryIronBuyAllInfo")
     fun getIronBuyInfo(@Field("currentPage") currentPage: Int, @Field("pageSize") pageSize: Int,  @Field("buyStatus") buyStatus: Int, @Field("today") today: Int) : Observable<Response<IronBuyInfoData>>
+
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/getIronSell")
+    fun chooseSeller(@Field("ironBuyId") ironBuyId: String, @Field("ironSellId") ironSellId: String): Observable<Response<Object>>
 }
 
 fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<T>>? {

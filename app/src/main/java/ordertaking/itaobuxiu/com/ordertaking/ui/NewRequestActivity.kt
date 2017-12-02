@@ -17,6 +17,7 @@ class NewRequestActivity : BaseActivity() {
 
     var postRequestBean: PostRequestBean? = null
     var editFlag: Boolean = false
+    var ironInfo: IronBuyInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,7 @@ class NewRequestActivity : BaseActivity() {
         useNormalBack()
 
         postRequestBean = intent.getSerializableExtra("postRequestBean") as PostRequestBean?
+        ironInfo = intent.getSerializableExtra("ironInfo") as IronBuyInfo?
         if (postRequestBean == null) {
             postRequestBean = PostRequestBean()
         }
@@ -167,7 +169,7 @@ class NewRequestActivity : BaseActivity() {
                     hideLoading()
                     deleteRequest(postRequestBean)
                     toastInfo("发布成功")
-                    BuyerFragment.notifyRefrsh()
+                    BuyerFragment.notifyRefrsh(null)
                     finish()
                 }, { error ->
                     hideLoading()
@@ -191,7 +193,8 @@ class NewRequestActivity : BaseActivity() {
                     hideLoading()
                     deleteRequest(postRequestBean)
                     toastInfo("保存修改成功")
-                    BuyerFragment.notifyRefrsh()
+                    // TODO
+                    BuyerFragment.notifyRefrsh(null)
                     finish()
                 }, { error ->
                     hideLoading()

@@ -8,7 +8,26 @@ import java.io.Serializable
 data class Response<T>(val code: String, val message: String, val data: T)
 
 data class UserLoginData(val authorization: String, val loginId: String, val user: UserBean)
-data class UserBean(val id: String, val createTime: Long, val updateTIme: Long, val name: String, val realName: String, val mobile: String, val status: Int)
+data class UserBean(val id: String, val createTime: Long, val updateTIme: Long, val name: String, val realName: String, val mobile: String, val status: Int, val sellManTel: String)
+
+data class UserInfo(
+        var id: String?,                //类型：String?  必有字段  备注：无
+        var createTime: String?,                //类型：String?  必有字段  备注：无
+        var updateTime: String?,                //类型：String?  必有字段  备注：无
+        var createUser: String?,                //类型：String?  必有字段  备注：无
+        var createUserId: String?,                //类型：String?  必有字段  备注：无
+        var updateUser: String?,                //类型：String?  必有字段  备注：无
+        var updateUserId: String?,                //类型：String?  必有字段  备注：无
+        var name: String?,                //类型：String?  必有字段  备注：无
+        var realName: String?,                //类型：String?  必有字段  备注：无
+        var password: String?,                //类型：String?  必有字段  备注：无
+        var mobile: String?,                //类型：String?  必有字段  备注：无
+        var status: String?,                //类型：String?  必有字段  备注：无
+        var oldUserId: String?,                //类型：String?  必有字段  备注：无
+        var roleList: String?,                //类型：String?  必有字段  备注：无
+        var sellManName: String?,                //类型：String?  必有字段  备注：无
+        var sellManTel: String?                //类型：String?  必有字段  备注：无
+)
 
 data class HomeAdsModelData(val code: String, val message: String, val data: HomeAdsModelDataReal)
 data class HomeAdsModelDataReal(val defaultImg: String, val width: Float, val adList: List<HomeAdsModelDataItem>)
@@ -215,7 +234,7 @@ data class IronBuyInfo(
         val appFlag: String?,                //类型：String?  必有字段  备注：来源（ 1:PC发布 2.H5 3.ios 4.android）
         val specifications: String?,                //类型：String?  必有字段  备注：规格
         val numberUnit: String?,                //类型：String?  必有字段  备注：数量单位
-        val serveTime: String?,                //类型：Number  必有字段  备注：服务器时间
+        val serveTime: Long?,                //类型：Number  必有字段  备注：服务器时间
         val numberUnitId: String?,                //类型：String?  必有字段  备注：数量单位编号
         val locationId: String?,                //类型：String?  必有字段  备注：区域编号
         val weightUnitId: String?,                //类型：String?  必有字段  备注：重量单位编号
@@ -229,7 +248,7 @@ data class IronBuyInfo(
         val updateTime: Long?,                //类型：Number  必有字段  备注：更新时间
         val materialId: String?,                //类型：String?  必有字段  备注：材料编号
         val weights: String?,                //类型：Number  必有字段  备注：重量
-        val timeLimit: String?,                //类型：Number  必有字段  备注：有效时间
+        val timeLimit: String,                //类型：Number  必有字段  备注：有效时间
         val materialName: String?,                //类型：String?  必有字段  备注：材料名称
         val createTime: Long?,                //类型：Number  必有字段  备注：求购发布时间（用这个）
         val ironTypeName: String?,                //类型：String?  必有字段  备注：品类名称
@@ -240,7 +259,7 @@ data class IronBuyInfo(
         val hasNewoffer: Int?,
         val ironSell: IronSellerListInfo?
 
-) {
+) : Serializable {
     fun toPostReuqestBean(): PostRequestBean {
         var bean = PostRequestBean()
         bean.ironType = BaseIronInfo(ironTypeName, ironTypeId)
@@ -264,7 +283,7 @@ data class IronBuyInfo(
     }
 }
 
-data class IronSellerListInfo(var missSell: List<IronBuySellerInfo>?, var validSell: List<IronBuySellerInfo>?)
+data class IronSellerListInfo(var missSell: List<IronBuySellerInfo>?, var validSell: List<IronBuySellerInfo>?) : Serializable
 
 data class IronBuySellerInfo(
         var offerRemark: String?,                //类型：String  必有字段  备注：报价备注
@@ -290,8 +309,8 @@ data class IronBuySellerInfo(
         var level: String?,                //类型：String  必有字段  备注：报价人作为卖家活跃等级
         var offerPerPrice: String?,                //类型：Number  必有字段  备注：报价单价
         var buyGetNum: String?,                //类型：Number  必有字段  备注：报价人发布求购成交数
-        var offerStatus: String?,                //类型：String  必有字段  备注：报价状态（1已报价2中标3未中标4放弃报价）
-        var createTime: String?,                //类型：Number  必有字段  备注：报价时间
+        var offerStatus: Int?,                //类型：String  必有字段  备注：报价状态（1已报价2中标3未中标4放弃报价）
+        var createTime: Long?,                //类型：Number  必有字段  备注：报价时间
         var isFaithUser: String?,                //类型：String  必有字段  备注：是否诚信商户（0否1是）
         var buyAllNum: String?,                //类型：Number  必有字段  备注：报价人发布的求购总数
         var ironSellId: String?,                //类型：String  必有字段  备注：报价编号
@@ -301,7 +320,7 @@ data class IronBuySellerInfo(
         var user: String?,                //类型：String  必有字段  备注：报价人编号
         var isGuaranteeUser: String?,                //类型：String  必有字段  备注：是否担保商户（0否1是）
         var ironSell: List<IronBuySellerOfferInfo>?
-)
+) : Serializable
 
 data class IronBuySellerOfferInfo(
         var ironBuyId: String?,                //类型：String  必有字段  备注：求购编号
@@ -318,7 +337,7 @@ data class IronBuySellerOfferInfo(
         var offerPlaces: String?,                //类型：String  必有字段  备注：报价产地
         var tolerance: String?,                //类型：String  必有字段  备注：报价公差
         var offerUserId: String?                //类型：String  必有字段  备注：报价人编号
-)
+) : Serializable
 
 data class LocalRequests(var requests: MutableList<PostRequestBean>)
 

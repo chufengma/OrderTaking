@@ -70,7 +70,7 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
                             doEditIronBuy(request, false)?.subscribe({
                                 (context as BaseActivity).hideLoading()
                                 (context as BaseActivity).toastInfo("删除成功")
-                                BuyerFragment.notifyRefrsh()
+                                BuyerFragment.notifyRefrsh(null)
                             }, { error ->
                                 (context as BaseActivity).hideLoading()
                                 (context as BaseActivity).toastInfo("删除失败：" + error.message)
@@ -86,17 +86,12 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
 
             override fun onContact(request: IronBuyInfo) {
                 if (request.buyStatus == 2) {
-                    AlertDialog.Builder(context).setMessage(request.ironSell?.validSell?.get(0)?.contactNum)
-                            .setNegativeButton("取消", null)
-                            .setPositiveButton("呼叫", {dialog, which ->
-                                (context as BaseActivity).doCall(request.ironSell?.validSell?.get(0)?.contactNum)
-                                dialog.dismiss()
-                            }).show()
+                    (context as BaseActivity).showCall(request.ironSell?.validSell?.get(0)?.contactNum)
                 }
             }
 
             override fun onItemClick(request: IronBuyInfo) {
-
+                gotoIronBuyDetail(context, request)
             }
 
         })
@@ -127,13 +122,12 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
         var startCurrentPage = currentPage
         networkWrap(Network.create(IronRequestService::class.java)?.getIronBuyInfo(currentPage ,15, buyStatus, today))
                 ?.subscribe({ result ->
-                    if (!result.data.ing.isNullOrBlank()
-                        && !result.data.get.isNullOrBlank()
-                            && !result.data.end.isNullOrBlank()) {
-                        BuyerFragment.notify(result.data.ing, result.data.get, result.data.end, today)
-                    }
+                    if (result.data.ing != null
+                            || result.data.get != null
+                            || result.data.end != null)
+                    BuyerFragment.notify(result.data.ing, result.data.get, result.data.end, today)
                     if (result.data.list != null) {
-                        if (currentPage == 1) {
+                        if (startCurrentPage == 1) {
                             data.clear()
                         }
                         data.addAll(result.data.list!!)

@@ -16,4 +16,7 @@
 
     <color name="post_all_normal">@color/main_blue</color>
     <color name="post_all_disable_pressed">#ccc</color>
+
+    <color name="iron_buy_detial_done_color">#ff5555</color>
+
 </resources>

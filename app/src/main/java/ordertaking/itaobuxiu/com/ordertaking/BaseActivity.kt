@@ -85,6 +85,15 @@ open class BaseActivity : AppCompatActivity() {
 
     var currentCallNumTmp: String? = ""
 
+    fun showCall(num: String?) {
+        AlertDialog.Builder(this).setMessage(num)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("呼叫", {dialog, which ->
+                    doCall(num)
+                    dialog.dismiss()
+                }).show()
+    }
+
     fun doCall(num: String?) {
         currentCallNumTmp = num
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num))

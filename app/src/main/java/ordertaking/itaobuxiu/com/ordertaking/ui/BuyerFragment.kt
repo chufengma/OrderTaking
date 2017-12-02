@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.fragment_buyer.*
 import ordertaking.itaobuxiu.com.ordertaking.R
+import ordertaking.itaobuxiu.com.ordertaking.apis.IronBuyInfo
 import ordertaking.itaobuxiu.com.ordertaking.apis.gotoPostRequest
 import org.jetbrains.anko.dip
 
@@ -81,7 +82,7 @@ class BuyerFragment: Fragment() {
 
     companion object {
         var listeners: MutableList<((ing:String?, get:String?, end:String?, status: Int) -> Unit)?> = mutableListOf()
-        var refreshListeners: MutableList<(() -> Unit)?> = mutableListOf()
+        var refreshListeners: MutableList<((ironInfo: IronBuyInfo?) -> Unit)?> = mutableListOf()
 
         fun addListener(listener: (ing:String?, get:String?, end:String?, status: Int) -> Unit) {
             this.listeners.add(listener)
@@ -93,13 +94,13 @@ class BuyerFragment: Fragment() {
             }
         }
 
-        fun addRefreshListener(listener: (() -> Unit)?) {
+        fun addRefreshListener(listener: ((ironInfo: IronBuyInfo?) -> Unit)?) {
             this.refreshListeners.add(listener)
         }
 
-        fun notifyRefrsh() {
+        fun notifyRefrsh(ironInfo: IronBuyInfo?) {
             this.refreshListeners.forEach {
-                it?.invoke()
+                it?.invoke(ironInfo)
             }
         }
     }

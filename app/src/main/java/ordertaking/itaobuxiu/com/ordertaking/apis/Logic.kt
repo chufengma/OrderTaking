@@ -15,6 +15,7 @@ import ordertaking.itaobuxiu.com.ordertaking.ui.RequestsActivity
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
 import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
+import ordertaking.itaobuxiu.com.ordertaking.ui.IronBuyDetailActivity
 
 
 /**
@@ -26,7 +27,11 @@ fun doLogin(mobile: String, password: String): Observable<Response<UserLoginData
             ?.map {
                 response ->
                     Hawk.put(USER_LOGIN_INFO, response.data)
-                    Hawk.put(LOGIN_USER, response.data.user)
+
+                networkWrap(Network.create(UserApiService::class.java)?.getUserInfo("123"))?.subscribe({ result: Response<UserInfo> ->
+                    Hawk.put(LOGIN_USER, result.data)
+                })
+
                 response
             }
             ?.observeOn(AndroidSchedulers.mainThread())
@@ -43,6 +48,12 @@ fun clearLogin() {
 
 fun gotoPostRequest(context: Context) {
     context.startActivity(Intent(context, RequestsActivity::class.java))
+}
+
+fun gotoIronBuyDetail(context: Context, ironBuyInfo: IronBuyInfo) {
+    var intent = Intent(context, IronBuyDetailActivity::class.java)
+    intent.putExtra("ironBuyInfo", ironBuyInfo)
+    context.startActivity(intent)
 }
 
 fun gotoHistoryPostRequest(context: Context) {

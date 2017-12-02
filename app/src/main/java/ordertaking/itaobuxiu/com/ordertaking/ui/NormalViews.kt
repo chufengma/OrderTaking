@@ -7,20 +7,256 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import com.daimajia.swipe.SwipeLayout
 import com.sdsmdg.tastytoast.TastyToast
 import ordertaking.itaobuxiu.com.ordertaking.R
-import ordertaking.itaobuxiu.com.ordertaking.apis.CityModel
-import ordertaking.itaobuxiu.com.ordertaking.apis.IronBuyInfo
-import ordertaking.itaobuxiu.com.ordertaking.apis.PostRequestBean
-import ordertaking.itaobuxiu.com.ordertaking.apis.SuggestSpecModel
+import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import org.jetbrains.anko.find
 import java.text.SimpleDateFormat
 
 /**
  * Created by dev on 2017/11/25.
  */
+class IronBuyHistoryAdapter(var showDone: Boolean) : RecyclerView.Adapter<VHIronBuyHistory>() {
+
+    var data: List<IronBuySellerOfferInfo>? = null
+
+    fun updateData(data: List<IronBuySellerOfferInfo>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: VHIronBuyHistory?, position: Int) {
+        holder?.update(data!![position])
+        holder?.doneFlag?.visibility = if (position == 0 && showDone) View.VISIBLE else View.GONE
+        holder?.downLine?.visibility = if (position == itemCount - 1) View.GONE else View.VISIBLE
+    }
+
+    override fun getItemCount(): Int {
+        return if(data == null) 0 else data!!.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VHIronBuyHistory {
+        return VHIronBuyHistory((LayoutInflater.from(
+                parent?.context).inflate(R.layout.iron_buy_history_item_layout, parent,
+                false)))
+    }
+}
+
+class VHIronBuyHistory(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    var price: TextView? = null
+    var unit: TextView? = null
+    var to: TextView? = null
+    var proPlace: TextView? = null
+    var remark: TextView? = null
+    var doneFlag: ImageView? = null
+    var downLine: View?=null
+    var time: TextView?=null
+
+    init {
+        price = itemView.find(R.id.price)
+        unit = itemView.find(R.id.unitText)
+        to = itemView.find(R.id.to)
+        proPlace = itemView.find(R.id.proPlace)
+        remark = itemView.find(R.id.remark)
+        doneFlag = itemView.find(R.id.doneIcon)
+        downLine = itemView.find(R.id.missLine)
+        time = itemView.find(R.id.time)
+    }
+
+    fun update(data: IronBuySellerOfferInfo?) {
+        price?.text = "￥${data?.offerPerPrice}"
+        unit?.text = "元/${data?.baseUnit}"
+        to?.text = if (data?.tolerance.isNullOrBlank()) "--" else data?.tolerance
+        proPlace?.text = data?.offerPlaces
+        remark?.text = data?.offerRemark
+
+        time?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
+    }
+
+}
+
+
+interface OnOfferSellActionListener {
+    fun onHistory(seller: IronBuySellerInfo)
+    fun onChoose(seller: IronBuySellerInfo)
+    fun onContact(seller: IronBuySellerInfo)
+}
+
+class IronBuyOfferAdapter(val buyStatus: Int) : RecyclerView.Adapter<VHIronBuyOffer>() {
+
+    var data: List<IronBuySellerInfo>? = null
+    var listener: OnOfferSellActionListener? = null
+
+    fun updateData(data: List<IronBuySellerInfo>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: VHIronBuyOffer?, position: Int) {
+        holder?.update(buyStatus, data!![position])
+        holder?.choose?.setOnClickListener {
+            listener?.onChoose(data!![position])
+        }
+        holder?.offerHistory?.setOnClickListener {
+            listener?.onHistory(data!![position])
+        }
+        holder?.contact?.setOnClickListener {
+            listener?.onContact(data!![position])
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return if(data == null) 0 else data!!.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VHIronBuyOffer {
+        return VHIronBuyOffer((LayoutInflater.from(
+                parent?.context).inflate(R.layout.offer_list_item_layout, parent,
+                false)))
+    }
+
+    fun setActionListener(listener: OnOfferSellActionListener) {
+        this.listener = listener
+    }
+
+}
+
+class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    var baoView: View? = null
+    var chengView: View? = null
+    var companyName: TextView? = null
+    var offerTime: TextView? = null
+    var priceTitle: TextView? = null
+    var price: TextView? = null
+    var unit: TextView? = null
+    var offerNew: View? = null
+    var offerHolder: View? = null
+    var offerHistory: View? = null
+    var offerDoneFlag: View? = null
+    var toTitle: TextView? = null
+    var to: TextView? = null
+    var proPlaceTitle: TextView? = null
+    var proPlace: TextView? = null
+    var remark: TextView? = null
+    var remarkTitle: TextView? = null
+
+    var actionLine: View? = null
+    var actionLayout: View? = null
+    var contact: View? = null
+    var choose: View? = null
+
+    var validLayout: View? = null
+    var missText: View?=null
+
+    init {
+        baoView = itemView.find(R.id.baoBig)
+        chengView = itemView.find(R.id.chengBig)
+        companyName = itemView.find(R.id.companyName)
+        offerTime = itemView.find(R.id.offerTime)
+        priceTitle = itemView.find(R.id.priceTitle)
+        price = itemView.find(R.id.price)
+        unit = itemView.find(R.id.unit)
+        offerNew = itemView.find(R.id.offerNew)
+        offerHolder = itemView.find(R.id.priceHolder)
+        offerHistory = itemView.find(R.id.historyOffers)
+        offerDoneFlag = itemView.find(R.id.successFlag)
+        toTitle = itemView.find(R.id.toTitle)
+        to = itemView.find(R.id.to)
+        proPlace = itemView.find(R.id.proPlace)
+        proPlaceTitle = itemView.find(R.id.proPlaceTitle)
+        remark = itemView.find(R.id.remark)
+        remarkTitle = itemView.find(R.id.remarkTitle)
+
+        actionLine = itemView.find(R.id.actionLine)
+        actionLayout = itemView.find(R.id.actionLayout)
+        contact = itemView.find(R.id.contactSell)
+        choose = itemView.find(R.id.chooseSell)
+
+        validLayout = itemView.find(R.id.validLayout)
+        missText = itemView.find(R.id.missText)
+    }
+
+    fun update(buyInfoStatus:Int, data: IronBuySellerInfo?) {
+
+        var initValidText = {
+            companyName?.text = data?.companyName
+            baoView?.visibility = if (data?.isGuaranteeUser == "1") View.VISIBLE else View.GONE
+            chengView?.visibility = if (data?.isFaithUser == "1") View.VISIBLE else View.GONE
+
+            offerTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
+
+            price?.text = data?.offerPerPrice
+            unit?.text = "元/${data?.baseUnit}"
+
+            to?.text = if (data?.tolerance.isNullOrBlank()) "--" else data?.tolerance
+            proPlace?.text = data?.proInfo
+            remark?.text = data?.offerRemark
+            offerNew?.visibility = if (data?.hasNewOffer == "1") View.VISIBLE else View.GONE
+        }
+
+        offerHistory?.visibility = if (data?.ironSell == null || data?.ironSell!!.isEmpty()) View.GONE else View.VISIBLE
+
+        if (data?.offerStatus != 4) {
+            missText?.visibility = View.GONE
+            validLayout?.visibility = View.VISIBLE
+            initValidText()
+        } else {
+            missText?.visibility = View.VISIBLE
+            validLayout?.visibility = View.GONE
+        }
+
+        var changeEnable = { enable: Boolean ->
+            proPlaceTitle?.isEnabled = enable
+            proPlace?.isEnabled = enable
+            priceTitle?.isEnabled = enable
+            price?.isEnabled = enable
+            to?.isEnabled = enable
+            toTitle?.isEnabled = enable
+            unit?.isEnabled = enable
+            remark?.isEnabled = enable
+            remarkTitle?.isEnabled = enable
+        }
+
+        when(buyInfoStatus) {
+            1 -> {
+                changeEnable(true)
+
+                actionLine?.visibility = View.VISIBLE
+                actionLayout?.visibility = View.VISIBLE
+                offerHolder?.visibility = View.VISIBLE
+                offerDoneFlag?.visibility = View.GONE
+            }
+            2 -> {
+                changeEnable(true)
+                actionLine?.visibility = View.GONE
+                actionLayout?.visibility = View.GONE
+
+                if (data?.offerStatus == 2) {
+                    offerHolder?.visibility = View.GONE
+                    offerDoneFlag?.visibility = View.VISIBLE
+                } else {
+                    offerHolder?.visibility = View.VISIBLE
+                    offerDoneFlag?.visibility = View.GONE
+                }
+            }
+            else -> {
+                changeEnable(false)
+
+                actionLine?.visibility = View.GONE
+                actionLayout?.visibility = View.GONE
+                offerHolder?.visibility = View.VISIBLE
+                offerDoneFlag?.visibility = View.GONE
+            }
+        }
+
+
+    }
+}
 
 
 interface OnIronBuyInfoActionListener {
@@ -203,8 +439,8 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     }
-
 }
+
 
 interface OnHistoryPostRequestActionListener {
     fun onItemClick(request: PostRequestBean)

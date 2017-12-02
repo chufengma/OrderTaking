@@ -66,9 +66,21 @@ class BuyerTodayFragment : Fragment() {
 
         BuyerFragment.addListener { ing, get, end, status ->
             if (status == 1) {
-                statusTabLayoutHistory?.getTabAt(0)?.setText("进行中($ing)")
-                statusTabLayoutHistory?.getTabAt(1)?.setText("已完成($get)")
-                statusTabLayoutHistory?.getTabAt(2)?.setText("已失效($end)")
+                if (!ing.isNullOrBlank()) {
+                    todayTabLayout?.getTabAt(0)?.setText("进行中($ing)")
+                } else {
+                    todayTabLayout?.getTabAt(0)?.setText("进行中")
+                }
+                if (!get.isNullOrBlank()) {
+                    todayTabLayout?.getTabAt(1)?.setText("已完成($get)")
+                } else {
+                    todayTabLayout?.getTabAt(1)?.setText("已完成")
+                }
+                if (!end.isNullOrBlank()) {
+                    todayTabLayout?.getTabAt(2)?.setText("已失效($end)")
+                } else {
+                    todayTabLayout?.getTabAt(2)?.setText("已失效")
+                }
             }
         }
     }

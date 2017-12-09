@@ -147,6 +147,18 @@ interface IronRequestService {
     fun chooseSeller(@Field("ironBuyId") ironBuyId: String, @Field("ironSellId") ironSellId: String): Observable<Response<Object>>
 }
 
+interface IronBuyOfferService {
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/queryIronSellerInfoPage")
+    fun getIronBuyOffer(@Field("currentPage") currentPage: Int, @Field("pageSize") pageSize: Int,  @Field("offerStatus") buyStatus: Int, @Field("today") today: Int) : Observable<Response<SellerOfferInfo>>
+
+
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/saveIronSellInfo")
+    fun missOffer(@Field("ironBuyId") ironBuyId: String, @Field("flag") flag : String = "0"): Observable<Response<Object>>
+
+}
+
 fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<T>>? {
     return observable?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())

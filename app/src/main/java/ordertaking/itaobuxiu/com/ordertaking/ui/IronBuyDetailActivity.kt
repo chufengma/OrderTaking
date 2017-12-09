@@ -251,7 +251,6 @@ class IronBuyDetailActivity : BaseActivity() {
 
         edit.setOnClickListener {
             gotoNewRequest(this, data?.toPostReuqestBean(), true)
-            // TODO refresh
         }
 
         delete.setOnClickListener {

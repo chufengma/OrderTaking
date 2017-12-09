@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/content_bg">
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/backArrow"
+                android:layout_width="@dimen/title_height"
+                android:layout_height="@dimen/title_height"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="15dip"
+                android:src="@drawable/ic_back_arrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="发布详情"
+                android:textColor="#000"
+                android:textSize="18dip" />
+
+            <TextView
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/title_height"
+                android:layout_alignParentRight="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="15dip"
+                android:text="联系专员"
+                android:textColor="@color/main_blue" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/content_bg">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/content_bg"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/statusLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff">
+
+                <View
+                    android:id="@+id/slideOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:background="@drawable/iron_buy_detail_done_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/doneLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dip"
+                        android:background="@drawable/seller_tab_bg"
+                        android:elevation="5dip"
+                        android:orientation="vertical"
+                        android:padding="10dip"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="成交价"
+                            android:textColor="@color/iron_buy_detial_done_color" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/donePrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="￥909900"
+                                android:textColor="@color/iron_buy_detial_done_color"
+                                android:textSize="25dip"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/unitBig"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dip"
+                                android:layout_marginLeft="5dip"
+                                android:gravity="bottom"
+                                android:text="元/吨"
+                                android:textColor="@color/iron_buy_detial_done_color" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right|center_vertical"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/toBig"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2-19-2.34"
+                                    android:textColor="@color/iron_buy_detial_done_color" />
+
+                                <TextView
+                                    android:id="@+id/proPlaceBig"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="山东澳新"
+                                    android:textColor="@color/iron_buy_detial_done_color" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/remarkBig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dip"
+                            android:text="成交价成交价成交价成交价成交价成交价成交价成交价成交价成交价成交价成交价成交价成交价"
+                            android:textColor="@color/iron_buy_detial_done_color" />
+
+                        <TextView
+                            android:id="@+id/doneTimeBig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dip"
+                            android:text="2012-12-12 12:12"
+                            android:textColor="@color/iron_buy_detial_done_color"
+                            android:textSize="12dip" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/iron_buy_detail_doing_bg"
+                        android:orientation="vertical"
+                        android:padding="20dip">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/offerNums"
+                            android:text="快去报价吧，已有8家商户在和您竞争"
+                            android:textColor="#fff" />
+
+                        <LinearLayout
+                            android:id="@+id/doingLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:padding="15dip">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="还有"
+                                android:textColor="#fff" />
+
+                            <TextView
+                                android:id="@+id/hour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dip"
+                                android:background="@drawable/iron_buy_offer_detail_time_bg"
+                                android:paddingBottom="5dip"
+                                android:paddingLeft="6dip"
+                                android:paddingRight="6dip"
+                                android:paddingTop="5dip"
+                                android:text="12"
+                                android:textColor="@color/main_blue"
+                                android:textSize="18dip"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dip"
+                                android:paddingBottom="5dip"
+                                android:paddingTop="5dip"
+                                android:text=":"
+                                android:textColor="#fff"
+                                android:textSize="18dip"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/minute"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dip"
+                                android:background="@drawable/iron_buy_offer_detail_time_bg"
+                                android:paddingBottom="5dip"
+                                android:paddingLeft="6dip"
+                                android:paddingRight="6dip"
+                                android:paddingTop="5dip"
+                                android:text="12"
+                                android:textColor="@color/main_blue"
+                                android:textSize="18dip"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dip"
+                                android:paddingBottom="5dip"
+                                android:paddingTop="5dip"
+                                android:text=":"
+                                android:textColor="#fff"
+                                android:textSize="18dip"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/second"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dip"
+                                android:background="@drawable/iron_buy_offer_detail_time_bg"
+                                android:paddingBottom="5dip"
+                                android:paddingLeft="6dip"
+                                android:paddingRight="6dip"
+                                android:paddingTop="5dip"
+                                android:text="12"
+                                android:textColor="@color/main_blue"
+                                android:textSize="18dip"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dip"
+                                android:text="结束"
+                                android:textColor="#fff" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/endLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dip"
+                        android:background="@drawable/seller_tab_bg"
+                        android:elevation="5dip"
+                        android:gravity="center_vertical"
+                        android:padding="10dip"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dip"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="本条求购订单已失效"
+                                android:textColor="#666666" />
+
+                            <TextView
+                                android:id="@+id/endTimeBig"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dip"
+                                android:text="2012-12-12 12:12"
+                                android:textColor="#666666"
+                                android:textSize="12dip" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="45dip"
+                            android:layout_height="45dip"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dip"
+                            android:src="@drawable/ic_empty_box" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/doneCompanyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/baoBig"
+                    android:layout_width="15dip"
+                    android:layout_height="15dip"
+                    android:layout_marginLeft="5dip"
+                    android:src="@drawable/ic_bao" />
+
+                <ImageView
+                    android:id="@+id/chengBig"
+                    android:layout_width="15dip"
+                    android:layout_height="15dip"
+                    android:layout_marginLeft="3dip"
+                    android:src="@drawable/ic_cheng" />
+
+                <TextView
+                    android:id="@+id/companyNameBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dip"
+                    android:layout_weight="1"
+                    android:text="AHAHSHASHASH有限公司" />
+
+                <TextView
+                    android:id="@+id/contactSellBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dip"
+                    android:background="@drawable/iron_buy_info_item_action_blue_bg"
+                    android:paddingBottom="3dip"
+                    android:paddingLeft="13dip"
+                    android:paddingRight="13dip"
+                    android:paddingTop="3dip"
+                    android:text="联系商家"
+                    android:textColor="@color/main_blue"
+                    android:textSize="12dip" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="5dip"
+                android:paddingTop="10dip">
+
+                <LinearLayout
+                    android:id="@+id/mainContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="10dip">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/ironType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="不锈钢板"
+                            android:textColor="@color/iron_buy_color" />
+
+                        <View
+                            android:id="@+id/blueDot"
+                            android:layout_width="5dip"
+                            android:layout_height="5dip"
+                            android:layout_marginLeft="5dip"
+                            android:layout_marginRight="5dip"
+                            android:background="@drawable/ic_blue_dot_1" />
+
+                        <TextView
+                            android:id="@+id/baseInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30405"
+                            android:textColor="@color/iron_buy_color" />
+
+                        <TextView
+                            android:id="@+id/proPlace"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dip"
+                            android:background="@drawable/icon_info_item_proplace_bg"
+                            android:paddingBottom="1dip"
+                            android:paddingLeft="2dip"
+                            android:paddingRight="2dip"
+                            android:paddingTop="1dip"
+                            android:text="山东澳新"
+                            android:textColor="@color/iron_buy_blue_color"
+                            android:textSize="10dip" />
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical">
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical">
+
+                            <ImageView
+                                android:id="@+id/locationIcon"
+                                android:layout_width="13dip"
+                                android:layout_height="20dip"
+                                android:src="@drawable/iron_info_location_bg" />
+
+                            <TextView
+                                android:id="@+id/location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="3dip"
+                                android:text="无锡"
+                                android:textColor="@color/iron_buy_color" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="表面:"
+                                android:textColor="#999" />
+
+                            <TextView
+                                android:id="@+id/surface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dip"
+                                android:text="301"
+                                android:textColor="@color/iron_buy_color" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/toLayout"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="公差:"
+                                android:textColor="#999" />
+
+                            <TextView
+                                android:id="@+id/to"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dip"
+                                android:text="2000-123123"
+                                android:textColor="@color/iron_buy_color" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="规格:"
+                                android:textColor="#999" />
+
+                            <TextView
+                                android:id="@+id/spec"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dip"
+                                android:text="1000*123*090"
+                                android:textColor="@color/iron_buy_color" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="单位:"
+                                android:textColor="#999" />
+
+                            <TextView
+                                android:id="@+id/unit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dip"
+                                android:text="2000-123123"
+                                android:textColor="@color/iron_buy_color" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="备注:"
+                            android:textColor="#999" />
+
+                        <TextView
+                            android:id="@+id/remark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dip"
+                            android:text="Noting to say"
+                            android:textColor="@color/iron_buy_color" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_below="@id/mainContent"
+                    android:background="#ddd" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="8dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="8dip">
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/buyerCompanyName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="江苏淘不锈"
+                            android:layout_marginRight="5dip"
+                            android:textColor="#666666" />
+
+                        <LinearLayout
+                            android:id="@+id/levelLayout"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="10dip"
+                            android:layout_height="10dip"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_item_arrow" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iconTime"
+                        android:layout_width="15dip"
+                        android:layout_height="15dip"
+                        android:layout_marginRight="2dip"
+                        android:src="@drawable/iron_info_time_bg" />
+
+                    <TextView
+                        android:id="@+id/updateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="1dip"
+                        android:paddingLeft="2dip"
+                        android:paddingRight="2dip"
+                        android:paddingTop="1dip"
+                        android:text="2017-12-12 12:22"
+                        android:textColor="#999999"
+                        android:textSize="13dip" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:text="我的报价"
+                    android:textColor="#000"
+                    android:textSize="16dip" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="14dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="单价"
+                        android:textColor="#333"
+                        android:textSize="16dip" />
+
+                    <EditText
+                        android:id="@+id/offerPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="请输入"
+                        android:textColor="#333"
+                        android:textColorHint="#999"
+                        android:textSize="16dip" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_below="@id/mainContent"
+                    android:layout_marginLeft="55dip"
+                    android:background="#ddd" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:padding="14dip"
+                    android:orientation="horizontal"
+                    android:id="@+id/unitGroup"
+                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:text="元/吨"
+                        android:id="@+id/unitWeight"
+                        android:layout_marginLeft="10dip"
+                        android:layout_height="match_parent" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:text="元/张"
+                        android:layout_marginLeft="10dip"
+                        android:id="@+id/unitNumbers"
+                        android:layout_height="match_parent" />
+                </RadioGroup>
+
+                <View
+                    android:id="@+id/offerToline"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="16dip"
+                    android:layout_below="@id/mainContent"
+                    android:background="#ddd" />
+
+                <LinearLayout
+                    android:id="@+id/offerToLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="14dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="公差"
+                        android:textColor="#333"
+                        android:textSize="16dip" />
+
+                    <EditText
+                        android:id="@+id/offerTo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="请输入"
+                        android:textColor="#333"
+                        android:textColorHint="#999"
+                        android:textSize="16dip" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="16dip"
+                    android:layout_below="@id/mainContent"
+                    android:background="#ddd" />
+
+                <LinearLayout
+                    android:id="@+id/proPlaceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:padding="14dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="产地"
+                        android:textColor="#333"
+                        android:textSize="16dip" />
+
+                    <TextView
+                        android:id="@+id/offerProPlace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333"
+                        android:textSize="16dip" />
+
+                    <ImageView
+                        android:layout_width="15dip"
+                        android:layout_height="15dip"
+                        android:src="@drawable/ic_item_arrow" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="16dip"
+                    android:layout_below="@id/mainContent"
+                    android:background="#ddd" />
+
+                <EditText
+                    android:id="@+id/offerRemark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dip"
+                    android:background="#fff"
+                    android:gravity="left|top"
+                    android:hint="备注（最多35字）"
+                    android:padding="14dip"
+                    android:textColor="#333" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/historyOffers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:padding="5dip"
+                android:text="查看我的历史报价"
+                android:layout_marginBottom="20dip"
+                android:textColor="@color/main_blue"
+                android:textSize="16dip" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:gravity="center"
+        android:padding="10dip">
+
+        <TextView
+            android:id="@+id/missIt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/post_normal_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="忽略" />
+
+        <TextView
+            android:id="@+id/offerIt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/post_selected_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="报价"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/ignore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/post_normal_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="取消"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/post_selected_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="更新"
+            android:textColor="#fff"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/postEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/post_selected_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:textColor="#fff"
+            android:text="修改报价"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

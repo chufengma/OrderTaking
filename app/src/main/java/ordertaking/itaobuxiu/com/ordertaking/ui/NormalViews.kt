@@ -1,6 +1,7 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,253 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.daimajia.swipe.SwipeLayout
 import com.sdsmdg.tastytoast.TastyToast
+import kotlinx.android.synthetic.main.activity_iron_buy_detail.*
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import org.jetbrains.anko.find
 import java.text.SimpleDateFormat
+
+
+interface OnIronOfferActionListener {
+    fun onMiss(request: SellerOfferInfoListItem)
+    fun onOfferIt(request: SellerOfferInfoListItem)
+    fun onChangeOffer(request: SellerOfferInfoListItem)
+    fun onContactBuyer(request: SellerOfferInfoListItem)
+    fun onItemClick(request: SellerOfferInfoListItem)
+}
+
+class IronOfferInfoAdapter : RecyclerView.Adapter<VHIronOfferInfo>() {
+
+    var data: List<SellerOfferInfoListItem>? = null
+    var listener: OnIronOfferActionListener? = null
+
+    fun updateData(data: List<SellerOfferInfoListItem>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: VHIronOfferInfo?, position: Int) {
+        holder?.countDown?.cancel()
+        holder?.update(data!![position])
+        holder?.miss?.setOnClickListener {
+            this.listener?.onMiss(data!![position])
+        }
+        holder?.offerIt?.setOnClickListener {
+            this.listener?.onOfferIt(data!![position])
+        }
+        holder?.changeOffer?.setOnClickListener {
+            this.listener?.onChangeOffer(data!![position])
+        }
+        holder?.contactBuyer?.setOnClickListener {
+            this.listener?.onContactBuyer(data!![position])
+        }
+        holder?.itemView?.setOnClickListener {
+            this@IronOfferInfoAdapter.listener?.onItemClick(data!![position])
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return if(data == null) 0 else data!!.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VHIronOfferInfo {
+        return VHIronOfferInfo((LayoutInflater.from(
+                parent?.context).inflate(R.layout.iron_buy_offer_item_layout, parent,
+                false)))
+    }
+
+    fun setActionListener(listener: OnIronOfferActionListener) {
+        this.listener = listener
+    }
+
+}
+
+class VHIronOfferInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    var ironType: TextView? = null
+    var baseInfo: TextView? = null
+    var proPlace: TextView? = null
+    var surface: TextView? = null
+    var to: TextView? = null
+    var toLayout: View? = null
+    var spec: TextView? = null
+    var unit: TextView? = null
+    var remark: TextView? = null
+    var updateTime: TextView?= null
+    var doneText: TextView?= null
+    var endText: TextView?= null
+    var doingLayout: View?= null
+    var offerNum: TextView?= null
+    var blueDot: View?= null
+    var iconTime: View?=null
+
+    var offerIt: View?= null
+    var miss: View?= null
+    var changeOffer: View?= null
+    var contactBuyer: View?= null
+
+    var countDown: CountDownTimer? = null
+
+    init {
+        ironType = itemView.find(R.id.ironType)
+        baseInfo = itemView.find(R.id.baseInfo)
+        proPlace = itemView.find(R.id.proPlace)
+        surface = itemView.find(R.id.surface)
+        to = itemView.find(R.id.to)
+        toLayout = itemView.find(R.id.toLayout)
+        spec = itemView.find(R.id.spec)
+        unit = itemView.find(R.id.unit)
+        remark = itemView.find(R.id.remark)
+        updateTime = itemView.find(R.id.updateTime)
+        doingLayout = itemView.find(R.id.doingLayout)
+        offerNum = itemView.find(R.id.offerNum)
+        doneText = itemView.find(R.id.doneText)
+        endText = itemView.find(R.id.endText)
+        blueDot = itemView.find(R.id.blueDot)
+        iconTime = itemView.find(R.id.iconTime)
+
+
+        offerIt = itemView.find(R.id.offerIt)
+        miss = itemView.find(R.id.miss)
+        changeOffer = itemView.find(R.id.changeOffer)
+        contactBuyer = itemView.find(R.id.contactBuyer)
+    }
+
+    fun updateTime(data: SellerOfferInfoListItem?): String {
+        var offset = data?.createTime?.plus(data?.timeLimit?.toLong()!!)!! - System.currentTimeMillis()
+        var hourTime = offset / (1000 * 60 * 60)
+        var minuteTime = (offset - hourTime * (1000 * 60 * 60)) / (1000 * 60)
+        var secondTime = (offset - hourTime * (1000 * 60 * 60) - minuteTime * (1000 * 60)) / 1000
+
+        var hourTimeStr = if (hourTime < 10) "0$hourTime" else hourTime
+        var minuteTimeStr = if (minuteTime < 10) "0$minuteTime" else minuteTime
+        var secondTimeStr = if (secondTime < 10) "0$secondTime" else secondTime
+
+        return "${hourTimeStr.toString()}:${minuteTimeStr.toString()}:${secondTimeStr.toString()}"
+    }
+
+    fun update(data: SellerOfferInfoListItem?) {
+        ironType?.text = data?.ironTypeName
+        baseInfo?.text = "${data?.materialName}"
+        proPlace?.text = data?.proPlacesName
+        surface?.text = data?.surfaceName
+        to?.text = if (data?.tolerance.isNullOrBlank()) "--" else data?.tolerance
+        spec?.text = if (data?.specifications.isNullOrBlank()) "${data?.height}*${data?.width}*${data?.length}" else data?.specifications
+        remark?.text = data?.remark
+
+        unit?.text = when {
+            data?.numbers.isNullOrBlank() && !data?.weights.isNullOrBlank() -> "${data?.weights}${data?.weightUnit}"
+            !data?.numbers.isNullOrBlank() && data?.weights.isNullOrBlank() -> "${data?.numbers}${data?.numberUnit}"
+            else -> "${data?.numbers}${data?.numberUnit}/${data?.weights}${data?.weightUnit}"
+        }
+
+        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)
+
+        var changeEnable = { enable: Boolean ->
+            ironType?.isEnabled = enable
+            baseInfo?.isEnabled = enable
+            proPlace?.isEnabled = enable
+            surface?.isEnabled = enable
+            to?.isEnabled = enable
+            spec?.isEnabled = enable
+            unit?.isEnabled = enable
+            remark?.isEnabled = enable
+            blueDot?.isEnabled = enable
+            iconTime?.isEnabled = enable
+        }
+
+        when(data?.offerStatus) {
+            0 -> {
+                doneText?.visibility = View.GONE
+                endText?.visibility = View.GONE
+                doingLayout?.visibility = View.VISIBLE
+                offerNum?.text = "${data?.sellAllNum}"
+
+                miss?.visibility = View.VISIBLE
+                offerIt?.visibility = View.VISIBLE
+                changeOffer?.visibility = View.GONE
+                contactBuyer?.visibility = View.GONE
+                iconTime?.visibility = View.GONE
+
+                changeEnable(true)
+
+                countDown = object: CountDownTimer(data?.createTime?.plus(data?.timeLimit?.toLong()!!)!! - System.currentTimeMillis()!!, 1000) {
+                    override fun onFinish() {
+                    }
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        updateTime?.text = "${updateTime(data)}后结束"
+                    }
+                }
+                countDown?.start()
+                updateTime?.text = "${updateTime(data)}后结束"
+                updateTime?.setTextColor(itemView.context.resources.getColor(R.color.main_red))
+            }
+            1 -> {
+                doneText?.visibility = View.GONE
+                endText?.visibility = View.GONE
+                doingLayout?.visibility = View.VISIBLE
+                offerNum?.text = "${data?.sellAllNum}"
+
+                miss?.visibility = View.GONE
+                offerIt?.visibility = View.GONE
+                changeOffer?.visibility = View.VISIBLE
+                contactBuyer?.visibility = View.GONE
+                iconTime?.visibility = View.GONE
+
+                changeEnable(true)
+
+                countDown = object: CountDownTimer(data?.createTime?.plus(data?.timeLimit?.toLong()!!)!! - System.currentTimeMillis()!!, 1000) {
+                    override fun onFinish() {
+                    }
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        updateTime?.text = "${updateTime(data)}后结束"
+                    }
+                }
+                countDown?.start()
+                updateTime?.text = "${updateTime(data)}后结束"
+                updateTime?.setTextColor(itemView.context.resources.getColor(R.color.main_red))
+            }
+            2 -> {
+                doneText?.visibility = View.VISIBLE
+                endText?.visibility = View.GONE
+                doingLayout?.visibility = View.GONE
+
+                miss?.visibility = View.GONE
+                offerIt?.visibility = View.GONE
+                changeOffer?.visibility = View.GONE
+                contactBuyer?.visibility = View.VISIBLE
+                iconTime?.visibility = View.GONE
+
+                changeEnable(true)
+
+                updateTime?.text = "成交时间${SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)}"
+                updateTime?.setTextColor(itemView.context.resources.getColor(R.color.main_light_dark))
+            }
+            else -> {
+                doneText?.visibility = View.GONE
+                endText?.visibility = View.VISIBLE
+                doingLayout?.visibility = View.GONE
+
+                miss?.visibility = View.GONE
+                offerIt?.visibility = View.GONE
+                changeOffer?.visibility = View.GONE
+                contactBuyer?.visibility = View.GONE
+                iconTime?.visibility = View.VISIBLE
+
+                changeEnable(false)
+
+                updateTime?.text = "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)}"
+                updateTime?.setTextColor(itemView.context.resources.getColor(R.color.main_light_dark))
+
+            }
+        }
+
+
+    }
+}
+
 
 /**
  * Created by dev on 2017/11/25.

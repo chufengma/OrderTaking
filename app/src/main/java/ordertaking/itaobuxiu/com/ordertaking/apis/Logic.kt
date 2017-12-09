@@ -9,13 +9,10 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
-import ordertaking.itaobuxiu.com.ordertaking.ui.NewRequestActivity
-import ordertaking.itaobuxiu.com.ordertaking.ui.RequestHistoryActivity
-import ordertaking.itaobuxiu.com.ordertaking.ui.RequestsActivity
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
 import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
-import ordertaking.itaobuxiu.com.ordertaking.ui.IronBuyDetailActivity
+import ordertaking.itaobuxiu.com.ordertaking.ui.*
 
 
 /**
@@ -53,6 +50,12 @@ fun gotoPostRequest(context: Context) {
 fun gotoIronBuyDetail(context: Context, ironBuyInfo: IronBuyInfo) {
     var intent = Intent(context, IronBuyDetailActivity::class.java)
     intent.putExtra("ironBuyInfo", ironBuyInfo)
+    context.startActivity(intent)
+}
+
+fun gotoIronOfferDetail(context: Context, sellerOffer: SellerOfferInfoListItem) {
+    var intent = Intent(context, IronOfferActivity::class.java)
+    intent.putExtra("sellerOffer", sellerOffer)
     context.startActivity(intent)
 }
 

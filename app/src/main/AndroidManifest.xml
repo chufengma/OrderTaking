@@ -45,7 +45,9 @@
         <activity android:name=".ui.SpecActivity" />
         <activity android:name=".ui.RequestHistoryActivity" />
         <activity android:name=".ui.IronBuyDetailActivity" />
-        <activity android:name=".ui.IronBuyHistoryActivity"></activity>
+        <activity android:name=".ui.IronBuyHistoryActivity" />
+        <activity android:name=".ui.IronOfferActivity" />
+        <activity android:name=".ui.IronOfferHistoryActivity"></activity>
     </application>
 
 </manifest>

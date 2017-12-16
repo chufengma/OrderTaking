@@ -74,11 +74,11 @@ class RecyclerViewSellerFragment(val buyStatus:Int, val today: Int) : Fragment()
 
             override fun onMiss(request: SellerOfferInfoListItem) {
                 (activity as BaseActivity).showLoading()
-                networkWrap(Network.create(IronBuyOfferService::class.java)?.missOffer(request?.ironTypeId!!))
+                networkWrap(Network.create(IronBuyOfferService::class.java)?.missOffer(request?.id!!))
                         ?.subscribe({
                             (activity as BaseActivity).hideLoading()
                             (activity as BaseActivity). toastInfo("操作成功")
-                            BuyerFragment.notifyRefrsh(null)
+                            SellerFragment.notifyRefrsh(null)
                         }, { error ->
                             (activity as BaseActivity).hideLoading()
                             (activity as BaseActivity).toastInfo("操作失败：" + error.message)

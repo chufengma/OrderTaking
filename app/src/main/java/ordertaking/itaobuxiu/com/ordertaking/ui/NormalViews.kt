@@ -167,12 +167,13 @@ class VHIronOfferInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
             iconTime?.isEnabled = enable
         }
 
+        offerNum?.text = "${data?.sellNum}"
+
         when(data?.offerStatus) {
             0 -> {
                 doneText?.visibility = View.GONE
                 endText?.visibility = View.GONE
                 doingLayout?.visibility = View.VISIBLE
-                offerNum?.text = "${data?.sellAllNum}"
 
                 miss?.visibility = View.VISIBLE
                 offerIt?.visibility = View.VISIBLE
@@ -198,7 +199,6 @@ class VHIronOfferInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 doneText?.visibility = View.GONE
                 endText?.visibility = View.GONE
                 doingLayout?.visibility = View.VISIBLE
-                offerNum?.text = "${data?.sellAllNum}"
 
                 miss?.visibility = View.GONE
                 offerIt?.visibility = View.GONE
@@ -428,7 +428,6 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun update(buyInfoStatus:Int, data: IronBuySellerInfo?) {
 
         var initValidText = {
-            companyName?.text = data?.companyName
             baoView?.visibility = if (data?.isGuaranteeUser == "1") View.VISIBLE else View.GONE
             chengView?.visibility = if (data?.isFaithUser == "1") View.VISIBLE else View.GONE
 
@@ -441,16 +440,21 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
             proPlace?.text = data?.proInfo
             remark?.text = data?.offerRemark
             offerNew?.visibility = if (data?.hasNewOffer == "1") View.VISIBLE else View.GONE
+
         }
 
         offerHistory?.visibility = if (data?.ironSell == null || data?.ironSell!!.isEmpty()) View.GONE else View.VISIBLE
 
+        companyName?.text = data?.companyName
+
         if (data?.offerStatus != 4) {
             missText?.visibility = View.GONE
             validLayout?.visibility = View.VISIBLE
+            actionLayout?.visibility = View.VISIBLE
             initValidText()
         } else {
             missText?.visibility = View.VISIBLE
+            actionLayout?.visibility = View.GONE
             validLayout?.visibility = View.GONE
         }
 
@@ -471,14 +475,12 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 changeEnable(true)
 
                 actionLine?.visibility = View.VISIBLE
-                actionLayout?.visibility = View.VISIBLE
                 offerHolder?.visibility = View.VISIBLE
                 offerDoneFlag?.visibility = View.GONE
             }
             2 -> {
                 changeEnable(true)
                 actionLine?.visibility = View.GONE
-                actionLayout?.visibility = View.GONE
 
                 if (data?.offerStatus == 2) {
                     offerHolder?.visibility = View.GONE
@@ -492,7 +494,6 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 changeEnable(false)
 
                 actionLine?.visibility = View.GONE
-                actionLayout?.visibility = View.GONE
                 offerHolder?.visibility = View.VISIBLE
                 offerDoneFlag?.visibility = View.GONE
             }
@@ -660,7 +661,7 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 doneText?.visibility = View.VISIBLE
                 endText?.visibility = View.GONE
                 doingLayout?.visibility = View.GONE
-                doneText?.text = "￥${data?.ironSell?.validSell?.get(0)?.offerPrice}"
+                doneText?.text = "￥${if (data?.ironSell?.validSell?.get(0)?.offerPrice.isNullOrBlank()) data?.ironSell?.validSell?.get(0)?.offerPerPrice else data?.ironSell?.validSell?.get(0)?.offerPrice }"
                 changeEnable(true)
 
                 copy?.visibility = View.VISIBLE

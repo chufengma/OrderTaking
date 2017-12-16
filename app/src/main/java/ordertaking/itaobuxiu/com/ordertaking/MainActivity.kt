@@ -18,6 +18,9 @@ import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserBean
 import ordertaking.itaobuxiu.com.ordertaking.apis.isLogin
 import ordertaking.itaobuxiu.com.ordertaking.ui.*
+import android.view.ViewGroup
+
+
 
 class MainActivity : BaseActivity() {
 
@@ -46,6 +49,14 @@ class MainActivity : BaseActivity() {
 
             override fun getCount(): Int {
                 return 4
+            }
+
+            override fun isViewFromObject(view: View, obj: Any): Boolean {
+                return view === (obj as Fragment).view
+            }
+
+            override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+                val fragment = `object` as Fragment
             }
 
         }

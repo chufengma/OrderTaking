@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_iron_buy_detail.*
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class IronBuyDetailActivity : BaseActivity() {
@@ -68,7 +69,7 @@ class IronBuyDetailActivity : BaseActivity() {
 
             override fun onChoose(seller: IronBuySellerInfo) {
                 showLoading()
-                networkWrap(Network.create(IronRequestService::class.java)?.chooseSeller(ironBuyInfo?.ironTypeId!!, seller.ironSellId!!))
+                networkWrap(Network.create(IronRequestService::class.java)?.chooseSeller(ironBuyInfo?.id!!, seller.ironSellId!!))
                         ?.subscribe({
                             hideLoading()
                             toastInfo("选标成功")
@@ -98,8 +99,11 @@ class IronBuyDetailActivity : BaseActivity() {
 
     fun updateData() {
         update(ironBuyInfo)
-        if (ironBuyInfo?.ironSell?.validSell != null) {
-            adapter?.updateData(ironBuyInfo?.ironSell?.validSell!!)
+        if (ironBuyInfo?.ironSell?.validSell != null || ironBuyInfo?.ironSell?.missSell != null) {
+            var list = mutableListOf<IronBuySellerInfo>()
+            list.addAll(ironBuyInfo?.ironSell?.validSell!!)
+            list.addAll(ironBuyInfo?.ironSell?.missSell!!)
+            adapter?.updateData(list)
         } else {
             adapter?.updateData(mutableListOf())
         }

@@ -157,6 +157,19 @@ interface IronBuyOfferService {
     @POST("/demands/ironBuy/saveIronSellInfo")
     fun missOffer(@Field("ironBuyId") ironBuyId: String, @Field("flag") flag : String = "0"): Observable<Response<Object>>
 
+
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/saveIronSellInfo")
+    fun postOffer(@Field("ironBuyId") ironBuyId: String?,
+                  @Field("offerPerPrice") offerPerPrice:String?,
+                  @Field("offerPrice") offerPrice:String?,
+                  @Field("tolerance") tolerance:String?,
+                  @Field("offerPlacesId") offerPlacesId:String?,
+                  @Field("offerPlaces") offerPlaces:String?,
+                  @Field("offerRemark") offerRemark:String?,
+                  @Field("baseUnitId") baseUnitId:String?,
+                  @Field("baseUnit") baseUnit:String?,
+                  @Field("flag") flag : String = "1"): Observable<Response<Object>>
 }
 
 fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<T>>? {

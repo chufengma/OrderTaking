@@ -47,7 +47,8 @@
         <activity android:name=".ui.IronBuyDetailActivity" />
         <activity android:name=".ui.IronBuyHistoryActivity" />
         <activity android:name=".ui.IronOfferActivity" />
-        <activity android:name=".ui.IronOfferHistoryActivity"></activity>
+        <activity android:name=".ui.IronOfferHistoryActivity" />
+        <activity android:name=".ui.PostChargeActivity"></activity>
     </application>
 
 </manifest>

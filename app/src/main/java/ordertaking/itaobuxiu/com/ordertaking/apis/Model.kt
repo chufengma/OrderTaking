@@ -26,7 +26,13 @@ data class UserInfo(
         var oldUserId: String?,                //类型：String?  必有字段  备注：无
         var roleList: String?,                //类型：String?  必有字段  备注：无
         var sellManName: String?,                //类型：String?  必有字段  备注：无
-        var sellManTel: String?                //类型：String?  必有字段  备注：无
+        var sellManTel: String?,                //类型：String?  必有字段  备注：无
+        var buserInfo: UserProfile?
+)
+
+data class UserLevel(
+    var level: String?,
+    var day: String?
 )
 
 data class HomeAdsModelData(val code: String, val message: String, val data: HomeAdsModelDataReal)
@@ -403,8 +409,47 @@ data class SellerOfferInfoListItem(
         var ironSell: List<IronBuySellerOfferInfo>?
 ) : Serializable
 
-
 data class LocalRequests(var requests: MutableList<PostRequestBean>)
+
+data class UserProfile(
+        var id: String?,                //类型：String  必有字段  备注：无
+        var companyName: String?,                //类型：String  必有字段  备注：无
+        var regMoney: String?,                //类型：String  必有字段  备注：无
+        var unit: String?,                //类型：String  必有字段  备注：无
+        var contact: String?,                //类型：String  必有字段  备注：无
+        var contactNum: String?,                //类型：String  必有字段  备注：无
+        var fax: String?,                //类型：String  必有字段  备注：无
+        var provinceId: String?,                //类型：String  必有字段  备注：无
+        var provinceName: String?,                //类型：String  必有字段  备注：无
+        var cityId: String?,                //类型：String  必有字段  备注：无
+        var cityName: String?,                //类型：String  必有字段  备注：无
+        var districtId: String?,                //类型：String  必有字段  备注：无
+        var districtName: String?,                //类型：String  必有字段  备注：无
+        var address: String?,                //类型：String  必有字段  备注：无
+        var qq: String?,                //类型：String  必有字段  备注：无
+        var sellerProfile: String?,                //类型：String  必有字段  备注：无
+        var beBuserTime: String?,                //类型：Number  必有字段  备注：无
+        var isFaithUser: String?,                //类型：String  必有字段  备注：无
+        var isGuaranteeUser: String?,                //类型：String  必有字段  备注：无
+        var beFaithUserTime: String?,                //类型：Number  必有字段  备注：无
+        var beGuaranteeUserTime: String?,                //类型：Number  必有字段  备注：无
+        var storeHouseId: String?,                //类型：String  必有字段  备注：无
+        var storeHouseName: String?,                //类型：String  必有字段  备注：无
+        var proInfo: String?,                //类型：String  必有字段  备注：无
+        var flag: Boolean?,                //类型：Boolean  必有字段  备注：无
+        var oldUserId: String?,                //类型：String  必有字段  备注：无
+        var pass: String?,                //类型：String  必有字段  备注：无
+        var allCer: String?,                //类型：String  必有字段  备注：无
+        var bussinessLic: String?,                //类型：String  必有字段  备注：无
+        var codeLic: String?,                //类型：String  必有字段  备注：无
+        var financeLic: String?,                //类型：String  必有字段  备注：无
+        var cover: String?,                //类型：String  必有字段  备注：无
+        var userId: String?,                //类型：String  必有字段  备注：无
+        var salesManMobile: String?,                //类型：String  必有字段  备注：无
+        var salesManId: String?,                //类型：Number  必有字段  备注：无
+        var salesManName: String?,                //类型：String  必有字段  备注：无
+        var buserMobile: String?                //类型：String  必有字段  备注：无
+)
 
 const val USER_LOGIN_INFO = "user_login_info"
 const val LOGIN_USER = "login_user"

@@ -28,12 +28,14 @@ class MainActivity : BaseActivity() {
     var buyerTab: TabExt? = null
     var sellerTab: TabExt? = null
     var meTab: TabExt? = null
+    var currentTabIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initMainLayout()
     }
+
 
     fun initMainLayout() {
         viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
@@ -92,14 +94,15 @@ class MainActivity : BaseActivity() {
 
             override fun onPageSelected(position: Int) {
                 if (position != 0) {
-                    if (!isLogin()) {
+                    if (!isLogin() && position != 3) {
 //                        TastyToast.makeText(this@MainActivity, "暂未登陆", TastyToast.LENGTH_SHORT, TastyToast.ERROR)
-                        viewPager.currentItem = 0
+                        viewPager.currentItem = if (currentTabIndex == 3) 3 else 0
                         showLoginDialog()
                     } else {
 //                        TastyToast.makeText(this@MainActivity, Hawk.get<UserBean>(LOGIN_USER).realName, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
                     }
                 }
+                currentTabIndex = viewPager.currentItem
             }
 
         })

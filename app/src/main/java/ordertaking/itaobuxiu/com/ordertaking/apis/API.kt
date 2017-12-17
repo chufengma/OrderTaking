@@ -45,6 +45,10 @@ interface UserApiService {
     @FormUrlEncoded
     @POST("/api/user/findCurrentUser")
     fun getUserInfo(@Field("mobile") mobile: String) : Observable<Response<UserInfo>>
+
+    @FormUrlEncoded
+    @POST("/demands/userIronInfo/userInfo")
+    fun getUserLevel(@Field("mobile") mobile: String) : Observable<Response<UserLevel>>
 }
 
 interface IronRequestService {

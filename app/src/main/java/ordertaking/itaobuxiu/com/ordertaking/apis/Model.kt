@@ -451,6 +451,9 @@ data class UserProfile(
         var buserMobile: String?                //类型：String  必有字段  备注：无
 )
 
+
+data class ChargeData(var id: String, var info: String, var addTime: String)
+
 const val USER_LOGIN_INFO = "user_login_info"
 const val LOGIN_USER = "login_user"
 const val LOCAL_REQUESTS = "local_requests"

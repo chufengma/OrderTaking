@@ -1,5 +1,6 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -73,6 +74,7 @@ class MeFragment: Fragment() {
                 (context as BaseActivity).showLoginDialog()
                 return@setOnClickListener
             }
+            startActivity(Intent(context, PostChargeActivity::class.java))
         }
 
         fanWei.setOnClickListener {

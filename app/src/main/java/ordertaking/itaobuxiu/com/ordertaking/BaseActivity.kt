@@ -54,6 +54,13 @@ open class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun gotoMainActivity() {
+        var intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.putExtra("loginOut", true)
+        startActivity(intent)
+    }
+
     fun gotoHome() {
         var intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

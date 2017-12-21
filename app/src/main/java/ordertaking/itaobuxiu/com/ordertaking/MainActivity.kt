@@ -123,5 +123,11 @@ class MainActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         viewPager.currentItem = 0
+        if (intent?.getBooleanExtra("loginOut", false)!!) {
+            finish()
+            var newIntent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(newIntent)
+        }
     }
 }

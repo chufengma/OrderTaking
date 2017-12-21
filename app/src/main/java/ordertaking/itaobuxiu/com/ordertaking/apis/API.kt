@@ -86,6 +86,37 @@ interface UserApiService {
     @FormUrlEncoded
     @POST("/demands/businessScope/saveBusinessScope")
     fun saveMyScopes(@Field("ironType") ironType: String, @Field("surface") surface: String, @Field("material") material: String, @Field("proPlace") proPlace: String): Observable<Response<Object>>
+
+
+    @FormUrlEncoded
+    @POST("/api/query/findAllArea")
+    fun getCityDatas(@Field("proInfo") proInfo: String): Observable<Response<List<CityDescData>>>
+
+
+    @FormUrlEncoded
+    @POST("/demands/query/findStoreHouse")
+    fun getStoreHouse(@Field("proInfo") proInfo: String): Observable<Response<List<StoreData>>>
+
+    @FormUrlEncoded
+    @POST("/demands/bInfo/updateBInfo")
+    fun saveBInfo(@Field("contact") contact: String?, @Field("contactNum") contactNum: String?
+                  , @Field("qq") qq: String?
+                  , @Field("provinceId") provinceId: String?
+                  , @Field("provinceName") provinceName: String?
+                  , @Field("cityId") cityId: String?
+                  , @Field("cityName") cityName: String?
+                  , @Field("districtId") districtId: String?,
+                  @Field("districtName") districtName: String?,
+                  @Field("storeHouseId") storeHouseId: String?,
+                  @Field("storeHouseName") storeHouseName: String?,
+                  @Field("address") address: String?
+    ): Observable<Response<Object>>
+
+
+    @FormUrlEncoded
+    @POST("/demands/baseUsers/updateBaseUsersSafeInfo")
+    fun changePassword(@Field("oldPwd") oldPwd: String, @Field("newPwd") newPwd: String, @Field("reNewPwd") reNewPwd: String): Observable<Response<Object>>
+
 }
 
 interface IronRequestService {

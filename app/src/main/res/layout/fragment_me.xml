@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:layout_width="15dip"
+                    android:layout_width="12dip"
                     android:src="@drawable/ic_item_arrow"
                     android:layout_marginRight="10dip"
                     android:layout_height="20dip" />
@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:layout_width="15dip"
+                    android:layout_width="12dip"
                     android:src="@drawable/ic_item_arrow"
                     android:layout_marginRight="10dip"
                     android:layout_height="20dip" />
@@ -297,7 +297,7 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:layout_width="15dip"
+                    android:layout_width="12dip"
                     android:src="@drawable/ic_item_arrow"
                     android:layout_marginRight="10dip"
                     android:layout_height="20dip" />
@@ -334,7 +334,7 @@
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:layout_width="15dip"
+            android:layout_width="12dip"
             android:src="@drawable/ic_item_arrow"
             android:layout_marginRight="10dip"
             android:layout_height="20dip" />
@@ -366,7 +366,7 @@
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:layout_width="15dip"
+            android:layout_width="12dip"
             android:src="@drawable/ic_item_arrow"
             android:layout_marginRight="10dip"
             android:layout_height="20dip" />

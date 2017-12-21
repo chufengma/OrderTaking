@@ -34,6 +34,14 @@ class MeFragment: Fragment() {
         me_header.setBackgroundResource(R.drawable.iron_buy_detail_doing_bg)
 
         updateViews()
+
+        right.setOnClickListener {
+            if (!isLogin()) {
+                (context as BaseActivity).showLoginDialog()
+                return@setOnClickListener
+            }
+            startActivity(Intent(context, SettingActivity::class.java))
+        }
     }
 
     fun updateViews() {

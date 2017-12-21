@@ -58,6 +58,34 @@ interface UserApiService {
     @POST("/demands/bInfo/updateBuserProInfo")
     fun postCharge(@Field("proInfo") proInfo: String): Observable<Response<Object>>
 
+
+    @FormUrlEncoded
+    @POST("/api/query/findIronTypes")
+    fun findIronTypes(@Field("proInfo") proInfo: String): Observable<Response<List<BaseIronInfo>>>
+
+
+    @FormUrlEncoded
+    @POST("/api/query/findMaterials")
+    fun findMaterials(@Field("proInfo") proInfo: String): Observable<Response<List<BaseIronInfo>>>
+
+
+    @FormUrlEncoded
+    @POST("/api/query/findSurFace")
+    fun findSurFace(@Field("proInfo") proInfo: String): Observable<Response<List<BaseIronInfo>>>
+
+
+    @FormUrlEncoded
+    @POST("/api/query/findProPlaces")
+    fun findProPlaces(@Field("proInfo") proInfo: String): Observable<Response<List<BaseIronInfo>>>
+
+
+    @FormUrlEncoded
+    @POST("/demands/businessScope/findBusinessScope")
+    fun findMyScopes(@Field("proInfo") proInfo: String): Observable<Response<ScopeData>>
+
+    @FormUrlEncoded
+    @POST("/demands/businessScope/saveBusinessScope")
+    fun saveMyScopes(@Field("ironType") ironType: String, @Field("surface") surface: String, @Field("material") material: String, @Field("proPlace") proPlace: String): Observable<Response<Object>>
 }
 
 interface IronRequestService {

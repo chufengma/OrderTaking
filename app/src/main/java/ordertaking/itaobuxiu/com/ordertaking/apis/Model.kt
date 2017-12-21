@@ -1,5 +1,6 @@
 package ordertaking.itaobuxiu.com.ordertaking.apis
 
+import android.view.inputmethod.BaseInputConnection
 import java.io.Serializable
 
 /**
@@ -453,6 +454,8 @@ data class UserProfile(
 
 
 data class ChargeData(var id: String, var info: String, var addTime: String)
+
+data class ScopeData(var proPlace: List<BaseIronInfo>?, var surface: List<BaseIronInfo>?, var material: List<BaseIronInfo>?, var ironType: List<BaseIronInfo>?)
 
 const val USER_LOGIN_INFO = "user_login_info"
 const val LOGIN_USER = "login_user"

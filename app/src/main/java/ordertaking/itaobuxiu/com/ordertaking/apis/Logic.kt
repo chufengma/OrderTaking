@@ -11,9 +11,15 @@ import io.reactivex.schedulers.Schedulers
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
+import com.google.gson.Gson
 import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
 import ordertaking.itaobuxiu.com.ordertaking.ui.*
 
+var gson = Gson()
+
+fun toJsonString(any:Any): String {
+    return gson.toJson(any)
+}
 
 /**
  * Created by dev on 2017/11/25.

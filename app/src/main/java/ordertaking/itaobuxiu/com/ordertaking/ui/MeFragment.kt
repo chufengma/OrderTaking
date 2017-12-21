@@ -82,6 +82,8 @@ class MeFragment: Fragment() {
                 (context as BaseActivity).showLoginDialog()
                 return@setOnClickListener
             }
+
+            startActivity(Intent(context, BusinessScopeActivity::class.java))
         }
 
         data.setOnClickListener {

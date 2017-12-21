@@ -42,13 +42,22 @@
             android:name=".ui.NewRequestActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged" />
-        <activity android:name=".ui.SpecActivity" />
-        <activity android:name=".ui.RequestHistoryActivity" />
-        <activity android:name=".ui.IronBuyDetailActivity" />
-        <activity android:name=".ui.IronBuyHistoryActivity" />
-        <activity android:name=".ui.IronOfferActivity" />
-        <activity android:name=".ui.IronOfferHistoryActivity" />
-        <activity android:name=".ui.PostChargeActivity"></activity>
+        <activity android:name=".ui.SpecActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.RequestHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IronBuyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IronBuyHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IronOfferActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IronOfferHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.PostChargeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.BusinessScopeActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

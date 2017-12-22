@@ -1,5 +1,6 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
+import android.content.Intent
 import android.os.Bundle
 import com.orhanobut.hawk.Hawk
 import com.sdsmdg.tastytoast.TastyToast
@@ -39,6 +40,14 @@ class LoginActivity : BaseActivity() {
                         TastyToast.makeText(this, "登陆失败：" + error.message, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
                         hideLoading()
                     })
+        }
+
+        register.setOnClickListener {
+            toastInfo("手机app暂不支持注册，请前往电脑端注册")
+        }
+
+        forget.setOnClickListener {
+            startActivity(Intent(this, ForgetActivity::class.java))
         }
 
 

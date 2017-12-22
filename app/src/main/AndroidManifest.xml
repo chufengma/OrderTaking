@@ -66,14 +66,19 @@
         <activity
             android:name=".ui.BusinessScopeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.SettingActivity"
-            android:screenOrientation="portrait"  />
-        <activity android:name=".ui.BaseUserInfoActivity"
-            android:screenOrientation="portrait"  />
-        <activity android:name=".ui.ChangePasswordActivity"
-            android:screenOrientation="portrait"  />
-        <activity android:name=".ui.ForgetActivity"
-            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".ui.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.BaseUserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ForgetActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.DataActivity"></activity>
     </application>
 
 </manifest>

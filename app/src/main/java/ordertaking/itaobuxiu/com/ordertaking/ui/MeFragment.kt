@@ -106,6 +106,15 @@ class MeFragment: Fragment() {
                 (context as BaseActivity).showLoginDialog()
                 return@setOnClickListener
             }
+            startActivity(Intent(context, DataActivity::class.java))
+        }
+
+        data.setOnClickListener  {
+            if (!isLogin()) {
+                (context as BaseActivity).showLoginDialog()
+                return@setOnClickListener
+            }
+            startActivity(Intent(context, DataActivity::class.java))
         }
 
         rightDesc.setOnClickListener {

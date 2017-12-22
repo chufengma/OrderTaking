@@ -6,9 +6,17 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_data.*
+import kotlinx.android.synthetic.main.activity_iron_offer.*
+import kotlinx.android.synthetic.main.fragment_data_buyer.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
+import ordertaking.itaobuxiu.com.ordertaking.apis.BuyerCompany
+import ordertaking.itaobuxiu.com.ordertaking.apis.UserApiService
+import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
+import ordertaking.itaobuxiu.com.ordertaking.engine.Network
+import org.jetbrains.anko.find
 
 class DataActivity : BaseActivity() {
 
@@ -20,7 +28,7 @@ class DataActivity : BaseActivity() {
         viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
 
             override fun getItem(index: Int): Fragment {
-                return when(index) {
+                return when (index) {
                     0 -> DataBuyerFragment()
                     else -> DataSellerFragment()
                 }
@@ -52,19 +60,90 @@ class DataActivity : BaseActivity() {
         tab.setupWithViewPager(viewPager)
     }
 
-    class DataBuyerFragment: Fragment() {
+    class DataBuyerFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            var view:View? = inflater?.inflate(R.layout.fragment_data_buyer, null)
+            var view: View? = inflater?.inflate(R.layout.fragment_data_buyer, null)
             return view
         }
 
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+
+            networkWrap(Network.create(UserApiService::class.java)?.getBuyerData(""))?.subscribe { result ->
+                result.data.cooperation.forEachIndexed { index, buyerCompany ->
+                    sellerLayout.addView(createSellerItem(buyerCompany, index))
+                }
+
+                todayBuyTotal.setText("总报价量：${result.data.todayBuyTotal}")
+                todayMiss.setText("${result.data.todayBuyMiss}")
+                todayValid.setText("${result.data.todayBuyValid}")
+                todayRate.setDonut_progress((result.data.todayBuyRate * 100).toInt().toString())
+
+                today.setOnClickListener {
+                    todayDoneRate.setDonut_progress((result.data.todaySellRate * 100).toInt().toString())
+                    todayDone.setText("${result.data.todaySellGet}")
+                    todayDoneFailed.setText("${result.data.todaySellMiss}")
+                    todayDoneTotal.setText("总求购数：${result.data.todaySellGet}")
+                    today.isSelected = true
+                    month.isSelected = false
+                    total.isSelected = false
+                }
+
+                month.setOnClickListener {
+                    todayDoneRate.setDonut_progress((result.data.monthSellRate * 100).toInt().toString())
+                    todayDone.setText("${result.data.monthSellGet}")
+                    todayDoneFailed.setText("${result.data.monthSellMiss}")
+                    todayDoneTotal.setText("总求购数：${result.data.monthSellTotal}")
+                    today.isSelected = false
+                    month.isSelected = true
+                    total.isSelected = false
+                }
+
+                total.setOnClickListener {
+                    todayDoneRate.setDonut_progress((result.data.allSellRate * 100).toInt().toString())
+                    todayDone.setText("${result.data.allSellGet}")
+                    todayDoneFailed.setText("${result.data.allSellMiss}")
+                    todayDoneTotal.setText("总求购数：${result.data.allSellTotal}")
+                    today.isSelected = false
+                    month.isSelected = false
+                    total.isSelected = true
+                }
+            }
+        }
+
+        fun createSellerItem(buyerCompany: BuyerCompany, i: Int): View {
+            var view = LayoutInflater.from(context).inflate(R.layout.data_seller_tab_item, null)
+            var index: TextView = view.find(R.id.index)
+            var company: TextView = view.find(R.id.companyName)
+            var num: TextView = view.find(R.id.num)
+            company.setText(buyerCompany.companyName)
+            num.setText(buyerCompany.coopLveve)
+            index.setText("${i + 1}")
+            when (i) {
+                0 -> {
+                    index.setTextColor(resources.getColor(R.color.main_red))
+                    num.setBackgroundResource(R.drawable.data_seller_1)
+                }
+                1 -> {
+                    index.setTextColor(resources.getColor(R.color.main_yellow))
+                    num.setBackgroundResource(R.drawable.data_seller_2)
+                }
+                2 -> {
+                    index.setTextColor(resources.getColor(R.color.main_green))
+                    num.setBackgroundResource(R.drawable.data_seller_3)
+                }
+            }
+            return view
+        }
+
+
     }
 
-    class DataSellerFragment: Fragment() {
+    class DataSellerFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            var view:View? = inflater?.inflate(R.layout.fragment_data_buyer, null)
+            var view: View? = inflater?.inflate(R.layout.fragment_data_buyer, null)
             return view
         }
 

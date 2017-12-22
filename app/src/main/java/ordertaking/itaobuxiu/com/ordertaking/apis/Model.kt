@@ -461,6 +461,16 @@ data class CityDescData(var label: String, var value: String, var children: List
 
 data class StoreData(var notice: String, var id: String)
 
+data class BuyerData(var todayBuyRate: Double, var todayBuyTotal: Int, var todayBuyValid: Int, var todayBuyMiss:Int,
+                     var todaySellRate: Double, var todaySellTotal: Int, var todaySellGet: Int, var todaySellMiss: Int,
+                     var monthSellRate: Double, var monthSellTotal: Int, var monthSellGet: Int, var monthSellMiss: Int,
+                     var allSellRate: Double, var allSellTotal: Int, var allSellGet: Int, var allSellMiss: Int, var cooperation : List<BuyerCompany>
+)
+
+data class BuyerCompany(
+        var companyName: String, var coopLveve: String
+)
+
 const val USER_LOGIN_INFO = "user_login_info"
 const val LOGIN_USER = "login_user"
 const val LOCAL_REQUESTS = "local_requests"

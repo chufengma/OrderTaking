@@ -117,6 +117,11 @@ interface UserApiService {
     @POST("/demands/baseUsers/updateBaseUsersSafeInfo")
     fun changePassword(@Field("oldPwd") oldPwd: String, @Field("newPwd") newPwd: String, @Field("reNewPwd") reNewPwd: String): Observable<Response<Object>>
 
+
+    @FormUrlEncoded
+    @POST("/demands/userIronInfo/userBuyInfo")
+    fun getBuyerData(@Field("proInfo") proInfo: String): Observable<Response<BuyerData>>
+
 }
 
 interface IronRequestService {

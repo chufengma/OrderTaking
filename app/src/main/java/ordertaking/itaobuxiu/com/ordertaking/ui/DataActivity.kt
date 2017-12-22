@@ -78,10 +78,10 @@ class DataActivity : BaseActivity() {
                 todayBuyTotal.setText("总报价量：${result.data.todayBuyTotal}")
                 todayMiss.setText("${result.data.todayBuyMiss}")
                 todayValid.setText("${result.data.todayBuyValid}")
-                todayRate.setDonut_progress((result.data.todayBuyRate * 100).toInt().toString())
+                todayRate.setDonut_progress((result.data.todayBuyRate).toInt().toString())
 
                 today.setOnClickListener {
-                    todayDoneRate.setDonut_progress((result.data.todaySellRate * 100).toInt().toString())
+                    todayDoneRate.setDonut_progress((result.data.todaySellRate).toInt().toString())
                     todayDone.setText("${result.data.todaySellGet}")
                     todayDoneFailed.setText("${result.data.todaySellMiss}")
                     todayDoneTotal.setText("总求购数：${result.data.todaySellGet}")
@@ -91,7 +91,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 month.setOnClickListener {
-                    todayDoneRate.setDonut_progress((result.data.monthSellRate * 100).toInt().toString())
+                    todayDoneRate.setDonut_progress((result.data.monthSellRate).toInt().toString())
                     todayDone.setText("${result.data.monthSellGet}")
                     todayDoneFailed.setText("${result.data.monthSellMiss}")
                     todayDoneTotal.setText("总求购数：${result.data.monthSellTotal}")
@@ -101,7 +101,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 total.setOnClickListener {
-                    todayDoneRate.setDonut_progress((result.data.allSellRate * 100).toInt().toString())
+                    todayDoneRate.setDonut_progress((result.data.allSellRate).toInt().toString())
                     todayDone.setText("${result.data.allSellGet}")
                     todayDoneFailed.setText("${result.data.allSellMiss}")
                     todayDoneTotal.setText("总求购数：${result.data.allSellTotal}")
@@ -109,6 +109,8 @@ class DataActivity : BaseActivity() {
                     month.isSelected = false
                     total.isSelected = true
                 }
+
+                today.performClick()
             }
         }
 

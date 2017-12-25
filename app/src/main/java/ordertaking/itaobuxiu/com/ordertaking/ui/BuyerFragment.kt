@@ -13,6 +13,7 @@ import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.fragment_buyer.*
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.IronBuyInfo
+import ordertaking.itaobuxiu.com.ordertaking.apis.getStatusBarHeight
 import ordertaking.itaobuxiu.com.ordertaking.apis.gotoPostRequest
 import org.jetbrains.anko.dip
 
@@ -27,6 +28,8 @@ class BuyerFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        header.layoutParams.height = getStatusBarHeight(context)
 
         mainViewPager.adapter = object : FragmentPagerAdapter(fragmentManager) {
 

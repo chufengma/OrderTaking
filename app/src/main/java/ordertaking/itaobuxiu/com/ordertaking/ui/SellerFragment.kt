@@ -9,10 +9,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.fragment_seller.*
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.IronBuyInfo
+import ordertaking.itaobuxiu.com.ordertaking.apis.getStatusBarHeight
 import ordertaking.itaobuxiu.com.ordertaking.apis.gotoPostRequest
 import org.jetbrains.anko.dip
 
@@ -27,6 +29,10 @@ class SellerFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+//        titleLayout.setPadding(0, getStatusBarHeight(context), 0, 0)
+
+        header.layoutParams.height = getStatusBarHeight(context)
 
         mainViewPagerSeller.adapter = object : FragmentPagerAdapter(fragmentManager) {
 

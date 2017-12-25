@@ -181,6 +181,9 @@ class HomeFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        titleLayout.setPadding(0, getStatusBarHeight(context), 0, 0)
+
         setupBanner()
         setupGripView()
         setupSellerLayout()

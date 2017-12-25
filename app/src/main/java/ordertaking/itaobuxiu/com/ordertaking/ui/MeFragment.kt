@@ -35,6 +35,7 @@ class MeFragment: Fragment() {
 
         updateViews()
 
+        me_header.setPadding(0, getStatusBarHeight(context), 0, 0)
         right.setOnClickListener {
             if (!isLogin()) {
                 (context as BaseActivity).showLoginDialog()

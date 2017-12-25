@@ -154,7 +154,7 @@ class MeFragment: Fragment() {
         var level = levelArray[0].toInt()
         var levelNum = levelArray[1].toInt()
 
-        for (i in 0..levelNum) {
+        for (i in 0..(levelNum-1)) {
             var image: ImageView = ImageView(context)
             var params = LinearLayout.LayoutParams(context.dip(12), context.dip(12))
             image.layoutParams = params

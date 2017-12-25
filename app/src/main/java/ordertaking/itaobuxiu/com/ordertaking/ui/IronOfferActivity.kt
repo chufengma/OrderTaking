@@ -3,6 +3,7 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -16,6 +17,10 @@ import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import org.jetbrains.anko.dip
 import java.text.SimpleDateFormat
+import android.text.style.ImageSpan
+import android.graphics.drawable.Drawable
+
+
 
 class IronOfferActivity : BaseActivity() {
 
@@ -71,6 +76,9 @@ class IronOfferActivity : BaseActivity() {
             showCall(user?.sellManTel)
         }
 
+        offerDetailCompanyLayout.setOnClickListener {
+            CompanyDialog(ironOffer?.companyName, ironOffer?.level, this@IronOfferActivity).show()
+        }
     }
 
     fun setupLevels(layout: LinearLayout, day: String) {
@@ -78,7 +86,7 @@ class IronOfferActivity : BaseActivity() {
         var level = levelArray[0].toInt()
         var levelNum = levelArray[1].toInt()
 
-        for (i in 0..levelNum) {
+        for (i in 0..levelNum-1) {
             var image: ImageView = ImageView(this)
             var params = LinearLayout.LayoutParams(dip(12), dip(12))
             image.layoutParams = params

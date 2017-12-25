@@ -126,7 +126,7 @@ class HomeFragment: Fragment() {
                             } else {
                                 if (result.data.all != null && result.data.all.size > 0) {
                                     var allData = mutableListOf<List<HomeSellerDataItem>>()
-                                    allData.add(result.data.day.subList(0, if (result.data.all.size >= 4) 4 else result.data.all.size))
+                                    allData.add(result.data.all.subList(0, if (result.data.all.size >= 4) 4 else result.data.all.size))
                                     if (result.data.all.size > 4) {
                                         allData.add(result.data.all.subList(4, if (result.data.all.size >= 8) 8 else result.data.all.size))
                                     }

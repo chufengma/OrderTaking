@@ -211,7 +211,7 @@ class VHMarketPrice(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 layout?.setBackgroundResource(R.drawable.market_price_up_bg)
                 upDown?.setImageResource(R.drawable.ic_price_up)
             }
-            data?.gains == 1 -> {
+            data?.gains == 0 -> {
                 layout?.setBackgroundResource(R.drawable.market_price_down_bg)
                 upDown?.setImageResource(R.drawable.ic_price_down)
             }
@@ -284,7 +284,7 @@ class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var level = levelArray[0].toInt()
         var levelNum = levelArray[1].toInt()
 
-        for(i in 0..levelNum) {
+        for(i in 0..(levelNum-1)) {
             var image: ImageView = ImageView(itemView.context)
             var params = LinearLayout.LayoutParams(itemView.context.dip(12), itemView.context.dip(12))
             image.layoutParams = params

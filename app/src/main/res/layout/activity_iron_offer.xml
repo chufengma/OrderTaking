@@ -538,11 +538,14 @@
                     android:paddingBottom="8dip"
                     android:paddingLeft="10dip"
                     android:paddingRight="10dip"
+                    android:id="@+id/offerDetailCompanyLayout"
                     android:paddingTop="8dip">
 
                     <LinearLayout
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:orientation="horizontal"
                         android:layout_weight="1">
 
                         <TextView
@@ -551,6 +554,8 @@
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="江苏淘不锈"
+                            android:ellipsize="end"
+                            android:textSize="14dip"
                             android:layout_marginRight="5dip"
                             android:textColor="#666666" />
 
@@ -558,6 +563,7 @@
                             android:id="@+id/levelLayout"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
+                            android:gravity="bottom"
                             android:layout_height="wrap_content">
 
                         </LinearLayout>
@@ -565,7 +571,7 @@
                         <ImageView
                             android:layout_width="10dip"
                             android:layout_height="10dip"
-                            android:layout_gravity="center_vertical"
+                            android:layout_gravity="center_vertical|right"
                             android:src="@drawable/ic_item_arrow" />
 
                     </LinearLayout>
@@ -619,7 +625,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="单价"
                         android:textColor="#333"
                         android:textSize="16dip" />
@@ -629,8 +634,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="请输入"
-                        android:inputType="number"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:hint="填写单价"
+                        android:inputType="numberDecimal"
                         android:textColor="#333"
                         android:textColorHint="#999"
                         android:textSize="16dip" />
@@ -802,7 +809,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="公差"
                         android:id="@+id/toDoneTitle"
                         android:textColor="@color/iron_buy_color"
@@ -813,6 +819,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
+                        android:layout_weight="1"
+                        android:gravity="right"
                         android:hint="请输入"
                         android:textColor="@color/iron_buy_color"
                         android:textColorHint="#999"
@@ -832,7 +840,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="产地"
                         android:id="@+id/proPlaceDoneTitle"
                         android:textColor="@color/iron_buy_color"
@@ -840,9 +847,11 @@
 
                     <TextView
                         android:id="@+id/offerProPlaceDone"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="请输入"
+                        android:layout_weight="1"
+                        android:gravity="right"
                         android:textColor="@color/iron_buy_color"
                         android:textSize="16dip" />
 

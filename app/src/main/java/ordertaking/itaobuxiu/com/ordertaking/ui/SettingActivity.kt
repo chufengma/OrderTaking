@@ -16,6 +16,7 @@ class SettingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+        useNormalBack()
 
         quit.setOnClickListener {
             Hawk.delete(USER_LOGIN_INFO)

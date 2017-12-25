@@ -117,6 +117,10 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    fun gotoPage(index: Int) {
+        viewPager.setCurrentItem(index, true)
+    }
+
     inner class TabExt {
         val view: View = LayoutInflater.from(this@MainActivity).inflate(R.layout.tab_item_layout, null)
         val text: TextView = view?.findViewById(R.id.text) as TextView

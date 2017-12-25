@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
 import com.sdsmdg.tastytoast.TastyToast
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
+import ordertaking.itaobuxiu.com.ordertaking.MainActivity
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.apis.gotoPostRequest
 import ordertaking.itaobuxiu.com.ordertaking.apis.isLogin
@@ -209,6 +210,10 @@ class HomeFragment: Fragment() {
                 return@setOnClickListener
             }
             gotoPostRequest(context)
+        }
+
+        offer.setOnClickListener {
+            (context as MainActivity).gotoPage(2)
         }
     }
 

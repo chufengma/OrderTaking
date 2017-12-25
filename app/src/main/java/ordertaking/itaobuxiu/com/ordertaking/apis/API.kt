@@ -129,12 +129,11 @@ interface UserApiService {
 
     @FormUrlEncoded
     @POST("/login/smsCode")
-    fun getSMSCode(@Field("proInfo") proInfo: String): Observable<Response<Object>>
-
+    fun getSMSCode(@Field("mobile") mobile: String): Observable<Response<Object>>
 
     @FormUrlEncoded
-    @POST("/login/validateFirst")
-    fun forgetPassword(@Field("proInfo") proInfo: String): Observable<Response<Object>>
+    @POST("/login/validateMobile")
+    fun forgetPassword(@Field("mobile") mobile: String, @Field("password") password: String, @Field("smsCode") smsCode: String): Observable<Response<Object>>
 }
 
 interface IronRequestService {

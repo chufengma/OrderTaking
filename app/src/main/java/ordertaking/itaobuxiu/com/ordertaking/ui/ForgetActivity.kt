@@ -41,7 +41,12 @@ class ForgetActivity : BaseActivity() {
             if (System.currentTimeMillis() - lastGetTime <= 1000 * 60) {
                 return@setOnClickListener
             }
-            networkWrap(Network.create(UserApiService::class.java)?.getSMSCode(""))?.subscribe({ result ->
+            var mobile = mobile.text.toString()
+            if (mobile.isNullOrBlank()) {
+                toastInfo("请输入手机号")
+                return@setOnClickListener
+            }
+            networkWrap(Network.create(UserApiService::class.java)?.getSMSCode(mobile))?.subscribe({ result ->
                 toastInfo("获取验证码成功")
                 hideLoading()
 
@@ -74,22 +79,17 @@ class ForgetActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-//            if (!TextUtils.equals(newPasswordStr, newPasswordConfirmStr)) {
-//                toastInfo("新密码前后不一致")
-//                return@setOnClickListener
-//            }
-//
-//            showLoading()
-//            networkWrap(Network.create(UserApiService::class.java)?.changePassword(oldPasswordStr,
-//                    newPasswordStr,
-//                    newPasswordConfirmStr))?.subscribe({ result ->
-//                toastInfo("修改成功")
-//                hideLoading()
-//                finish()
-//            }, { error ->
-//                hideLoading()
-//                toastInfo("修改失败：" + error.message)
-//            })
+            showLoading()
+            networkWrap(Network.create(UserApiService::class.java)?.forgetPassword(mobileStr,
+                    passwordStr,
+                    codeStr))?.subscribe({ result ->
+                toastInfo("修改成功")
+                hideLoading()
+                finish()
+            }, { error ->
+                hideLoading()
+                toastInfo("修改失败：" + error.message)
+            })
         }
     }
 

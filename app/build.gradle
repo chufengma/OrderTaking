@@ -13,7 +13,17 @@ android {
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
+    }
+
+
+    signingConfigs {
+        release {
+            storeFile file("key.store")
+            storePassword "itaobuxiu"
+            keyAlias "itaobuxiu"
+            keyPassword "itaobuxiu"
+        }
     }
 
     buildTypes {

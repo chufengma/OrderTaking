@@ -31,9 +31,9 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("key.store")
+            storeFile file("../key.store")
             storePassword "itaobuxiu"
-            keyAlias "itaobuxiu"
+            keyAlias "key0"
             keyPassword "itaobuxiu"
         }
     }
@@ -42,6 +42,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

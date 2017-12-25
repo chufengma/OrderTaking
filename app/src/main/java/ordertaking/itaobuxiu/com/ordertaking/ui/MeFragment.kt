@@ -43,6 +43,12 @@ class MeFragment: Fragment() {
             }
             startActivity(Intent(context, SettingActivity::class.java))
         }
+
+        unLoginLayout.setOnClickListener {
+            if (!isLogin()) {
+                (context as BaseActivity).gotoLoginActivity()
+            }
+        }
     }
 
     fun updateViews() {

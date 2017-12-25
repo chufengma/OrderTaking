@@ -78,7 +78,8 @@
         <activity
             android:name=".ui.ForgetActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.DataActivity"></activity>
+        <activity android:name=".ui.DataActivity" />
+        <activity android:name=".ui.QuHelperActivity"></activity>
     </application>
 
 </manifest>

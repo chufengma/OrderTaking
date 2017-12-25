@@ -11,6 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
+import cn.jpush.android.api.JPushInterface
 import com.google.gson.Gson
 import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
 import ordertaking.itaobuxiu.com.ordertaking.ui.*
@@ -33,6 +34,9 @@ fun doLogin(mobile: String, password: String): Observable<Response<UserLoginData
 
                 networkWrap(Network.create(UserApiService::class.java)?.getUserInfo("123"))?.subscribe({ result: Response<UserInfo> ->
                     Hawk.put(LOGIN_USER, result.data)
+                    Hawk.put(LAST_USER_MOBILE, result.data.mobile)
+                    JPushInterface.resumePush(MainApplication.instance)
+                    JPushInterface.setAlias(MainApplication.instance, 909090, result.data?.id)
                 })
 
                 response

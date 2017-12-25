@@ -50,6 +50,7 @@ class LoginActivity : BaseActivity() {
             startActivity(Intent(this, ForgetActivity::class.java))
         }
 
-
+        var str: String? = Hawk.get(LAST_USER_MOBILE)
+        mobile.setText(str)
     }
 }

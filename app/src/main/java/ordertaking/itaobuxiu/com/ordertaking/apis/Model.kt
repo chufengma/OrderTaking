@@ -482,4 +482,5 @@ data class BuyerCompany(
 
 const val USER_LOGIN_INFO = "user_login_info"
 const val LOGIN_USER = "login_user"
+const val LAST_USER_MOBILE = "last_user_mobile"
 const val LOCAL_REQUESTS = "local_requests"

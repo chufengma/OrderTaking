@@ -79,6 +79,7 @@
                 android:hint="手机号码"
                 android:layout_marginLeft="10dip"
                 android:id="@+id/mobile"
+                android:text="15251698271"
                 android:textColor="#fff"
                 android:textColorHint="#8fffffff"
                 android:background="@null"

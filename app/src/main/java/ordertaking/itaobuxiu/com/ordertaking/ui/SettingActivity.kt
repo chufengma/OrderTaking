@@ -2,6 +2,7 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.content.Intent
 import android.os.Bundle
+import cn.jpush.android.api.JPushInterface
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_setting.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
@@ -20,6 +21,9 @@ class SettingActivity : BaseActivity() {
             Hawk.delete(USER_LOGIN_INFO)
             Hawk.delete(LOGIN_USER)
             Hawk.delete(LOCAL_REQUESTS)
+
+            JPushInterface.stopPush(this)
+
             gotoMainActivity()
         }
 

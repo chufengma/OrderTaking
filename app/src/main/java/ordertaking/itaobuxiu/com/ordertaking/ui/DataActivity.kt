@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_data.*
-import kotlinx.android.synthetic.main.activity_iron_offer.*
 import kotlinx.android.synthetic.main.fragment_data_buyer.*
+import kotlinx.android.synthetic.main.fragment_data_seller.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.BuyerCompany
@@ -145,8 +145,79 @@ class DataActivity : BaseActivity() {
     class DataSellerFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            var view: View? = inflater?.inflate(R.layout.fragment_data_buyer, null)
+            var view: View? = inflater?.inflate(R.layout.fragment_data_seller, null)
             return view
+        }
+
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+
+            networkWrap(Network.create(UserApiService::class.java)?.getSellerData(""))?.subscribe { result ->
+
+                todayQuote.setOnClickListener {
+                    quotaRate.setDonut_progress((result.data.todaySellRate).toInt().toString())
+                    quoteDone.setText("${result.data.todaySellValid}")
+                    quoteMiss.setText("${result.data.todaySellMiss}")
+                    quoteTotal.setText("总报价数：${result.data.todaySellQuote}")
+                    todayQuote.isSelected = true
+                    monthQuote.isSelected = false
+                    totalQuote.isSelected = false
+                }
+
+                monthQuote.setOnClickListener {
+                    quotaRate.setDonut_progress((result.data.monthSellRate).toInt().toString())
+                    quoteDone.setText("${result.data.monthSellValid}")
+                    quoteMiss.setText("${result.data.monthSellMiss}")
+                    quoteTotal.setText("总报价数：${result.data.monthSellQuote}")
+                    todayQuote.isSelected = false
+                    monthQuote.isSelected = true
+                    totalQuote.isSelected = false
+                }
+
+                totalQuote.setOnClickListener {
+                    quotaRate.setDonut_progress((result.data.sellRate).toInt().toString())
+                    quoteDone.setText("${result.data.sellValid}")
+                    quoteMiss.setText("${result.data.sellMiss}")
+                    quoteTotal.setText("总报价数：${result.data.sellQuote}")
+                    todayQuote.isSelected = false
+                    monthQuote.isSelected = false
+                    totalQuote.isSelected = true
+                }
+
+                todayOffer.setOnClickListener {
+                    offerRate.setDonut_progress((result.data.todayOfferRate).toInt().toString())
+                    offerDone.setText("${result.data.todayOfferGet}")
+                    offerMiss.setText("${result.data.todayOfferNever}")
+                    quoteTotal.setText("总报价数：${result.data.todayOfferQuote}")
+                    todayOffer.isSelected = true
+                    monthOffer.isSelected = false
+                    totalOffer.isSelected = false
+                }
+
+
+                monthOffer.setOnClickListener {
+                    offerRate.setDonut_progress((result.data.monthOfferRate).toInt().toString())
+                    offerDone.setText("${result.data.monthOfferGet}")
+                    offerMiss.setText("${result.data.monthOfferNot}")
+                    quoteTotal.setText("总报价数：${result.data.monthOfferAll}")
+                    todayOffer.isSelected = false
+                    monthOffer.isSelected = true
+                    totalOffer.isSelected = false
+                }
+
+                totalOffer.setOnClickListener {
+                    offerRate.setDonut_progress((result.data.offerRate).toInt().toString())
+                    offerDone.setText("${result.data.offerGet}")
+                    offerMiss.setText("${result.data.offerNot}")
+                    quoteTotal.setText("总报价数：${result.data.offerAll}")
+                    todayOffer.isSelected = false
+                    monthOffer.isSelected = false
+                    totalOffer.isSelected = true
+                }
+
+                todayQuote.performClick()
+                todayOffer.performClick()
+            }
         }
 
     }

@@ -122,6 +122,19 @@ interface UserApiService {
     @POST("/demands/userIronInfo/userBuyInfo")
     fun getBuyerData(@Field("proInfo") proInfo: String): Observable<Response<BuyerData>>
 
+
+    @FormUrlEncoded
+    @POST("/demands/userIronInfo/userSellInfo")
+    fun getSellerData(@Field("proInfo") proInfo: String): Observable<Response<SellerData>>
+
+    @FormUrlEncoded
+    @POST("/login/smsCode")
+    fun getSMSCode(@Field("proInfo") proInfo: String): Observable<Response<Object>>
+
+
+    @FormUrlEncoded
+    @POST("/login/validateFirst")
+    fun forgetPassword(@Field("proInfo") proInfo: String): Observable<Response<Object>>
 }
 
 interface IronRequestService {

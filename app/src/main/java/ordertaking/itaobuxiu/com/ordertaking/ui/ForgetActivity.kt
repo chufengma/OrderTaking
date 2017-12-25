@@ -5,7 +5,10 @@ import android.os.CountDownTimer
 import kotlinx.android.synthetic.main.activity_forget.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
+import ordertaking.itaobuxiu.com.ordertaking.apis.UserApiService
+import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
 import ordertaking.itaobuxiu.com.ordertaking.apis.toastInfo
+import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 
 class ForgetActivity : BaseActivity() {
 
@@ -38,18 +41,27 @@ class ForgetActivity : BaseActivity() {
             if (System.currentTimeMillis() - lastGetTime <= 1000 * 60) {
                 return@setOnClickListener
             }
-            codeBtn.isEnabled = false
-            lastGetTime = System.currentTimeMillis()
-            var countDown = object: CountDownTimer(lastGetTime + 1000 * 60, 1000) {
-                override fun onFinish() {
-                    codeBtn.isEnabled = true
-                }
+            networkWrap(Network.create(UserApiService::class.java)?.getSMSCode(""))?.subscribe({ result ->
+                toastInfo("获取验证码成功")
+                hideLoading()
 
-                override fun onTick(millisUntilFinished: Long) {
-                    codeBtn.text = "剩余${(System.currentTimeMillis() + 1000 * 60 - lastGetTime)/1000}秒"
+                codeBtn.isEnabled = false
+                lastGetTime = System.currentTimeMillis()
+                var countDown = object: CountDownTimer(lastGetTime + 1000 * 60, 1000) {
+                    override fun onFinish() {
+                        codeBtn.isEnabled = true
+                    }
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        codeBtn.text = "剩余${(System.currentTimeMillis() + 1000 * 60 - lastGetTime)/1000}秒"
+                    }
                 }
-            }
-            countDown.start()
+                countDown.start()
+
+            }, { error ->
+                hideLoading()
+                toastInfo("获取验证码失败：" + error.message)
+            })
         }
 
         modify.setOnClickListener {

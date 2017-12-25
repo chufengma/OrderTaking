@@ -80,8 +80,8 @@
                 android:layout_marginLeft="10dip"
                 android:id="@+id/mobile"
                 android:textColor="#fff"
+                android:textColorHint="#8fffffff"
                 android:background="@null"
-                android:text="15251698271"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -110,8 +110,8 @@
                 android:layout_width="match_parent"
                 android:id="@+id/password"
                 android:hint="密码"
+                android:textColorHint="#8fffffff"
                 android:layout_marginLeft="10dip"
-                android:text="123456"
                 android:textColor="#fff"
                 android:background="@null"
                 android:inputType="textPassword"

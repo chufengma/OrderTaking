@@ -1,6 +1,7 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -17,6 +18,7 @@ import android.support.v7.widget.RecyclerView
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 
 
+@SuppressLint("ValidFragment")
 /**
  * A simple [Fragment] subclass.
  */

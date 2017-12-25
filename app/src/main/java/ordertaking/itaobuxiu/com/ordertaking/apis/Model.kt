@@ -467,6 +467,15 @@ data class BuyerData(var todayBuyRate: Double, var todayBuyTotal: Int, var today
                      var allSellRate: Double, var allSellTotal: Int, var allSellGet: Int, var allSellMiss: Int, var cooperation : List<BuyerCompany>
 )
 
+data class SellerData(var todaySellQuote: Int, var todaySellValid: Int, var todaySellMiss: Int, var todaySellRate:Double,
+                      var monthSellQuote: Int, var monthSellValid: Int, var monthSellMiss: Int, var monthSellRate:Double,
+                      var sellQuote: Int, var sellValid: Int, var sellMiss: Int, var sellRate:Double,
+                      var todayOfferQuote: Int, var todayOfferGet: Int, var todayOfferNever: Int, var todayOfferRate:Double,
+                      var monthOfferAll: Int, var monthOfferGet: Int, var monthOfferNot: Int, var monthOfferRate:Double,
+                      var offerAll: Int, var offerGet: Int, var offerNot: Int, var offerRate:Double
+)
+
+
 data class BuyerCompany(
         var companyName: String, var coopLveve: String
 )

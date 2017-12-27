@@ -43,6 +43,10 @@ class MainActivity : BaseActivity() {
 
         setContentView(R.layout.activity_main)
         initMainLayout()
+
+        viewPager.postDelayed({
+            dealWithPushIntent(intent)
+        }, 300)
     }
 
 
@@ -141,6 +145,18 @@ class MainActivity : BaseActivity() {
             var newIntent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(newIntent)
+        }
+        dealWithPushIntent(intent)
+    }
+
+    fun dealWithPushIntent(intent: Intent?) {
+        var code: String? = intent?.getStringExtra("pushCode")
+        if (!code.isNullOrBlank()) {
+            if (code == "1" || code == "3") {
+                viewPager.currentItem = 2
+            } else if (code == "2" || code == "5") {
+                viewPager.currentItem = 1
+            }
         }
     }
 }

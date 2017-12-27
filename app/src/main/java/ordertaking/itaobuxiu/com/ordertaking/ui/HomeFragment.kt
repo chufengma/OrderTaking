@@ -48,6 +48,9 @@ class HomeFragment: Fragment() {
     var marketPriceAdapter: MarketPriceAdapter?= null
     var ironInfoAdapter: IronInfoAdapter?= null
 
+    var homeDataAll: HomeSellerDataAll? = null
+
+
     var refreshTodayData = {
         priceLoading.visibility = View.VISIBLE
         networkWrap(Network.create(HomeApiService::class.java)?.getPriceToday())
@@ -114,25 +117,8 @@ class HomeFragment: Fragment() {
                 ?.subscribe(
                         { result ->
                             Log.e("refreshSellerData",  "${daySellers.isSelected},${allSellers.isSelected}")
-                            if (!allSellers.isSelected) {
-                                if (result.data.day != null && result.data.day.size > 0) {
-                                    var allData = mutableListOf<List<HomeSellerDataItem>>()
-                                    allData.add(result.data.day.subList(0, if (result.data.day.size >= 4) 4 else result.data.day.size))
-                                    if (result.data.day.size > 4) {
-                                        allData.add(result.data.day.subList(4, if (result.data.day.size >= 8) 8 else result.data.day.size))
-                                    }
-                                    sellerAdapter?.updateData(allData)
-                                }
-                            } else {
-                                if (result.data.all != null && result.data.all.size > 0) {
-                                    var allData = mutableListOf<List<HomeSellerDataItem>>()
-                                    allData.add(result.data.all.subList(0, if (result.data.all.size >= 4) 4 else result.data.all.size))
-                                    if (result.data.all.size > 4) {
-                                        allData.add(result.data.all.subList(4, if (result.data.all.size >= 8) 8 else result.data.all.size))
-                                    }
-                                    sellerAdapter?.updateData(allData)
-                                }
-                            }
+                            homeDataAll = result.data
+                            daySellers.performClick()
                         },
                         {
 
@@ -253,15 +239,28 @@ class HomeFragment: Fragment() {
         daySellers.setOnClickListener {
             daySellers.isSelected = true
             allSellers.isSelected = false
-            refreshSellerData()
+                if (homeDataAll?.day != null && homeDataAll?.day?.size!! > 0) {
+                    var allData = mutableListOf<List<HomeSellerDataItem>>()
+                    allData.add(homeDataAll?.day?.subList(0, (if (homeDataAll?.day?.size!! >= 4) 4 else homeDataAll?.day?.size)!!)!!)
+                    if (homeDataAll?.day?.size!! > 4) {
+                        allData.add(homeDataAll?.day?.subList(4, (if (homeDataAll?.day?.size!! >= 8) 8 else homeDataAll?.day?.size)!!)!!)
+                    }
+                    sellerAdapter?.updateData(allData)
+                }
         }
 
         allSellers.setOnClickListener {
             allSellers.isSelected = true
             daySellers.isSelected = false
-            refreshSellerData()
+            var allData = mutableListOf<List<HomeSellerDataItem>>()
+            allData.add(homeDataAll?.all?.subList(0, (if (homeDataAll?.all?.size!! >= 4) 4 else homeDataAll?.all?.size)!!)!!)
+            if (homeDataAll?.all?.size!! > 4) {
+                allData.add(homeDataAll?.all?.subList(4, (if (homeDataAll?.all?.size!! >= 8) 8 else homeDataAll?.all?.size)!!)!!)
+            }
+            sellerAdapter?.updateData(allData)
         }
 
+        refreshSellerData()
     }
 
     private fun setupGripView() {

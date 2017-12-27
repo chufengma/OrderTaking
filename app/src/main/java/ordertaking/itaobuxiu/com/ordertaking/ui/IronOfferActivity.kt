@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
+import android.text.InputFilter
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -50,6 +51,8 @@ class IronOfferActivity : BaseActivity() {
         }
 
         update(ironOffer)
+
+        offerRemark.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(35))
 
         historyOffers.setOnClickListener {
             var intent = Intent(this@IronOfferActivity, IronOfferHistoryActivity::class.java)
@@ -193,13 +196,20 @@ class IronOfferActivity : BaseActivity() {
                 toastInfo("价格必须大于0")
                 return@lit
             }
-            if (currentUnit == null || currentProPlace == null || price.isNullOrBlank()) {
-                toastInfo("请补充报价信息")
+            var needTo = false
+            if (data?.ironTypeName == "不锈钢板" || data?.ironTypeName == "不锈钢卷") {
+                needTo = true
+            }
+            if (currentUnit == null || currentProPlace == null || price.isNullOrBlank() || (needTo && offerTo.text.toString().isNullOrBlank())) {
+                toastInfo("请补充完整报价信息")
                 return@lit
             }
             showLoading()
-            networkWrap(Network.create(IronBuyOfferService::class.java)?.postOffer(ironOffer?.id!!,
-                    price, "", to.text.toString(),
+            networkWrap(Network.create(IronBuyOfferService::class.java)?.postOffer(
+                    ironOffer?.id!!,
+                    price,
+                    "",
+                    offerTo.text.toString(),
                     currentProPlace?.id,
                     currentProPlace?.name,
                     offerRemark.text?.toString(),

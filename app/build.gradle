@@ -13,7 +13,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
-        versionName "0.0.2"
+        versionName "0.0.3"
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -26,6 +26,13 @@ android {
                 JPUSH_APPKEY : "c0bf5e513180b29c2df47dc8", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 
 

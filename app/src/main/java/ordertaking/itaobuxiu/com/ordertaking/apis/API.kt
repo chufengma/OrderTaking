@@ -138,6 +138,14 @@ interface UserApiService {
     @FormUrlEncoded
     @POST("/demands/query/findAllPro")
     fun findAllPro(@Field("mobile") mobile: String): Observable<Response<List<Youhui>>>
+
+    @FormUrlEncoded
+    @POST("/api/main/applyQualityControl")
+    fun postQu(@Field("inDoorTime") inDoorTime: String,
+               @Field("place") place: String,
+               @Field("company") company: String,
+               @Field("contactName") contactName: String,
+               @Field("contactPhone") contactPhone: String): Observable<Response<Object>>
 }
 
 interface IronRequestService {

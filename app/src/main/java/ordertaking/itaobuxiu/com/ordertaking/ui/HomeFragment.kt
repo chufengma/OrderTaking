@@ -201,6 +201,10 @@ class HomeFragment: Fragment() {
         offer.setOnClickListener {
             (context as MainActivity).gotoPage(2)
         }
+
+        qu.setOnClickListener {
+            startActivity(Intent(context, QuHelperActivity::class.java))
+        }
     }
 
     private fun refreshAllData() {

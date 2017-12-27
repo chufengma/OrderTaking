@@ -59,9 +59,6 @@ class SelectAreaDialog(context: Context?) : Dialog(context, R.style.Dialog) {
         provicesAdapter?.setOnCitySelectedListener(object : OnCityDescItemClickListener {
             override fun citySelected(cityModel: CityDescData?) {
                 currentProvice = cityModel
-                provices.visibility = View.GONE
-                dis.visibility = View.GONE
-                cities.visibility = View.VISIBLE
                 if (cityModel?.children != null && !cityModel?.children?.isEmpty()!!) {
                     cityAdapter?.updateData(cityModel?.children!!)
                 } else {
@@ -77,9 +74,6 @@ class SelectAreaDialog(context: Context?) : Dialog(context, R.style.Dialog) {
         cityAdapter?.setOnCitySelectedListener(object : OnCityDescItemClickListener {
             override fun citySelected(cityModel: CityDescData?) {
                 currentCity = cityModel
-                provices.visibility = View.GONE
-                dis.visibility = View.VISIBLE
-                cities.visibility = View.GONE
                 if (cityModel?.children != null && !cityModel?.children?.isEmpty()!!) {
                     areaAdapter?.updateData(cityModel?.children!!)
                 } else {

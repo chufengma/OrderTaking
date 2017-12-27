@@ -93,8 +93,12 @@ class IronBuyDetailActivity : BaseActivity() {
 
         right.setOnClickListener {
             var user: UserInfo? = Hawk.get(LOGIN_USER)
-            showCall(user?.sellManTel)
+            showCall(user?.sellManTel, user?.sellManName)
         }
+
+        right.postDelayed({
+            mainContent.scrollTo(0, 0)
+        }, 100)
     }
 
     fun updateData() {
@@ -143,13 +147,14 @@ class IronBuyDetailActivity : BaseActivity() {
         remark?.text = data?.remark
         location?.text = data?.locationName
 
+
         unit?.text = when {
             data?.numbers.isNullOrBlank() && !data?.weights.isNullOrBlank() -> "${data?.weights}${data?.weightUnit}"
             !data?.numbers.isNullOrBlank() && data?.weights.isNullOrBlank() -> "${data?.numbers}${data?.numberUnit}"
             else -> "${data?.numbers}${data?.numberUnit}/${data?.weights}${data?.weightUnit}"
         }
 
-        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)
+        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
         doneTimeBig?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)
 
         var changeEnable = { enable: Boolean ->
@@ -211,6 +216,7 @@ class IronBuyDetailActivity : BaseActivity() {
 
                 doneCompanyLayout.visibility = View.VISIBLE
 
+
                 var ironSellInfoSuccess = data?.ironSell?.validSell?.get(0)
                 donePrice.text = ironSellInfoSuccess?.offerPerPrice
                 unitBig.text = "元/${ironSellInfoSuccess?.baseUnit}"
@@ -222,9 +228,14 @@ class IronBuyDetailActivity : BaseActivity() {
                 chengBig.visibility = if (ironSellInfoSuccess?.isFaithUser == "1") View.VISIBLE else View.GONE
                 companyNameBig.text = ironSellInfoSuccess?.companyName
 
+                companyNameBig.setOnClickListener {
+                    CompanyDialog(ironSellInfoSuccess?.companyName, ironSellInfoSuccess?.level, this).show()
+                }
+
                 contactSellBig.setOnClickListener {
                     showCall(ironSellInfoSuccess?.contactNum)
                 }
+
 
                 slideOne.setBackgroundResource(R.drawable.iron_buy_detail_done_bg)
                 titleLayout.setBackgroundResource(R.drawable.iron_buy_detail_done_bg)

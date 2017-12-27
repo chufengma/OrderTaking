@@ -117,6 +117,11 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
         fetchData(false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshData()
+    }
+
     fun fetchData(withLoading: Boolean) {
         if (withLoading) {
             (activity as BaseActivity).showLoading()

@@ -49,6 +49,12 @@ class MeFragment: Fragment() {
                 (context as BaseActivity).gotoLoginActivity()
             }
         }
+
+        configSwipe(meSwipeRefreshLayout)
+
+        meSwipeRefreshLayout.setOnRefreshListener {
+            updateViews()
+        }
     }
 
     fun updateViews() {
@@ -63,7 +69,7 @@ class MeFragment: Fragment() {
            salesMan.text = user?.sellManTel
 
            salesMan.setOnClickListener {
-               (context as BaseActivity).showCall(user?.sellManTel)
+               (context as BaseActivity).showCall(user?.sellManTel, user?.sellManName)
            }
 
            switchBuyer.setOnClickListener {
@@ -76,8 +82,10 @@ class MeFragment: Fragment() {
                    ?.subscribe({ result->
                        setupLevels(sellerHuoyueLayout, result.data.level!!)
                        setupLevels(buyerHuoyueLayout, result.data.day!!)
+                       meSwipeRefreshLayout.isRefreshing = false
                    }, { error ->
                        // doNothing
+                       meSwipeRefreshLayout.isRefreshing = false
                    })
        } else {
            unLoginLayout.visibility = View.VISIBLE
@@ -150,6 +158,7 @@ class MeFragment: Fragment() {
     }
 
     fun setupLevels(layout: LinearLayout, day: String) {
+        layout.removeAllViews()
         var levelArray = day.split("-")
         var level = levelArray[0].toInt()
         var levelNum = levelArray[1].toInt()

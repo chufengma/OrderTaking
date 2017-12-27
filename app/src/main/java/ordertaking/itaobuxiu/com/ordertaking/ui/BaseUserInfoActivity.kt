@@ -41,7 +41,7 @@ class BaseUserInfoActivity : BaseActivity() {
         var userInfo: UserInfo = Hawk.get(LOGIN_USER)
 
         companyName.text = userInfo?.buserInfo?.companyName
-        userName.text = userInfo?.name
+        userName.text = userInfo?.mobile
 
         contact.setText(userInfo?.buserInfo?.contact)
         tel.setText(userInfo?.buserInfo?.contactNum)

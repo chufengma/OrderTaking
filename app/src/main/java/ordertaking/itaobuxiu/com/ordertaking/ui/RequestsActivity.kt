@@ -49,20 +49,29 @@ class RequestsActivity : BaseActivity() {
 
             override fun onCopy(request: PostRequestBean) {
                 runOnUiThread {
-                    saveRequest(request.copy(id()))
-                    updateData()
+                    gotoNewRequest(this@RequestsActivity, request.copy(id()), false)
                 }
             }
         })
 
         selectAll.setOnCheckedChangeListener { buttonView, isChecked ->
             var checkedCount = adapter?.getAllData()?.count { request -> request.localCheck }
-            if (checkedCount == adapter?.getAllData()?.size || checkedCount == 0) {
-                adapter?.getAllData()?.forEach { item ->
-                    item.localCheck = isChecked
-                }
+//            if (checkedCount == adapter?.getAllData()?.size || checkedCount == 0) {
+//                adapter?.getAllData()?.forEach { item ->
+//                    item.localCheck = isChecked
+//                }
+//            }
+            if (checkedCount != adapter?.getAllData()?.size && !isChecked) {
+                return@setOnCheckedChangeListener
             }
-            adapter?.notifyDataSetChanged()
+
+            adapter?.getAllData()?.forEach { item ->
+                item.localCheck = isChecked
+            }
+            postALl.postDelayed({
+                adapter?.notifyDataSetChanged()
+            }, 200)
+
             checkData(false)
         }
 
@@ -139,7 +148,16 @@ class RequestsActivity : BaseActivity() {
         }
 
         checkCount()
-        adapter?.updateData(getLocalRuquests().requests)
+        var list: MutableList<PostRequestBean> = getLocalRuquests().requests;
+        list.forEach { a ->
+            adapter?.getAllData()?.forEach { b->
+                if (a.localId.equals(b.localId)) {
+                    a.localCheck = b.localCheck
+                }
+            }
+        }
+
+        adapter?.updateData(list)
         updateDeletFlag()
     }
 

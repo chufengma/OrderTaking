@@ -17,9 +17,6 @@ import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import org.jetbrains.anko.dip
 import java.text.SimpleDateFormat
-import android.text.style.ImageSpan
-import android.graphics.drawable.Drawable
-
 
 
 class IronOfferActivity : BaseActivity() {
@@ -73,12 +70,9 @@ class IronOfferActivity : BaseActivity() {
 
         right.setOnClickListener {
             var user: UserInfo? = Hawk.get(LOGIN_USER)
-            showCall(user?.sellManTel)
+            showCall(user?.sellManTel, user?.sellManName)
         }
 
-        offerDetailCompanyLayout.setOnClickListener {
-            CompanyDialog(ironOffer?.companyName, ironOffer?.level, this@IronOfferActivity).show()
-        }
     }
 
     fun setupLevels(layout: LinearLayout, day: String) {
@@ -193,10 +187,15 @@ class IronOfferActivity : BaseActivity() {
             updateActions()
         }
 
-        var saveOffer = {
+        var saveOffer = lit@{
             var price = offerPrice?.text?.toString()
+            if (!price.isNullOrBlank() && price?.toDouble()!! <= 0) {
+                toastInfo("价格必须大于0")
+                return@lit
+            }
             if (currentUnit == null || currentProPlace == null || price.isNullOrBlank()) {
                 toastInfo("请补充报价信息")
+                return@lit
             }
             showLoading()
             networkWrap(Network.create(IronBuyOfferService::class.java)?.postOffer(ironOffer?.id!!,
@@ -252,7 +251,7 @@ class IronOfferActivity : BaseActivity() {
                 ignore?.visibility = View.GONE
 
                 updateTime()
-
+                buyerCompanyName?.text = "买家公司"
                 var countDonw = object : CountDownTimer(ironOffer?.createTime?.plus(ironOffer?.timeLimit?.toLong()!!)!! - System.currentTimeMillis()!!, 1000) {
                     override fun onFinish() {
                         toastInfo("该求购已失效")
@@ -301,6 +300,10 @@ class IronOfferActivity : BaseActivity() {
                 normalPriceLayout.visibility = View.VISIBLE
                 donePriceLayout.visibility = View.GONE
                 normalFill()
+
+                offerDetailCompanyLayout.setOnClickListener {
+                    CompanyDialog(ironOffer?.companyName, ironOffer?.level, this@IronOfferActivity).show()
+                }
             }
             2 -> {
                 changeEnable(true)
@@ -319,6 +322,9 @@ class IronOfferActivity : BaseActivity() {
                 }
 
                 doneFill()
+                offerDetailCompanyLayout.setOnClickListener {
+                    CompanyDialog(ironOffer?.companyName, ironOffer?.level, this@IronOfferActivity).show()
+                }
             }
             else -> {
                 changeEnable(false)

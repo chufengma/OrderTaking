@@ -53,8 +53,6 @@ class SelectCityDialog(context: Context?) : Dialog(context, R.style.Dialog) {
             override fun citySelected(cityModel: CityModel?) {
                 currentProvice = cityModel
                 findCity()
-                provices.visibility = View.GONE
-                cities.visibility = View.VISIBLE
             }
         })
 

@@ -325,6 +325,8 @@ class HomeFragment: Fragment() {
         dataSet.axisDependency = YAxis.AxisDependency.LEFT
         dataSet.setDrawCircles(false)
         dataSet.lineWidth = 1f
+        dataSet.setDrawCircles(true)
+        dataSet.setCircleColor(Color.WHITE)
         dataSet.color = Color.WHITE
 
         chart.description.isEnabled = false

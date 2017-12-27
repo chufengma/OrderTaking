@@ -11,7 +11,7 @@ class IronOfferHistoryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_iron_buy_history)
+        setContentView(R.layout.activity_iron_seller_history)
         useNormalBack()
 
         var info: SellerOfferInfoListItem = intent.getSerializableExtra("sellerOffer") as SellerOfferInfoListItem
@@ -20,7 +20,6 @@ class IronOfferHistoryActivity : BaseActivity() {
         historyRecycler.adapter = adapter
         adapter.updateData(info.ironSell!!)
 
-        companyName?.text = info.companyName
     }
 
 }

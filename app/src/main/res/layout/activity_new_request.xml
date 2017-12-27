@@ -285,7 +285,6 @@
                         android:text="公差"
                         android:textColor="#333"
                         android:textSize="16dip"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content" />
 
                     <EditText
@@ -295,6 +294,8 @@
                         android:id="@+id/to"
                         android:background="@null"
                         android:textColor="#333"
+                        android:gravity="right"
+                        android:layout_weight="1"
                         android:textSize="16dip"
                         android:layout_height="wrap_content" />
 
@@ -321,7 +322,6 @@
                         android:text="数量"
                         android:textColor="#333"
                         android:textSize="16dip"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content" />
 
                     <EditText
@@ -332,7 +332,9 @@
                         android:background="@null"
                         android:textColor="#333"
                         android:textSize="16dip"
-                        android:inputType="number"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
                         android:layout_height="wrap_content" />
 
                     <TextView
@@ -363,7 +365,6 @@
                         android:text="重量"
                         android:textColor="#333"
                         android:textSize="16dip"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content" />
 
                     <EditText
@@ -374,7 +375,9 @@
                         android:background="@null"
                         android:textColor="#333"
                         android:textSize="16dip"
-                        android:inputType="number"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
                         android:layout_height="wrap_content" />
 
                     <TextView
@@ -460,6 +463,7 @@
             android:paddingTop="10dip"
             android:paddingBottom="10dip"
             android:clickable="true"
+            android:textColor="@color/main_blue"
             android:gravity="center"
             android:layout_height="wrap_content" />
         <TextView
@@ -484,6 +488,7 @@
             android:layout_margin="10dip"
             android:paddingTop="10dip"
             android:paddingBottom="10dip"
+            android:textColor="@color/main_blue"
             android:visibility="gone"
             android:clickable="true"
             android:gravity="center"

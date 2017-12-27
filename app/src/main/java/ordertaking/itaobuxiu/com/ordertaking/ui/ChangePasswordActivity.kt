@@ -38,7 +38,7 @@ class ChangePasswordActivity : BaseActivity() {
                     newPasswordConfirmStr))?.subscribe({ result ->
                 toastInfo("修改成功")
                 hideLoading()
-                finish()
+                gotoMainActivity()
             }, { error ->
                 hideLoading()
                 toastInfo("修改失败：" + error.message)

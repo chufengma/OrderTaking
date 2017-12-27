@@ -274,7 +274,8 @@ class IronBuyHistoryAdapter(var showDone: Boolean) : RecyclerView.Adapter<VHIron
 
     override fun onBindViewHolder(holder: VHIronBuyHistory?, position: Int) {
         holder?.update(data!![position])
-        holder?.doneFlag?.visibility = if (position == 0 && showDone) View.VISIBLE else View.GONE
+        holder?.doneFlag?.visibility = if (position == 0) View.VISIBLE else View.GONE
+        holder?.doneFlag?.setImageResource(if (position == 0 && showDone) R.drawable.ic_done else R.drawable.ic_new)
         holder?.downLine?.visibility = if (position == itemCount - 1) View.GONE else View.VISIBLE
     }
 
@@ -351,6 +352,9 @@ class IronBuyOfferAdapter(val buyStatus: Int) : RecyclerView.Adapter<VHIronBuyOf
         holder?.contact?.setOnClickListener {
             listener?.onContact(data!![position])
         }
+        holder?.comLayout?.setOnClickListener {
+            CompanyDialog(data!![position].companyName, data!![position].level, holder.itemView.context).show()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -396,6 +400,7 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var validLayout: View? = null
     var missText: View?=null
+    var comLayout: View?=null
 
     init {
         baoView = itemView.find(R.id.baoBig)
@@ -423,6 +428,7 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         validLayout = itemView.find(R.id.validLayout)
         missText = itemView.find(R.id.missText)
+        comLayout = itemView.find(R.id.comLayout)
     }
 
     fun update(buyInfoStatus:Int, data: IronBuySellerInfo?) {
@@ -431,7 +437,6 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
             baoView?.visibility = if (data?.isGuaranteeUser == "1") View.VISIBLE else View.GONE
             chengView?.visibility = if (data?.isFaithUser == "1") View.VISIBLE else View.GONE
 
-            offerTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
 
             price?.text = data?.offerPerPrice
             unit?.text = "元/${data?.baseUnit}"
@@ -439,9 +444,11 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
             to?.text = if (data?.tolerance.isNullOrBlank()) "--" else data?.tolerance
             proPlace?.text = data?.proInfo
             remark?.text = data?.offerRemark
-            offerNew?.visibility = if (data?.hasNewOffer == "1") View.VISIBLE else View.GONE
+            offerNew?.visibility = if (data?.hasNewOffer == "0") View.VISIBLE else View.GONE
 
         }
+
+        offerTime?.text = SimpleDateFormat("MM-dd HH:mm").format(data?.createTime)
 
         offerHistory?.visibility = if (data?.ironSell == null || data?.ironSell!!.isEmpty()) View.GONE else View.VISIBLE
 
@@ -477,6 +484,8 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 actionLine?.visibility = View.VISIBLE
                 offerHolder?.visibility = View.VISIBLE
                 offerDoneFlag?.visibility = View.GONE
+
+                choose?.visibility = View.VISIBLE
             }
             2 -> {
                 changeEnable(true)
@@ -489,6 +498,7 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     offerHolder?.visibility = View.VISIBLE
                     offerDoneFlag?.visibility = View.GONE
                 }
+                choose?.visibility = View.GONE
             }
             else -> {
                 changeEnable(false)
@@ -628,7 +638,7 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
             else -> "${data?.numbers}${data?.numberUnit}/${data?.weights}${data?.weightUnit}"
         }
 
-        new?.visibility = if (data?.hasNewoffer == 0) View.VISIBLE else View.GONE
+        new?.visibility = if (data?.hasNewOffer.equals("0")) View.VISIBLE else View.GONE
         updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)
 
         var changeEnable = { enable: Boolean ->
@@ -661,7 +671,7 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 doneText?.visibility = View.VISIBLE
                 endText?.visibility = View.GONE
                 doingLayout?.visibility = View.GONE
-                doneText?.text = "￥${if (data?.ironSell?.validSell?.get(0)?.offerPrice.isNullOrBlank()) data?.ironSell?.validSell?.get(0)?.offerPerPrice else data?.ironSell?.validSell?.get(0)?.offerPrice }"
+                doneText?.text = "￥${data?.ironSell?.validSell?.get(0)?.offerPerPrice}"
                 changeEnable(true)
 
                 copy?.visibility = View.VISIBLE
@@ -803,6 +813,9 @@ class PostRequestAdapter : RecyclerView.Adapter<VHPostRequest>() {
         }
         holder?.selectFlag?.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                if (position >= data?.size!!) {
+                    return
+                }
                 data!![position].localCheck = isChecked
                 this@PostRequestAdapter.listener?.onCheckChange(data!![position], isChecked)
             }
@@ -946,7 +959,11 @@ class VHSpec(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun update(data: SuggestSpecModel) {
-        text?.text = "${data.height}*${data.weight}*${data.length}"
+        if (data.weight.isNullOrBlank()) {
+            text?.text = "${data.height}*${data.length}"
+        } else {
+            text?.text = "${data.height}*${data.weight}*${data.length}"
+        }
     }
 
 }

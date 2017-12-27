@@ -21,13 +21,16 @@ class ForgetActivity : BaseActivity() {
 
 
         if (System.currentTimeMillis() - lastGetTime <= 1000 * 60) {
-            var countDown = object: CountDownTimer(lastGetTime + 1000 * 60, 1000) {
+            var countDown = object: CountDownTimer(1000 * 60, 1000) {
                 override fun onFinish() {
                     codeBtn.isEnabled = true
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
-                    codeBtn.text = "剩余${(System.currentTimeMillis() + 1000 * 60 - lastGetTime)/1000}秒"
+                    codeBtn.text = "剩余${(lastGetTime + 1000 * 60 - System.currentTimeMillis())/1000}秒"
+                    if ((lastGetTime + 1000 * 60 - System.currentTimeMillis()/1000) <= 0) {
+                        codeBtn.isEnabled = true
+                    }
                 }
             }
 
@@ -58,7 +61,7 @@ class ForgetActivity : BaseActivity() {
                     }
 
                     override fun onTick(millisUntilFinished: Long) {
-                        codeBtn.text = "剩余${(System.currentTimeMillis() + 1000 * 60 - lastGetTime)/1000}秒"
+                        codeBtn.text = "剩余${(lastGetTime + 1000 * 60 - System.currentTimeMillis())/1000}秒"
                     }
                 }
                 countDown.start()

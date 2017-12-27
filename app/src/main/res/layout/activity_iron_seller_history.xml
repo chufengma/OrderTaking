@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg"
+    android:orientation="vertical"
+    tools:context="ordertaking.itaobuxiu.com.ordertaking.ui.RequestHistoryActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:layout_height="@dimen/title_height">
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="@dimen/title_height"
+            android:padding="15dip"
+            android:src="@drawable/ic_back_arrow"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="@dimen/title_height"
+            android:clickable="true"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="历史报价"
+            android:layout_weight="1"
+            android:textSize="18dip" />
+
+        <TextView
+            android:id="@+id/right"
+            android:padding="15dip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/title_height"
+            android:clickable="true"
+            android:visibility="invisible"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textColor="@color/main_blue"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="30dip"
+            android:orientation="vertical"
+            android:id="@+id/lineLayout"
+            android:gravity="center_horizontal"
+            android:layout_height="20dip">
+            <View
+                android:layout_width="1dip"
+                android:background="#ddd"
+                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/historyRecycler"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

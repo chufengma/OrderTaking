@@ -3,6 +3,7 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_new_request.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
@@ -19,12 +20,28 @@ class NewRequestActivity : BaseActivity() {
     var editFlag: Boolean = false
     var ironInfo: IronBuyInfo? = null
 
+    var needGot = true
+    var displayedBackDialog = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_request)
         useNormalBack()
 
         postRequestBean = intent.getSerializableExtra("postRequestBean") as PostRequestBean?
+
+        var localRequests = getLocalRuquests()
+        var request = localRequests.requests.find { request ->
+            return@find request.localId == postRequestBean?.localId
+        }
+
+        if (request == null && localRequests.requests.size >= 6) {
+            toastInfo("单次最多只能发布6条")
+            needGot = false
+            finish();
+            return
+        }
+
         ironInfo = intent.getSerializableExtra("ironInfo") as IronBuyInfo?
         if (postRequestBean == null) {
             postRequestBean = PostRequestBean()
@@ -151,9 +168,14 @@ class NewRequestActivity : BaseActivity() {
                 toast(this, "请先选择品名和表面", TastyToast.INFO)
                 return@setOnClickListener
             }
+            intent.putExtra("weight", if (postRequestBean?.width == null) "" else postRequestBean?.width)
+            intent.putExtra("height", if (postRequestBean?.height == null) "" else postRequestBean?.height)
+            intent.putExtra("length", if (postRequestBean?.length == null) "" else postRequestBean?.length)
+
             intent.putExtra("ironId", postRequestBean?.ironType?.id)
             intent.putExtra("surfaceId", postRequestBean?.surfaceModel?.id)
             intent.putExtra("banjuan", postRequestBean?.ironType?.name == "不锈钢板" || postRequestBean?.ironType?.name == "不锈钢卷")
+
             startActivityForResult(intent, 1000)
         }
 
@@ -180,8 +202,11 @@ class NewRequestActivity : BaseActivity() {
 
         save.setOnClickListener {
             if (doCheck()) {
-                saveRequest(postRequestBean)
-                toastInfo("保存成功")
+                if (saveRequest(postRequestBean)) {
+                    toastInfo("保存成功")
+                } else {
+                    toastInfo("单次最多只能发布6条")
+                }
                 finish()
             }
         }
@@ -286,6 +311,14 @@ class NewRequestActivity : BaseActivity() {
             toastInfo("数量和重量，至少选择其中一项")
             return false
         }
+        if (!postRequestBean?.weights.isNullOrBlank() && postRequestBean?.weights?.toDouble()!! <= 0) {
+            toastInfo("数量和重量必须大于0")
+            return false
+        }
+        if (!postRequestBean?.numbers.isNullOrBlank() && postRequestBean?.numbers?.toDouble()!! <= 0) {
+            toastInfo("数量和重量必须大于0")
+            return false
+        }
         if ((postRequestBean?.ironType?.name == "不锈钢板" || postRequestBean?.ironType?.name == "不锈钢卷")
                 && postRequestBean?.tolerance.isNullOrBlank()) {
             toastInfo("请填写公差")
@@ -293,6 +326,25 @@ class NewRequestActivity : BaseActivity() {
         }
         postRequestBean?.remark = comment.text.toString().trim()
         return true
+    }
+
+    override fun onBackPressed() {
+            AlertDialog.Builder(this)
+                    .setMessage("本条求购尚未提交，确定要离开吗？")
+                    .setPositiveButton("确定") { dialog, which ->
+                        finish()
+                    }
+                    .setNegativeButton("取消") { dialog, which ->
+                        displayedBackDialog = false
+                    }.show()
+    }
+
+    override fun finish() {
+        super.finish()
+        if (needGot) {
+            var intent = Intent(this, RequestsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

@@ -29,7 +29,15 @@ open class BaseActivity : AppCompatActivity() {
         this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        useNormalBack()
+    }
+
     fun useNormalBack() {
+        if (findViewById(R.id.backArrow) == null) {
+            return
+        }
         find<View>(R.id.backArrow)?.setOnClickListener {
             onBackPressed()
         }
@@ -94,6 +102,15 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showCall(num: String?) {
         AlertDialog.Builder(this).setMessage(num)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("呼叫", {dialog, which ->
+                    doCall(num)
+                    dialog.dismiss()
+                }).show()
+    }
+
+    fun showCall(num: String?, text: String?) {
+        AlertDialog.Builder(this).setMessage("${text}: ${num}")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("呼叫", {dialog, which ->
                     doCall(num)

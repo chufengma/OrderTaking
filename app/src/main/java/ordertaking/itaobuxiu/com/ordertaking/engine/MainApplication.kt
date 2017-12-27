@@ -6,7 +6,6 @@ import com.orhanobut.hawk.Hawk
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserInfo
-import ordertaking.itaobuxiu.com.ordertaking.apis.UserProfile
 
 /**
  * Created by dev on 2017/11/25.

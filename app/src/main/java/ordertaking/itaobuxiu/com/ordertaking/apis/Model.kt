@@ -28,7 +28,8 @@ data class UserInfo(
         var roleList: String?,                //类型：String?  必有字段  备注：无
         var sellManName: String?,                //类型：String?  必有字段  备注：无
         var sellManTel: String?,                //类型：String?  必有字段  备注：无
-        var buserInfo: UserProfile?
+        var buserInfo: UserProfile?,
+        var proInfo: String
 )
 
 data class UserLevel(
@@ -43,7 +44,7 @@ data class HomeAdsModelDataItem(val url: String)
 data class HomePriceData(val currentPrice: String, val createTime: Long)
 
 data class HomePriceMonthModel(val code: String, val message: String, val data: List<HomePriceMonthData>)
-data class HomePriceMonthData(val endPrice: String, val logTime: Long)
+data class HomePriceMonthData(val endPrice: String, val logTime: Long, val startPrice: String, val minPrice: String, val maxPrice: String)
 
 
 data class HomeSellerModel(val code: String, val message: String, val data: HomeSellerDataAll)
@@ -135,7 +136,7 @@ data class PostRequestHistoryBean(
         bean.numbers = numbers
         bean.weights = weights
         bean.unitModel = UnitModel(weightUnitId, weightUnit, weightUnit, numberUnitId, numberUnit, numberUnit)
-        bean.time = updateTime.toLong()
+        bean.time = createTime.toLong()
         return bean
     }
 
@@ -175,9 +176,9 @@ data class PostRequestBean(var localId: String = "",
                            var proPlaceModel: BaseIronInfo? = null,
                            var location: CityModel? = null,
                            var remark: String? = null,
-                           var length: String? = null,
-                           var width: String? = null,
-                           var height: String? = null,
+                           var length: String? = "",
+                           var width: String? = "",
+                           var height: String? = "",
                            var specifications: String? = null,
                            var tolerance: String? = null,
                            var timeLimit: String? = null,
@@ -263,7 +264,7 @@ data class IronBuyInfo(
         val buyStatus: Int?,                //类型：String?  必有字段  备注：求购状态（1进行中2成交3失效）
         val sellNum: String?,                //类型：Number  必有字段  备注：报价数（有几家公司与你竞价）
         val weightUnit: String?,               //类型：String?  必有字段  备注：重量单位
-        val hasNewoffer: Int?,
+        val hasNewOffer: String?,
         val ironSell: IronSellerListInfo?
 
 ) : Serializable {
@@ -479,6 +480,8 @@ data class SellerData(var todaySellQuote: Int, var todaySellValid: Int, var toda
 data class BuyerCompany(
         var companyName: String, var coopLveve: String
 )
+
+data class Youhui(var id: String?, var info: String?, var addTime: String?)
 
 const val USER_LOGIN_INFO = "user_login_info"
 const val LOGIN_USER = "login_user"

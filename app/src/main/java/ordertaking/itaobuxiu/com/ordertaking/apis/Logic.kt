@@ -88,13 +88,19 @@ fun getLocalRuquests(): LocalRequests {
         request = LocalRequests(mutableListOf())
         Hawk.put(LOCAL_REQUESTS, request)
     }
+    request.requests.forEach {
+        it.localCheck = false
+    }
     return request
 }
 
-fun saveRequest(newRequest: PostRequestBean?) {
+fun saveRequest(newRequest: PostRequestBean?): Boolean {
     var localRequests = getLocalRuquests()
     var request = localRequests.requests.find { request ->
         return@find request.localId == newRequest?.localId
+    }
+    if (request == null && localRequests.requests.size >= 6) {
+        return false
     }
     if (request != null) {
         localRequests.requests.remove(request)
@@ -103,6 +109,7 @@ fun saveRequest(newRequest: PostRequestBean?) {
         localRequests.requests.add(0, newRequest)
     }
     Hawk.put(LOCAL_REQUESTS, localRequests)
+    return true
 }
 
 fun deleteRequest(newRequest: PostRequestBean?) {

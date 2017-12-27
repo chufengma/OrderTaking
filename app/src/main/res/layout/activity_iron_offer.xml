@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="发布详情"
+                android:text="报价详情"
                 android:textColor="#000"
                 android:textSize="18dip" />
 
@@ -811,7 +811,7 @@
                         android:layout_height="wrap_content"
                         android:text="公差"
                         android:id="@+id/toDoneTitle"
-                        android:textColor="@color/iron_buy_color"
+                        android:textColor="#999999"
                         android:textSize="16dip" />
 
                     <TextView
@@ -842,7 +842,7 @@
                         android:layout_height="wrap_content"
                         android:text="产地"
                         android:id="@+id/proPlaceDoneTitle"
-                        android:textColor="@color/iron_buy_color"
+                        android:textColor="#999999"
                         android:textSize="16dip" />
 
                     <TextView
@@ -873,7 +873,7 @@
                         android:text="备注"
                         android:layout_gravity="start"
                         android:id="@+id/remarkDoneTitle"
-                        android:textColor="@color/iron_buy_color"
+                        android:textColor="#999999"
                         android:textSize="16dip" />
 
                     <TextView
@@ -922,6 +922,7 @@
             android:layout_weight="1"
             android:background="@drawable/post_normal_bg"
             android:clickable="true"
+            android:textColor="@color/main_blue"
             android:gravity="center"
             android:paddingBottom="10dip"
             android:paddingTop="10dip"

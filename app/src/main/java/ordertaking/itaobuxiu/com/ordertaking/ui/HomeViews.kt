@@ -68,7 +68,7 @@ class VHMarketPriceAll(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 price?.setTextColor(itemView.context.resources.getColor(R.color.main_red))
                 upDown?.setImageResource(R.drawable.ic_price_up_2)
             }
-            data?.gains == 1 -> {
+            data?.gains == 0 -> {
                 price?.setTextColor(itemView.context.resources.getColor(R.color.main_green))
                 upDown?.setImageResource(R.drawable.ic_price_down_2)
             }

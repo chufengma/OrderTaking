@@ -19,7 +19,6 @@ class IronBuyHistoryActivity : BaseActivity() {
         historyRecycler.layoutManager = LinearLayoutManager(this)
         historyRecycler.adapter = adapter
         adapter.updateData(info.ironSell!!)
-
         companyName?.text = info.companyName
     }
 

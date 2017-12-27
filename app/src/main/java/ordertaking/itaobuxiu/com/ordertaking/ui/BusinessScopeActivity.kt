@@ -74,6 +74,18 @@ class BusinessScopeActivity : BaseActivity() {
 
         networkWrap(Network.create(UserApiService::class.java)?.findMyScopes(""))?.subscribe({ result ->
             userData = result.data
+            if (userData?.ironType == null) {
+                userData?.ironType = mutableListOf()
+            }
+            if (userData?.surface == null) {
+                userData?.surface = mutableListOf()
+            }
+            if (userData?.material == null) {
+                userData?.material = mutableListOf()
+            }
+            if (userData?.proPlace == null) {
+                userData?.proPlace = mutableListOf()
+            }
             checkRequestCount()
         }, {
             checkRequestCount()

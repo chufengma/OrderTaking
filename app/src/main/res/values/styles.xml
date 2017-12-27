@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/main_blue</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
+
+        <item name="android:checkboxStyle">@style/CheckBoxSel</item>
     </style>
 
     <style name="Theme.AppCompat.Light.Dialog.Alert.Self"
@@ -26,6 +28,10 @@
         parent="@style/TextAppearance.AppCompat.Title">
         <item name="android:textSize">14dip</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CheckBoxSel" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
     </style>
 
 </resources>

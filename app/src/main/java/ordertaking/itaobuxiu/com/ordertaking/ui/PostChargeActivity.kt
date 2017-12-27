@@ -7,13 +7,11 @@ import android.text.TextWatcher
 import kotlinx.android.synthetic.main.activity_post_charge.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
-import ordertaking.itaobuxiu.com.ordertaking.apis.ChargeData
-import ordertaking.itaobuxiu.com.ordertaking.apis.UserApiService
-import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import android.text.InputFilter.LengthFilter
 import android.text.InputFilter
-import ordertaking.itaobuxiu.com.ordertaking.apis.toastInfo
+import com.orhanobut.hawk.Hawk
+import ordertaking.itaobuxiu.com.ordertaking.apis.*
 
 
 class PostChargeActivity : BaseActivity() {
@@ -27,7 +25,6 @@ class PostChargeActivity : BaseActivity() {
         chargeRecycler.layoutManager = LinearLayoutManager(this)
         adapter = ChargeAdapter()
         chargeRecycler.adapter = adapter
-
 
         adapter?.setOnChargeItemClickListener(object: OnChargeItemClickListener {
             override fun onChargeSelected(chargeData: ChargeData?) {
@@ -51,6 +48,13 @@ class PostChargeActivity : BaseActivity() {
         })
 
         fetchChargeInfos()
+
+
+        var user: UserInfo? = Hawk.get(LOGIN_USER)
+        if (!user?.buserInfo?.proInfo.isNullOrBlank()) {
+            chargeText.setText(user?.buserInfo?.proInfo)
+        }
+
 
         right.setOnClickListener {
             var text = chargeText.text.toString()
@@ -80,6 +84,14 @@ class PostChargeActivity : BaseActivity() {
         }, {
             hideLoading()
         })
+
+//        networkWrap(Network.create(UserApiService::class.java)?.findAllPro(""))?.subscribe({
+//            result ->
+//            if (result.data != null && result.data.size >= 1) {
+//                chargeText.setText(result.data.get(0).info)
+//            }
+//        }, {
+//        })
     }
 
 }

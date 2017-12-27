@@ -14,7 +14,7 @@ import retrofit2.http.*
  */
 interface HomeApiService {
 
-    @GET("/api/ad/findByGroupId?groupId=3202")
+    @GET("/api/ad/findByGroupId?groupId=5795")
     fun getHomeAdd(): Observable<Response<HomeAdsModelData>>
 
 
@@ -134,6 +134,10 @@ interface UserApiService {
     @FormUrlEncoded
     @POST("/login/validateMobile")
     fun forgetPassword(@Field("mobile") mobile: String, @Field("password") password: String, @Field("smsCode") smsCode: String): Observable<Response<Object>>
+
+    @FormUrlEncoded
+    @POST("/demands/query/findAllPro")
+    fun findAllPro(@Field("mobile") mobile: String): Observable<Response<List<Youhui>>>
 }
 
 interface IronRequestService {

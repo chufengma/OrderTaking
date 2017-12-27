@@ -295,7 +295,7 @@
             android:paddingBottom="3dip"
             android:layout_alignParentRight="true"
             android:text="抢单"
-            android:background="@drawable/iron_buy_info_item_action_bg"
+            android:background="@drawable/iron_buy_info_item_action_red_bg"
             android:textColor="@color/main_red"
             android:textSize="12dip" />
 

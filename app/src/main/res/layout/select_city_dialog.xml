@@ -1,72 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:gravity="bottom"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="350dip"
+        android:layout_alignParentBottom="true"
         android:background="#fff"
-        android:layout_height="@dimen/title_height">
+        android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:text="省份"
-            android:id="@+id/p"
-            android:gravity="center"
-            android:padding="5dip"
-            android:textSize="15dip"
-            android:textColor="@color/tab_color"
-            android:layout_height="match_parent" />
+            android:layout_height="350dip"
+            android:minWidth="100dip"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
+                android:id="@+id/p"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/title_height"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="省份"
+                android:textColor="@color/tab_color"
+                android:textSize="15dip" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/provices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:text="市区"
-            android:id="@+id/c"
-            android:gravity="center"
-            android:padding="5dip"
-            android:layout_marginLeft="15dip"
-            android:textSize="15dip"
-            android:textColor="@color/tab_color"
-            android:layout_toRightOf="@id/p"
-            android:layout_height="match_parent" />
+            android:layout_height="350dip"
+            android:layout_marginLeft="10dip"
+            android:minWidth="100dip"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
+                android:id="@+id/c"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/title_height"
+                android:layout_toRightOf="@id/p"
+                android:gravity="left|center_vertical"
+                android:padding="5dip"
+                android:text="市区"
+                android:textColor="@color/tab_color"
+                android:textSize="15dip" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cities"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:text="关闭"
-            android:gravity="center"
-            android:id="@+id/close"
-            android:textSize="15dip"
-            android:textColor="@color/main_blue"
-            android:layout_alignParentRight="true"
-            android:layout_height="match_parent" />
+            android:layout_height="350dip"
+            android:layout_gravity="bottom|right"
+            android:layout_marginLeft="10dip"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/title_height"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dip"
+                android:gravity="center"
+                android:text="关闭"
+                android:textColor="@color/main_blue"
+                android:textSize="15dip" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:background="#ccc"
-        android:layout_height="1dip" />
-    
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:background="#fff"
-        android:layout_height="300dip">
+        android:layout_height="1dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="300dip"
+        android:background="#ccc" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/provices"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/cities"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
-
-</LinearLayout>
+</RelativeLayout>

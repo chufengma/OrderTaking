@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/swipeLayout"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:background="#66ddff00"
         android:id="@+id/bottom_wrapper"
@@ -48,7 +49,10 @@
             android:layout_marginTop="10dip"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dip">
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingBottom="5dip"
+            android:paddingTop="10dip">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,7 +195,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="单位:"
+                        android:text="计量单位:"
                         android:textColor="#999" />
 
                     <TextView

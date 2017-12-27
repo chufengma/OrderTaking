@@ -117,7 +117,8 @@
             android:id="@+id/requestRecycler"
             android:background="#fff"
             android:layout_marginTop="10dip"
-            android:layout_height="wrap_content" />
+            android:layout_above="@+id/selectFromHistoryForNormal"
+            android:layout_height="match_parent" />
 
 
         <RelativeLayout

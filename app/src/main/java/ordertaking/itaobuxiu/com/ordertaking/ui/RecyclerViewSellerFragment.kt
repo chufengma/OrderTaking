@@ -65,7 +65,7 @@ class RecyclerViewSellerFragment(val buyStatus:Int, val today: Int) : Fragment()
             }
 
             override fun onContactBuyer(request: SellerOfferInfoListItem) {
-                (context as BaseActivity).showCall(request.contactNum)
+                (context as BaseActivity).showCall(request.contactNum, request.contact)
             }
 
             override fun onItemClick(request: SellerOfferInfoListItem) {
@@ -133,6 +133,11 @@ class RecyclerViewSellerFragment(val buyStatus:Int, val today: Int) : Fragment()
                     (activity as BaseActivity).hideLoading()
                     ironBuySwipeLayoutSeller.isRefreshing = false
                 })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshData()
     }
 
     fun updateData() {

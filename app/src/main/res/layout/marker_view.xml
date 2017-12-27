@@ -2,24 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dip"
     android:background="#fff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dip">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:textColor="#4F89E3"
+        android:layout_height="wrap_content"
         android:text="2017/02/14"
-        android:textSize="8dip"
-        android:layout_height="wrap_content" />
+        android:textColor="#4F89E3"
+        android:textSize="8dip" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:textColor="#4F89E3"
-        android:textSize="8dip"
         android:id="@+id/data"
-        android:text="当前价：￥100000.0"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前：￥100000.0"
+        android:textColor="#4F89E3"
+        android:textSize="8dip" />
 
+    <TextView
+        android:id="@+id/kaipan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开盘：￥100000.0"
+        android:textColor="#4F89E3"
+        android:textSize="8dip" />
+
+    <TextView
+        android:id="@+id/zuigao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最高：￥100000.0"
+        android:textColor="#4F89E3"
+        android:textSize="8dip" />
+
+    <TextView
+        android:id="@+id/zuidi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最低：￥100000.0"
+        android:textColor="#4F89E3"
+        android:textSize="8dip" />
+
+    <TextView
+        android:id="@+id/shoupan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收盘：￥100000.0"
+        android:textColor="#4F89E3"
+        android:textSize="8dip" />
 </LinearLayout>

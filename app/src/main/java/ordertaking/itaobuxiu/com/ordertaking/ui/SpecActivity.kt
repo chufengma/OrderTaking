@@ -29,8 +29,15 @@ class SpecActivity : BaseActivity() {
         var ironid = intent.getStringExtra("ironId")
         var surfaceId = intent.getStringExtra("surfaceId")
 
-        banjuan = intent.getBooleanExtra("banjuan", banjuan)
+        var weightStr: String = intent.getStringExtra("weight")
+        var heightStr: String = intent.getStringExtra("height")
+        var lengthStr: String = intent.getStringExtra("length")
 
+        height.setText(heightStr)
+        weight.setText(weightStr)
+        length.setText(lengthStr)
+
+        banjuan = intent.getBooleanExtra("banjuan", banjuan)
 
         banjuanLayout.visibility = if (banjuan) View.VISIBLE else View.GONE
         specLayout.visibility = if (banjuan) View.GONE else View.VISIBLE

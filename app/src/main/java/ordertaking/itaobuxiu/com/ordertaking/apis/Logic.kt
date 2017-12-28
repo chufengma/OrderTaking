@@ -63,6 +63,28 @@ fun gotoIronBuyDetail(context: Context, ironBuyInfo: IronBuyInfo) {
     context.startActivity(intent)
 }
 
+fun gotoSellerInfoPage(context: Context,
+                       companyNameStr: String?,
+                       huoyueStr: String?,
+                       chengStr: String?,
+                       baoStr: String?,
+                       contactStr: String?,
+                       contactTelStr: String?,
+                       proInfoStr: String?,
+                       placeStr: String?
+                       ) {
+    var intent = Intent(context, SellerInfoActivity::class.java)
+    intent.putExtra("huoyueStr", if (huoyueStr.isNullOrBlank()) "" else huoyueStr)
+    intent.putExtra("companyNameStr", if (companyNameStr.isNullOrBlank()) "" else companyNameStr)
+    intent.putExtra("chengStr", if (chengStr.isNullOrBlank()) "" else chengStr)
+    intent.putExtra("baoStr", if (baoStr.isNullOrBlank()) "" else baoStr)
+    intent.putExtra("contactStr", if (contactStr.isNullOrBlank()) "" else contactStr)
+    intent.putExtra("contactTelStr", if (contactTelStr.isNullOrBlank()) "" else contactTelStr)
+    intent.putExtra("proInfoStr", if (proInfoStr.isNullOrBlank()) "" else proInfoStr)
+    intent.putExtra("placeStr", if (placeStr.isNullOrBlank()) "" else placeStr)
+    context.startActivity(intent)
+}
+
 fun gotoIronOfferDetail(context: Context, sellerOffer: SellerOfferInfoListItem) {
     var intent = Intent(context, IronOfferActivity::class.java)
     intent.putExtra("sellerOffer", sellerOffer)

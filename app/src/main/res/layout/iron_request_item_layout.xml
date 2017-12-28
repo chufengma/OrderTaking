@@ -7,12 +7,11 @@
     <LinearLayout
         android:background="#66ddff00"
         android:id="@+id/bottom_wrapper"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:layout_height="match_parent">
         <TextView
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="80dip"
             android:text="复制"
             android:textColor="#fff"
             android:gravity="center"
@@ -20,8 +19,7 @@
             android:background="#ffc107"
             android:layout_height="match_parent" />
         <TextView
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="80dip"
             android:text="删除"
             android:textColor="#fff"
             android:id="@+id/delete"
@@ -195,7 +193,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="计量单位:"
+                        android:text="计量:"
                         android:textColor="#999" />
 
                     <TextView

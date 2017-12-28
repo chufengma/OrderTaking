@@ -87,6 +87,7 @@
                 android:paddingTop="10dip"
                 android:id="@+id/addFromHistory"
                 android:paddingBottom="10dip"
+                android:textColor="@color/main_blue"
                 android:clickable="true"
                 android:gravity="center"
                 android:layout_height="wrap_content" />

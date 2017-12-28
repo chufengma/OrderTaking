@@ -14,6 +14,7 @@ import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.BuyerCompany
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserApiService
+import ordertaking.itaobuxiu.com.ordertaking.apis.configCircle
 import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import org.jetbrains.anko.find
@@ -70,6 +71,9 @@ class DataActivity : BaseActivity() {
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
 
+            configCircle(todayRate)
+            configCircle(todayDoneRate)
+
             networkWrap(Network.create(UserApiService::class.java)?.getBuyerData(""))?.subscribe { result ->
                 result.data.cooperation.forEachIndexed { index, buyerCompany ->
                     sellerLayout.addView(createSellerItem(buyerCompany, index))
@@ -78,10 +82,11 @@ class DataActivity : BaseActivity() {
                 todayBuyTotal.setText("总报价量：${result.data.todayBuyTotal}")
                 todayMiss.setText("${result.data.todayBuyMiss}")
                 todayValid.setText("${result.data.todayBuyValid}")
-                todayRate.setDonut_progress((result.data.todayBuyRate).toInt().toString())
+
+                todayRate.showValue(result.data.todayBuyRate.toFloat(), 100f, true)
 
                 today.setOnClickListener {
-                    todayDoneRate.setDonut_progress((result.data.todaySellRate).toInt().toString())
+                    todayDoneRate.showValue(result.data.todaySellRate.toFloat(), 100f, true)
                     todayDone.setText("${result.data.todaySellGet}")
                     todayDoneFailed.setText("${result.data.todaySellMiss}")
                     todayDoneTotal.setText("总求购数：${result.data.todaySellTotal}")
@@ -91,7 +96,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 month.setOnClickListener {
-                    todayDoneRate.setDonut_progress((result.data.monthSellRate).toInt().toString())
+                    todayDoneRate.showValue(result.data.monthSellRate.toFloat(), 100f, true)
                     todayDone.setText("${result.data.monthSellGet}")
                     todayDoneFailed.setText("${result.data.monthSellMiss}")
                     todayDoneTotal.setText("总求购数：${result.data.monthSellTotal}")
@@ -101,7 +106,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 total.setOnClickListener {
-                    todayDoneRate.setDonut_progress((result.data.allSellRate).toInt().toString())
+                    todayDoneRate.showValue(result.data.allSellRate.toFloat(), 100f, true)
                     todayDone.setText("${result.data.allSellGet}")
                     todayDoneFailed.setText("${result.data.allSellMiss}")
                     todayDoneTotal.setText("总求购数：${result.data.allSellTotal}")
@@ -152,10 +157,13 @@ class DataActivity : BaseActivity() {
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
 
+            configCircle(quotaRate)
+            configCircle(offerRate)
+
             networkWrap(Network.create(UserApiService::class.java)?.getSellerData(""))?.subscribe { result ->
 
                 todayQuote.setOnClickListener {
-                    quotaRate.progress = ((result.data.todaySellRate).toFloat())
+                    quotaRate.showValue(result.data.todaySellRate.toFloat(), 100f, true)
                     quoteDone.setText("${result.data.todaySellValid}")
                     quoteMiss.setText("${result.data.todaySellMiss}")
                     quoteTotal.setText("总响应次数：${result.data.todaySellQuote}")
@@ -165,9 +173,9 @@ class DataActivity : BaseActivity() {
                 }
 
                 monthQuote.setOnClickListener {
-                    quotaRate.progress = ((result.data.monthSellRate).toFloat())
+                    quotaRate.showValue(result.data.monthSellRate.toFloat(), 100f, true)
                     quoteDone.setText("${result.data.monthSellValid}")
-                    quoteMiss.setText("${result.data.monthSellMiss}")
+                    quoteMiss.setText("${result.data.mothSellMiss}")
                     quoteTotal.setText("总响应次数：${result.data.monthSellQuote}")
                     todayQuote.isSelected = false
                     monthQuote.isSelected = true
@@ -175,7 +183,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 totalQuote.setOnClickListener {
-                    quotaRate.progress = ((result.data.sellRate).toFloat())
+                    quotaRate.showValue(result.data.sellRate.toFloat(), 100f, true)
                     quoteDone.setText("${result.data.sellValid}")
                     quoteMiss.setText("${result.data.sellMiss}")
                     quoteTotal.setText("总响应次数：${result.data.sellQuote}")
@@ -185,7 +193,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 todayOffer.setOnClickListener {
-                    offerRate.progress = ((result.data.todayOfferRate).toFloat())
+                    offerRate.showValue(result.data.todayOfferRate.toFloat(), 100f, true)
                     offerDone.setText("${result.data.todayOfferGet}")
                     offerMiss.setText("${result.data.todayOfferNever}")
                     offerTotal.setText("有效报价数：${result.data.todayOfferQuote}")
@@ -196,7 +204,7 @@ class DataActivity : BaseActivity() {
 
 
                 monthOffer.setOnClickListener {
-                    offerRate.progress = ((result.data.monthOfferRate).toFloat())
+                    offerRate.showValue(result.data.monthOfferRate.toFloat(), 100f, true)
                     offerDone.setText("${result.data.monthOfferGet}")
                     offerMiss.setText("${result.data.monthOfferNot}")
                     offerTotal.setText("有效报价数：${result.data.monthOfferAll}")
@@ -206,7 +214,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 totalOffer.setOnClickListener {
-                    offerRate.progress = ((result.data.offerRate).toFloat())
+                    offerRate.showValue(result.data.offerRate.toFloat(), 100f, true)
                     offerDone.setText("${result.data.offerGet}")
                     offerMiss.setText("${result.data.offerNot}")
                     offerTotal.setText("有效报价数：${result.data.offerAll}")

@@ -13,7 +13,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
-        versionName "0.0.3"
+        versionName "0.0.4"
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -22,9 +22,9 @@ android {
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "c0bf5e513180b29c2df47dc8", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
 

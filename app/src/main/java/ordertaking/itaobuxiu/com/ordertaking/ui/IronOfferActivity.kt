@@ -283,6 +283,7 @@ class IronOfferActivity : BaseActivity() {
                 normalFill()
             }
             1 -> {
+                buyerCompanyName?.text = "买家公司"
                 changeEnable(true)
                 missIt?.visibility = View.GONE
                 offerIt?.visibility = View.GONE
@@ -312,7 +313,14 @@ class IronOfferActivity : BaseActivity() {
                 normalFill()
 
                 offerDetailCompanyLayout.setOnClickListener {
-                    CompanyDialog(ironOffer?.companyName, ironOffer?.level, this@IronOfferActivity).show()
+                    gotoSellerInfoPage(this, ironOffer?.companyName, ironOffer?.level,
+                            ironOffer?.isFaithUser,
+                            ironOffer?.isGuaranteeUser
+                            ,ironOffer?.contact
+                            ,ironOffer?.contactNum
+                            ,ironOffer?.proInfo
+                            ,ironOffer?.storeHouseName
+                    )
                 }
             }
             2 -> {
@@ -333,10 +341,20 @@ class IronOfferActivity : BaseActivity() {
 
                 doneFill()
                 offerDetailCompanyLayout.setOnClickListener {
-                    CompanyDialog(ironOffer?.companyName, ironOffer?.level, this@IronOfferActivity).show()
+                    gotoSellerInfoPage(this,
+                            ironOffer?.companyName,
+                            ironOffer?.level,
+                            ironOffer?.isFaithUser,
+                            ironOffer?.isGuaranteeUser
+                            ,ironOffer?.contact
+                            ,ironOffer?.contactNum
+                            ,ironOffer?.proInfo
+                            ,ironOffer?.storeHouseName
+                    )
                 }
             }
             else -> {
+                buyerCompanyName?.text = "买家公司"
                 changeEnable(false)
 
                 doingLayout.visibility = View.GONE

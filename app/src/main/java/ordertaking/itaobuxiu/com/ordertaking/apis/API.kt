@@ -176,9 +176,17 @@ interface IronRequestService {
     @GET("/api/query/findIronAndSurfaceAndSpecificationlist")
     fun getSuggestSpec(@Query("surface") surface: String, @Query("ironType") ironType: String): Observable<Response<List<SuggestSpecModel>>>
 
+    @GET("/api/query/findIronAndSurfaceAndSpecificationHeightAndLength")
+    fun getSuggestSpec2(@Query("surface") surface: String, @Query("ironType") ironType: String): Observable<Response<List<SuggestSpecModel>>>
+
     @FormUrlEncoded
     @POST("/demands/ironBuy/saveIronBuyList")
     fun postAllRequest(@Field("ironBuyInfos") ironBuyInfos: String ?) : Observable<Response<Object>>
+
+
+    @FormUrlEncoded
+    @POST("/demands/ironBuy/queryIronSellInfoPage")
+    fun refreshIronBuyList(@Field("ironBuyId") ironBuyId: String ?) : Observable<Response<IronSellerListInfo>>
 
     @FormUrlEncoded
     @POST("/demands/ironBuy/saveAndUpdateIronBuy")
@@ -280,7 +288,9 @@ fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<
                 Log.e("HTTPResponse", Gson().toJson(response))
                 when(response.code) {
                     "403","401" -> {
-                        MainApplication.instance()?.getCurrentActivity()?.gotoLoginActivity()
+                        if (isLogin()) {
+                            MainApplication.instance()?.getCurrentActivity()?.gotoLoginActivity()
+                        }
                         clearLogin()
                         throw ResponseReturnErrorException(response.code, "请先登录")
                     }

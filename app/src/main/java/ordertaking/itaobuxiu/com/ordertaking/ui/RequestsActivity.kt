@@ -1,11 +1,13 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_requests.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
+import ordertaking.itaobuxiu.com.ordertaking.MainActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.engine.*
@@ -91,6 +93,13 @@ class RequestsActivity : BaseActivity() {
                                     toastInfo("发布成功")
                                     deleteAll()
                                     updateData()
+
+                                    val intent1 = Intent(this@RequestsActivity, MainActivity::class.java)
+                                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    intent1.putExtra("innerCode", "1")
+                                    startActivity(intent1)
+
+                                    finish()
                                 },
                                 { error ->
                                     hideLoading()
@@ -102,6 +111,7 @@ class RequestsActivity : BaseActivity() {
         right.setOnClickListener {
             deleteFlag = !deleteFlag
             updateDeletFlag()
+            adapter?.setNeedCopy(!deleteFlag)
             if (deleteFlag) {
                 toastInfo("进入删除模式")
             } else {
@@ -158,6 +168,7 @@ class RequestsActivity : BaseActivity() {
         }
 
         adapter?.updateData(list)
+        checkData(false)
         updateDeletFlag()
     }
 

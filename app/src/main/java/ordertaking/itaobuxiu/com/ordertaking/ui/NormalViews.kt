@@ -353,7 +353,17 @@ class IronBuyOfferAdapter(val buyStatus: Int) : RecyclerView.Adapter<VHIronBuyOf
             listener?.onContact(data!![position])
         }
         holder?.comLayout?.setOnClickListener {
-            CompanyDialog(data!![position].companyName, data!![position].level, holder.itemView.context).show()
+            var ironOffer = data!![position];
+            gotoSellerInfoPage(holder.itemView.context,
+                    ironOffer?.companyName,
+                    ironOffer?.level,
+                    ironOffer?.isFaithUser,
+                    ironOffer?.isGuaranteeUser
+                    ,ironOffer?.contact
+                    ,ironOffer?.contactNum
+                    ,ironOffer?.proInfo
+                    ,ironOffer?.storeHouseName
+            )
         }
     }
 
@@ -442,7 +452,7 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
             unit?.text = "元/${data?.baseUnit}"
 
             to?.text = if (data?.tolerance.isNullOrBlank()) "--" else data?.tolerance
-            proPlace?.text = data?.proInfo
+            proPlace?.text = data?.offerPlaces
             remark?.text = data?.offerRemark
             offerNew?.visibility = if (data?.hasNewOffer == "0") View.VISIBLE else View.GONE
 
@@ -639,7 +649,7 @@ class VHIronBuyInfo(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         new?.visibility = if (data?.hasNewOffer.equals("0")) View.VISIBLE else View.GONE
-        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)
+        updateTime?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.createTime)
 
         var changeEnable = { enable: Boolean ->
             ironType?.isEnabled = enable
@@ -796,6 +806,12 @@ class PostRequestAdapter : RecyclerView.Adapter<VHPostRequest>() {
 
     var data: List<PostRequestBean>? = null
     var listener: OnPostRequestActionListener? = null
+    var nC = true
+
+    fun setNeedCopy(need: Boolean) {
+        nC = need
+        notifyDataSetChanged()
+    }
 
     fun updateData(data: List<PostRequestBean>) {
         this.data = data
@@ -808,6 +824,7 @@ class PostRequestAdapter : RecyclerView.Adapter<VHPostRequest>() {
         holder?.copy?.setOnClickListener {
             this.listener?.onCopy(data!![position])
         }
+        holder?.copy?.visibility = if (nC) View.VISIBLE else View.GONE
         holder?.delete?.setOnClickListener {
             this.listener?.onDelete(data!![position])
         }
@@ -921,7 +938,7 @@ class SpecAdapter : RecyclerView.Adapter<VHSpec>() {
 
     override fun onBindViewHolder(holder: VHSpec?, position: Int) {
         holder?.update(data!![position])
-        holder?.itemView?.setOnClickListener {
+        holder?.text?.setOnClickListener {
             listener?.specSelected(data?.get(position))
         }
     }
@@ -959,10 +976,10 @@ class VHSpec(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun update(data: SuggestSpecModel) {
-        if (data.weight.isNullOrBlank()) {
-            text?.text = "${data.height}*${data.length}"
+        if (data.height.isNullOrBlank()) {
+            text?.text = "${data.width}*${data.length}"
         } else {
-            text?.text = "${data.height}*${data.weight}*${data.length}"
+            text?.text = "${data.height}*${data.width}*${data.length}"
         }
     }
 

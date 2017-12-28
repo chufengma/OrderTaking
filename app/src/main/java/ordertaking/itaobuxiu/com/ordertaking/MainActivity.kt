@@ -147,6 +147,7 @@ class MainActivity : BaseActivity() {
             startActivity(newIntent)
         }
         dealWithPushIntent(intent)
+        dealWithInner(intent)
     }
 
     fun dealWithPushIntent(intent: Intent?) {
@@ -157,6 +158,13 @@ class MainActivity : BaseActivity() {
             } else if (code == "2" || code == "5") {
                 viewPager.currentItem = 1
             }
+        }
+    }
+
+    fun dealWithInner(intent: Intent?) {
+        var code: String? = intent?.getStringExtra("innerCode")
+        if (!code.isNullOrBlank()) {
+            viewPager.currentItem = code?.toInt()!!
         }
     }
 }

@@ -11,6 +11,7 @@ import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import android.text.InputFilter
 import android.view.View
+import ordertaking.itaobuxiu.com.ordertaking.MainActivity
 import ordertaking.itaobuxiu.com.ordertaking.engine.*
 
 
@@ -172,6 +173,8 @@ class NewRequestActivity : BaseActivity() {
             intent.putExtra("height", if (postRequestBean?.height == null) "" else postRequestBean?.height)
             intent.putExtra("length", if (postRequestBean?.length == null) "" else postRequestBean?.length)
 
+            intent.putExtra("otherStr", if (postRequestBean?.specifications == null) "" else postRequestBean?.specifications)
+
             intent.putExtra("ironId", postRequestBean?.ironType?.id)
             intent.putExtra("surfaceId", postRequestBean?.surfaceModel?.id)
             intent.putExtra("banjuan", postRequestBean?.ironType?.name == "不锈钢板" || postRequestBean?.ironType?.name == "不锈钢卷")
@@ -192,6 +195,12 @@ class NewRequestActivity : BaseActivity() {
                     deleteRequest(postRequestBean)
                     toastInfo("发布成功")
                     BuyerFragment.notifyRefrsh(null)
+
+                    val intent1 = Intent(this@NewRequestActivity, MainActivity::class.java)
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent1.putExtra("innerCode", "1")
+                    startActivity(intent1)
+
                     finish()
                 }, { error ->
                     hideLoading()
@@ -207,6 +216,13 @@ class NewRequestActivity : BaseActivity() {
                 } else {
                     toastInfo("单次最多只能发布6条")
                 }
+
+                if (needGot) {
+                    var intent = Intent(this, RequestsActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                }
+
                 finish()
             }
         }
@@ -341,10 +357,6 @@ class NewRequestActivity : BaseActivity() {
 
     override fun finish() {
         super.finish()
-        if (needGot) {
-            var intent = Intent(this, RequestsActivity::class.java)
-            startActivity(intent)
-        }
     }
 
 

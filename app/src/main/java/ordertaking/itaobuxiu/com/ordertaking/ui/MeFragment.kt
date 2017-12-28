@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import cn.jpush.android.api.JPushInterface
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_me.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
+import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import org.jetbrains.anko.dip
 
@@ -63,8 +65,12 @@ class MeFragment: Fragment() {
            loginLayout.visibility = View.VISIBLE
 
            companyName.text = user?.buserInfo?.companyName
-           bao.visibility = if (user?.buserInfo?.isGuaranteeUser == "1") View.VISIBLE else View.GONE
-           cheng.visibility = if (user?.buserInfo?.isFaithUser == "1") View.VISIBLE else View.GONE
+
+           var updateRezhen = {
+               bao.visibility = if (user?.buserInfo?.isGuaranteeUser == "1") View.VISIBLE else View.GONE
+               cheng.visibility = if (user?.buserInfo?.isFaithUser == "1") View.VISIBLE else View.GONE
+               noRenzhen.visibility = if (user?.buserInfo?.isGuaranteeUser == "1" && user?.buserInfo?.isFaithUser == "1") View.GONE else View.VISIBLE
+           }
 
            salesMan.text = user?.sellManTel
 
@@ -87,6 +93,16 @@ class MeFragment: Fragment() {
                        // doNothing
                        meSwipeRefreshLayout.isRefreshing = false
                    })
+
+           networkWrap(Network.create(UserApiService::class.java)?.getUserInfo("123"))?.subscribe({ result: Response<UserInfo> ->
+               Hawk.put(LOGIN_USER, result.data)
+               Hawk.put(LAST_USER_MOBILE, result.data.mobile)
+
+               user = result.data
+
+               updateRezhen()
+           })
+
        } else {
            unLoginLayout.visibility = View.VISIBLE
            loginLayout.visibility = View.GONE

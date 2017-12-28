@@ -57,6 +57,9 @@ class IronBuyDetailActivity : BaseActivity() {
         adapter = IronBuyOfferAdapter(ironBuyInfo?.buyStatus!!)
         offerRecycler.adapter = adapter
 
+        configSwipe(dataSwipe)
+        dataSwipe.isEnabled = ironBuyInfo?.buyStatus == 1
+
         adapter?.setActionListener(object : OnOfferSellActionListener {
 
             override fun onHistory(seller: IronBuySellerInfo) {
@@ -84,6 +87,17 @@ class IronBuyDetailActivity : BaseActivity() {
                 showCall(seller.contactNum)
             }
         })
+
+        dataSwipe.setOnRefreshListener {
+            networkWrap(Network.create(IronRequestService::class.java)?.refreshIronBuyList(ironBuyInfo?.id!!))
+                    ?.subscribe({ result ->
+                        dataSwipe.isRefreshing = false
+                        ironBuyInfo?.ironSell = result.data
+                        updateData()
+                    }, { error ->
+                        dataSwipe.isRefreshing = false
+                    })
+        }
 
         updateData()
 
@@ -229,7 +243,14 @@ class IronBuyDetailActivity : BaseActivity() {
                 companyNameBig.text = ironSellInfoSuccess?.companyName
 
                 companyNameBig.setOnClickListener {
-                    CompanyDialog(ironSellInfoSuccess?.companyName, ironSellInfoSuccess?.level, this).show()
+                    gotoSellerInfoPage(this, ironSellInfoSuccess?.companyName, ironSellInfoSuccess?.level,
+                            ironSellInfoSuccess?.isFaithUser,
+                            ironSellInfoSuccess?.isGuaranteeUser
+                            ,ironSellInfoSuccess?.contact
+                            ,ironSellInfoSuccess?.contactNum
+                            ,ironSellInfoSuccess?.proInfo
+                            ,ironSellInfoSuccess?.storeHouseName
+                    )
                 }
 
                 contactSellBig.setOnClickListener {

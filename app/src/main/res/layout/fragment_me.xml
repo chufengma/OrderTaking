@@ -100,10 +100,19 @@
                                 android:textColor="#bfffffff"
                                 android:textSize="12dip" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="暂无"
+                                android:id="@+id/noRenzhen"
+                                android:textColor="#fff"
+                                android:layout_height="wrap_content" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dip"
+                                android:gravity="center_vertical"
+                                android:baselineAligned="false"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -111,6 +120,7 @@
                                     android:layout_width="15dip"
                                     android:layout_height="15dip"
                                     android:background="#fff"
+                                    android:visibility="gone"
                                     android:src="@drawable/ic_bao" />
 
                                 <ImageView
@@ -118,10 +128,12 @@
                                     android:layout_width="15dip"
                                     android:layout_height="15dip"
                                     android:layout_marginLeft="2dip"
+                                    android:visibility="gone"
                                     android:background="#fff"
                                     android:src="@drawable/ic_cheng" />
 
                             </LinearLayout>
+
                         </LinearLayout>
 
                         <LinearLayout

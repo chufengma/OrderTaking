@@ -23,15 +23,17 @@ class QuHelperActivity : BaseActivity() {
         setContentView(R.layout.activity_qu_helper)
 
         dateLayout.setOnClickListener {
-            DatePickerDialog(this, object:DatePickerDialog.OnDateSetListener{
+            var picker = DatePickerDialog(this, object:DatePickerDialog.OnDateSetListener{
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                     currentDate?.set(Calendar.YEAR, year)
                     currentDate?.set(Calendar.MONTH, month)
                     currentDate?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                    date?.text = SimpleDateFormat("yyyy-MM-dd").format(currentDate?.timeInMillis)
+                    date?.text = SimpleDateFormat("yyyy-MM-dd").format(currentDate?.timeInMillis) + " 00:00"
                 }
-            }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)).show()
+            }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+            picker.datePicker.minDate = System.currentTimeMillis()
+            picker.show()
         }
 
         timeLayout.setOnClickListener {
@@ -40,6 +42,7 @@ class QuHelperActivity : BaseActivity() {
                     currentDate?.set(Calendar.HOUR_OF_DAY, hourOfDay)
                     currentDate?.set(Calendar.MINUTE, minute)
                     time?.text = SimpleDateFormat("HH:mm").format(currentDate?.timeInMillis)
+                    date?.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(currentDate?.timeInMillis)
                 }
             }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), true).show()
         }
@@ -67,14 +70,22 @@ class QuHelperActivity : BaseActivity() {
                 toastInfo("请输入地址")
                 return@setOnClickListener
             }
-            if (userName.text.toString().isNullOrBlank() || companyName.text.toString().isNullOrBlank() || tel.text.toString().isNullOrBlank()) {
-                toastInfo("请输入公司信息")
+            if (contact.text.toString().isNullOrBlank()) {
+                toastInfo("请输入联系人")
+                return@setOnClickListener
+            }
+            if (companyName.text.toString().isNullOrBlank()) {
+                toastInfo("请输入公司名称")
+                return@setOnClickListener
+            }
+            if (tel.text.toString().isNullOrBlank()) {
+                toastInfo("请输入联系电话")
                 return@setOnClickListener
             }
             showLoading()
             networkWrap(Network.create(UserApiService::class.java)?.postQu(currentDate?.timeInMillis.toString(),
                     address.text.toString() + " " + addressDesc.text.toString(),
-                    companyName.text.toString(), userName.text.toString(), tel.text.toString()))?.subscribe({
+                    companyName.text.toString(), contact.text.toString(), tel.text.toString()))?.subscribe({
                 hideLoading()
                 toastInfo("提交成功")
                 finish()

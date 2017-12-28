@@ -49,7 +49,7 @@ data class HomePriceMonthData(val endPrice: String, val logTime: Long, val start
 
 data class HomeSellerModel(val code: String, val message: String, val data: HomeSellerDataAll)
 data class HomeSellerDataAll(val all: List<HomeSellerDataItem>, val day: List<HomeSellerDataItem>)
-data class HomeSellerDataItem(val companyName: String, val day: String, val num: Int)
+data class HomeSellerDataItem(val companyName: String, val level: String, val num: Int)
 
 
 data class HomeMarketPriceModel(val code: String, val message: String, val data: List<HomeMarketPriceData>)
@@ -84,7 +84,7 @@ data class BaseIronInfo(val name: String?, val id: String?) : Serializable
 
 data class UnitModel(val weightUnitId: String?, val weightUnitCName: String?, val weightUnitEName: String?, val numUnitId: String?, val numUnitCName: String?, val numUnitEName: String?) : Serializable
 
-data class SuggestSpecModel(val height: String, val weight: String, val length: String)
+data class SuggestSpecModel(val height: String, val width: String, val length: String)
 
 data class PostRequestHistoryBean(
         val ironTypeId: String,                //类型：String  必有字段  备注：品类编号
@@ -265,7 +265,7 @@ data class IronBuyInfo(
         val sellNum: String?,                //类型：Number  必有字段  备注：报价数（有几家公司与你竞价）
         val weightUnit: String?,               //类型：String?  必有字段  备注：重量单位
         val hasNewOffer: String?,
-        val ironSell: IronSellerListInfo?
+        var ironSell: IronSellerListInfo?
 
 ) : Serializable {
     fun toPostReuqestBean(): PostRequestBean {
@@ -469,7 +469,7 @@ data class BuyerData(var todayBuyRate: Double, var todayBuyTotal: Int, var today
 )
 
 data class SellerData(var todaySellQuote: Int, var todaySellValid: Int, var todaySellMiss: Int, var todaySellRate:Double,
-                      var monthSellQuote: Int, var monthSellValid: Int, var monthSellMiss: Int, var monthSellRate:Double,
+                      var monthSellQuote: Int, var monthSellValid: Int, var mothSellMiss: Int, var monthSellRate:Double,
                       var sellQuote: Int, var sellValid: Int, var sellMiss: Int, var sellRate:Double,
                       var todayOfferQuote: Int, var todayOfferGet: Int, var todayOfferNever: Int, var todayOfferRate:Double,
                       var monthOfferAll: Int, var monthOfferGet: Int, var monthOfferNot: Int, var monthOfferRate:Double,

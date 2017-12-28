@@ -65,6 +65,10 @@ class PostChargeActivity : BaseActivity() {
             networkWrap(Network.create(UserApiService::class.java)?.postCharge(text))?.subscribe({
                 result ->
                 toastInfo("发布优惠成功")
+                var user:UserInfo? = Hawk.get(LOGIN_USER)
+                user?.buserInfo?.proInfo = text
+                Hawk.put(LOGIN_USER, user)
+
                 hideLoading()
                 finish()
             }, { error ->

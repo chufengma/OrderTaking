@@ -275,7 +275,7 @@ class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         sellerName.text = item.companyName
         nums.text = "${item.num}"
         setupTop(index, sellerTop, sellerTopText)
-        setupLevels(levelIconsLayout, item.day)
+        setupLevels(levelIconsLayout, item.level)
         return itemLayoutItem
     }
 

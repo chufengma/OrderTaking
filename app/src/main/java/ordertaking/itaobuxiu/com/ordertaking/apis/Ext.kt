@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.support.v4.widget.SwipeRefreshLayout
+import com.philjay.circledisplay.CircleDisplay
 import com.sdsmdg.tastytoast.TastyToast
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.ui.toast
@@ -21,6 +22,15 @@ fun Fragment.configSwipe(swipe: SwipeRefreshLayout) {
 
 fun android.support.v4.app.Fragment.configSwipe(swipe: SwipeRefreshLayout) {
     swipe.setColorSchemeColors(resources.getColor(R.color.main_blue))
+}
+
+
+fun android.support.v4.app.Fragment.configCircle(cd: CircleDisplay) {
+    cd.setColor(resources.getColor(R.color.main_blue))
+    cd.setUnit("%")
+    cd.setFormatDigits(2)
+    cd.setValueWidthPercent(20f)
+    cd.setAnimDuration(300)
 }
 
 fun Activity.toastInfo(text: String) {

@@ -3,6 +3,8 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_spec.*
@@ -16,26 +18,33 @@ import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 class SpecActivity : BaseActivity() {
 
     var banjuan: Boolean = false
+    var ironid = ""
+    var surfaceId = ""
+    var adpater: SpecAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spec)
         useNormalBack()
 
-        var adpater = SpecAdapter()
+        adpater = SpecAdapter()
         suggestRecycler.layoutManager = LinearLayoutManager(this)
         suggestRecycler.adapter = adpater
 
-        var ironid = intent.getStringExtra("ironId")
-        var surfaceId = intent.getStringExtra("surfaceId")
+        ironid = intent.getStringExtra("ironId")
+        surfaceId = intent.getStringExtra("surfaceId")
 
         var weightStr: String = intent.getStringExtra("weight")
         var heightStr: String = intent.getStringExtra("height")
         var lengthStr: String = intent.getStringExtra("length")
 
+        var otherStr: String? = intent.getStringExtra("otherStr")
+
         height.setText(heightStr)
         weight.setText(weightStr)
         length.setText(lengthStr)
+
+        spec.setText(otherStr)
 
         banjuan = intent.getBooleanExtra("banjuan", banjuan)
 
@@ -45,15 +54,21 @@ class SpecActivity : BaseActivity() {
         if (banjuan && ironid.isNotBlank() && surfaceId.isNotBlank()) {
             networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec(surfaceId, ironid))
                     ?.subscribe { result ->
-                        adpater.updateData(result.data)
+                        adpater?.updateData(result.data)
                     }
         }
 
-        adpater.setOnSpecSelectedListener(object: OnSpecItemClickListener {
+        adpater?.setOnSpecSelectedListener(object : OnSpecItemClickListener {
             override fun specSelected(spec: SuggestSpecModel?) {
-                height.setText(spec?.height)
-                weight.setText(spec?.weight)
-                length.setText(spec?.length)
+                if (!spec?.height.isNullOrBlank()) {
+                    height.setText(spec?.height)
+                }
+                if (!spec?.width.isNullOrBlank()) {
+                    weight.setText(spec?.width)
+                }
+                if (!spec?.length.isNullOrBlank()) {
+                    length.setText(spec?.length)
+                }
             }
         })
 
@@ -76,6 +91,40 @@ class SpecActivity : BaseActivity() {
             intent.putExtra("spec", spec.text.toString())
             setResult(Activity.RESULT_OK, intent)
             finish()
+        }
+
+
+        height.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                updateValues(height.text.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        height.postDelayed({
+            updateValues(heightStr)
+        }, 200)
+    }
+
+    fun updateValues(text: String) {
+        if (banjuan && ironid.isNotBlank() && surfaceId.isNotBlank()) {
+            if (text.isNullOrBlank()) {
+                networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec(surfaceId, ironid))
+                        ?.subscribe { result ->
+                            adpater?.updateData(result.data)
+                        }
+            } else {
+                networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec2(surfaceId, ironid))
+                        ?.subscribe { result ->
+                            adpater?.updateData(result.data)
+                        }
+            }
         }
     }
 }

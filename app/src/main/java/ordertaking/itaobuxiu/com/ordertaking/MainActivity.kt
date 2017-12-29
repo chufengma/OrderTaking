@@ -48,6 +48,8 @@ class MainActivity : BaseActivity() {
         viewPager.postDelayed({
             dealWithPushIntent(intent)
         }, 300)
+
+//        startActivity(Intent(this, SplashActivity::class.java))
     }
 
 

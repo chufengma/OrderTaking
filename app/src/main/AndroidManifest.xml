@@ -224,10 +224,13 @@
             android:name="JPUSH_APPKEY"
             android:value="c0bf5e513180b29c2df47dc8" /> <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name=".ui.SellerInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.WebViewActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.SellerInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.SplashActivity"></activity>
     </application>
 
 </manifest>

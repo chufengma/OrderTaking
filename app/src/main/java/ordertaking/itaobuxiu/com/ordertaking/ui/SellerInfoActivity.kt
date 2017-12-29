@@ -32,7 +32,7 @@ class SellerInfoActivity : BaseActivity() {
 
         bao.visibility = if (baoStr == "1") View.VISIBLE else View.GONE
         cheng.visibility = if (chengStr == "1") View.VISIBLE else View.GONE
-        noRenzheng.visibility = if (baoStr == "1" && chengStr == "1") View.GONE else View.VISIBLE
+        noRenzheng.visibility = if (baoStr == "1" || chengStr == "1") View.GONE else View.VISIBLE
 
         setupLevels(huoyueLayout, huoyueStr)
 

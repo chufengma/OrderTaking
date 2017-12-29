@@ -51,13 +51,6 @@ class SpecActivity : BaseActivity() {
         banjuanLayout.visibility = if (banjuan) View.VISIBLE else View.GONE
         specLayout.visibility = if (banjuan) View.GONE else View.VISIBLE
 
-        if (banjuan && ironid.isNotBlank() && surfaceId.isNotBlank()) {
-            networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec(surfaceId, ironid))
-                    ?.subscribe { result ->
-                        adpater?.updateData(result.data)
-                    }
-        }
-
         adpater?.setOnSpecSelectedListener(object : OnSpecItemClickListener {
             override fun specSelected(spec: SuggestSpecModel?) {
                 if (!spec?.height.isNullOrBlank()) {
@@ -110,12 +103,31 @@ class SpecActivity : BaseActivity() {
         height.postDelayed({
             updateValues(heightStr)
         }, 200)
+
+        height.setOnFocusChangeListener { v, hasFocus ->
+            updateValues(height.text.toString())
+        }
+
+        weight.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                updateValues(height.text.toString())
+            }
+        }
+
+        length.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                updateValues(height.text.toString())
+            }
+        }
     }
 
     fun updateValues(text: String) {
         if (banjuan && ironid.isNotBlank() && surfaceId.isNotBlank()) {
-            if (text.isNullOrBlank()) {
-                networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec(surfaceId, ironid))
+            if (text.isNullOrBlank() || height.hasFocus()) {
+                networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec(surfaceId, ironid, weight.text.toString(),
+                        height.text.toString(),
+                        length.text.toString()
+                        ))
                         ?.subscribe { result ->
                             adpater?.updateData(result.data)
                         }

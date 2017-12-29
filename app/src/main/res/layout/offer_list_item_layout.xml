@@ -33,6 +33,12 @@
             android:layout_marginLeft="3dip"
             android:src="@drawable/ic_cheng" />
 
+        <ImageView
+            android:layout_width="10dip"
+            android:layout_height="10dip"
+            android:layout_marginLeft="3dip"
+            android:src="@drawable/ic_item_arrow" />
+
         <TextView
             android:layout_width="wrap_content"
             android:id="@+id/offerTime"

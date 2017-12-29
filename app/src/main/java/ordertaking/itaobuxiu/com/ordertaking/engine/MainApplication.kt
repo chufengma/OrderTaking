@@ -3,6 +3,7 @@ package ordertaking.itaobuxiu.com.ordertaking.engine
 import android.app.Application
 import cn.jpush.android.api.JPushInterface
 import com.orhanobut.hawk.Hawk
+import com.tencent.bugly.crashreport.CrashReport
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserInfo
@@ -28,6 +29,10 @@ class MainApplication: Application() {
         } else {
             JPushInterface.stopPush(this)
         }
+
+        CrashReport.initCrashReport(getApplicationContext(), "0c5aad9c7c", false)
+
+
     }
 
 

@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_ST ATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STAT E" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="ordertaking.itaobuxiu.com.ordertaking.permission.JPUSH_MESSAGE" />
@@ -66,7 +71,8 @@
         <activity
             android:name=".ui.RequestsActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged" />
         <activity
             android:name=".ui.NewRequestActivity"
             android:screenOrientation="portrait"
@@ -108,13 +114,16 @@
             android:name=".ui.ForgetActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.DataActivity" />
-        <activity android:name=".ui.QuHelperActivity" />
+        <activity
+            android:name=".ui.QuHelperActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged" />
 
         <!-- Rich push 核心功能 since 2.0.6 -->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle"></activity>
+            android:theme="@style/MyDialogStyle" />
 
         <!-- Required SDK核心功能 -->
         <activity
@@ -215,7 +224,13 @@
             android:name="JPUSH_APPKEY"
             android:value="c0bf5e513180b29c2df47dc8" /> <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name=".ui.SellerInfoActivity"></activity>
+        <activity
+            android:name=".ui.SellerInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.SplashActivity"></activity>
     </application>
 
 </manifest>

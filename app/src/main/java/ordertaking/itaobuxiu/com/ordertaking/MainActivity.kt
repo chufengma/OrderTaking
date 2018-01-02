@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.orhanobut.hawk.Hawk
 import com.sdsmdg.tastytoast.TastyToast
+import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.android.synthetic.main.activity_main.*;
 import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserBean
@@ -47,6 +48,8 @@ class MainActivity : BaseActivity() {
         viewPager.postDelayed({
             dealWithPushIntent(intent)
         }, 300)
+
+//        startActivity(Intent(this, SplashActivity::class.java))
     }
 
 

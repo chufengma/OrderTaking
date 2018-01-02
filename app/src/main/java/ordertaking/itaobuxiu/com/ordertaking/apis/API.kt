@@ -174,10 +174,14 @@ interface IronRequestService {
     fun getUnits(@Query("ironId") ironId: String): Observable<Response<UnitModel>>
 
     @GET("/api/query/findIronAndSurfaceAndSpecificationlist")
-    fun getSuggestSpec(@Query("surface") surface: String, @Query("ironType") ironType: String): Observable<Response<List<SuggestSpecModel>>>
+    fun getSuggestSpec(@Query("surface") surface: String, @Query("ironType") ironType: String,
+                       @Query("width") width: String,
+                       @Query("height") height: String,
+                       @Query("length") length: String): Observable<Response<List<SuggestSpecModel>>>
 
     @GET("/api/query/findIronAndSurfaceAndSpecificationHeightAndLength")
-    fun getSuggestSpec2(@Query("surface") surface: String, @Query("ironType") ironType: String): Observable<Response<List<SuggestSpecModel>>>
+    fun getSuggestSpec2(@Query("surface") surface: String, @Query("ironType") ironType: String
+                        ): Observable<Response<List<SuggestSpecModel>>>
 
     @FormUrlEncoded
     @POST("/demands/ironBuy/saveIronBuyList")

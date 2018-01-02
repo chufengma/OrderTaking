@@ -72,10 +72,16 @@ class MeFragment: Fragment() {
                noRenzhen.visibility = if (user?.buserInfo?.isGuaranteeUser == "1" || user?.buserInfo?.isFaithUser == "1") View.GONE else View.VISIBLE
            }
 
-           salesMan.text = user?.sellManTel
-
-           salesMan.setOnClickListener {
-               (context as BaseActivity).showCall(user?.sellManTel, user?.sellManName)
+           if (user?.sellManTel.isNullOrBlank()) {
+               salesMan.text = "0510-81812186"
+               salesMan.setOnClickListener {
+                   (context as BaseActivity).showCall("0510-81812186", "客服")
+               }
+           } else {
+               salesMan.text = user?.sellManTel
+               salesMan.setOnClickListener {
+                   (context as BaseActivity).showCall(user?.sellManTel, user?.sellManName)
+               }
            }
 
            switchBuyer.setOnClickListener {
@@ -153,6 +159,7 @@ class MeFragment: Fragment() {
                 (context as BaseActivity).showLoginDialog()
                 return@setOnClickListener
             }
+            gotoWebView(context, "权益说明", "http://jiedan8.cn/apphtml/rights.html")
         }
 
         myAsset.setOnClickListener {
@@ -161,6 +168,12 @@ class MeFragment: Fragment() {
                 return@setOnClickListener
             }
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        meSwipeRefreshLayout.isEnabled = isLogin()
     }
 
     fun updateBuyerStatus() {

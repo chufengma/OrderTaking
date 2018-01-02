@@ -57,6 +57,13 @@ fun gotoPostRequest(context: Context) {
     context.startActivity(Intent(context, RequestsActivity::class.java))
 }
 
+fun gotoWebView(context: Context, title: String, url: String) {
+    var intent = Intent(context, WebViewActivity::class.java)
+    intent.putExtra("title", title)
+    intent.putExtra("url", url)
+    context.startActivity(intent)
+}
+
 fun gotoIronBuyDetail(context: Context, ironBuyInfo: IronBuyInfo) {
     var intent = Intent(context, IronBuyDetailActivity::class.java)
     intent.putExtra("ironBuyInfo", ironBuyInfo)

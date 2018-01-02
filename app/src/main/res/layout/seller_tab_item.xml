@@ -37,6 +37,8 @@
             android:text="江苏淘不锈电子商务有限公司"
             android:textSize="15dip"
             android:id="@+id/company_name"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="#ff333333"
             android:layout_height="wrap_content" />
 
@@ -54,6 +56,7 @@
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:gravity="right"
+        android:layout_marginLeft="8dip"
         android:layout_height="wrap_content">
 
         <TextView

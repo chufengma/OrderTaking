@@ -69,7 +69,7 @@ class MeFragment: Fragment() {
            var updateRezhen = {
                bao.visibility = if (user?.buserInfo?.isGuaranteeUser == "1") View.VISIBLE else View.GONE
                cheng.visibility = if (user?.buserInfo?.isFaithUser == "1") View.VISIBLE else View.GONE
-               noRenzhen.visibility = if (user?.buserInfo?.isGuaranteeUser == "1" && user?.buserInfo?.isFaithUser == "1") View.GONE else View.VISIBLE
+               noRenzhen.visibility = if (user?.buserInfo?.isGuaranteeUser == "1" || user?.buserInfo?.isFaithUser == "1") View.GONE else View.VISIBLE
            }
 
            salesMan.text = user?.sellManTel

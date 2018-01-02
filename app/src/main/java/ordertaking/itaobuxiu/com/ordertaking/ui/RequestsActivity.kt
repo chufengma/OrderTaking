@@ -1,5 +1,6 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,6 +12,9 @@ import ordertaking.itaobuxiu.com.ordertaking.MainActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.engine.*
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+
 
 class RequestsActivity : BaseActivity() {
 

@@ -39,14 +39,14 @@ import ordertaking.itaobuxiu.com.ordertaking.apis.isLogin
 /**
  * Created by chufengma on 2017/11/19.
  */
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
     var todayDataList: List<HomePriceData>? = null
     var monthDataList: List<HomePriceMonthData>? = null
 
-    var sellerAdapter: SellerTabAdapter?= null
-    var marketPriceAdapter: MarketPriceAdapter?= null
-    var ironInfoAdapter: IronInfoAdapter?= null
+    var sellerAdapter: SellerTabAdapter? = null
+    var marketPriceAdapter: MarketPriceAdapter? = null
+    var ironInfoAdapter: IronInfoAdapter? = null
 
     var homeDataAll: HomeSellerDataAll? = null
 
@@ -61,7 +61,7 @@ class HomeFragment: Fragment() {
                             todayDataList!!.mapIndexedTo(todayData) { index, value -> Entry(index.toFloat(), value.currentPrice.toFloat(), value) }
 
                             configChart(chart, todayData)
-                            chart.xAxis.valueFormatter = object: DefaultAxisValueFormatter(0) {
+                            chart.xAxis.valueFormatter = object : DefaultAxisValueFormatter(0) {
                                 override fun getFormattedValue(value: Float, axis: AxisBase?): String {
                                     var data: HomePriceData? = todayDataList?.get(value.toInt())
                                     return SimpleDateFormat("HH:mm").format(data?.createTime)
@@ -70,7 +70,7 @@ class HomeFragment: Fragment() {
                             priceLoading.visibility = View.GONE
                             chart.invalidate()
                         },
-                        {  error ->
+                        { error ->
                             priceLoading.visibility = View.GONE
                             TastyToast.makeText(context, error.message, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
                         }
@@ -91,7 +91,7 @@ class HomeFragment: Fragment() {
                             monthDataList!!.mapIndexedTo(todayData) { index, value -> Entry(index.toFloat(), value.endPrice.toFloat(), value) }
 
                             configChart(chartMonth, todayData)
-                            chartMonth.xAxis.valueFormatter = object: DefaultAxisValueFormatter(0) {
+                            chartMonth.xAxis.valueFormatter = object : DefaultAxisValueFormatter(0) {
                                 override fun getFormattedValue(value: Float, axis: AxisBase?): String {
                                     var data: HomePriceMonthData? = monthDataList?.get(value.toInt())
                                     return SimpleDateFormat("yyyy-MM-dd").format(data?.logTime)
@@ -116,7 +116,7 @@ class HomeFragment: Fragment() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(
                         { result ->
-                            Log.e("refreshSellerData",  "${daySellers.isSelected},${allSellers.isSelected}")
+                            Log.e("refreshSellerData", "${daySellers.isSelected},${allSellers.isSelected}")
                             homeDataAll = result.data
                             daySellers.performClick()
                         },
@@ -155,7 +155,7 @@ class HomeFragment: Fragment() {
                             Log.e("refreshIronInfoData", result.data.size.toString())
                             ironInfoAdapter?.updateData(result.data)
                         },
-                        {  error ->
+                        { error ->
                             error.printStackTrace()
                             Log.e("refreshIronInfoData", error.message)
                         }
@@ -243,14 +243,14 @@ class HomeFragment: Fragment() {
         daySellers.setOnClickListener {
             daySellers.isSelected = true
             allSellers.isSelected = false
-                if (homeDataAll?.day != null && homeDataAll?.day?.size!! > 0) {
-                    var allData = mutableListOf<List<HomeSellerDataItem>>()
-                    allData.add(homeDataAll?.day?.subList(0, (if (homeDataAll?.day?.size!! >= 4) 4 else homeDataAll?.day?.size)!!)!!)
-                    if (homeDataAll?.day?.size!! > 4) {
-                        allData.add(homeDataAll?.day?.subList(4, (if (homeDataAll?.day?.size!! >= 8) 8 else homeDataAll?.day?.size)!!)!!)
-                    }
-                    sellerAdapter?.updateData(allData)
+            var allData = mutableListOf<List<HomeSellerDataItem>>()
+            if (homeDataAll?.day != null && homeDataAll?.day?.size!! > 0) {
+                allData.add(homeDataAll?.day?.subList(0, (if (homeDataAll?.day?.size!! >= 4) 4 else homeDataAll?.day?.size)!!)!!)
+                if (homeDataAll?.day?.size!! > 4) {
+                    allData.add(homeDataAll?.day?.subList(4, (if (homeDataAll?.day?.size!! >= 8) 8 else homeDataAll?.day?.size)!!)!!)
                 }
+            }
+            sellerAdapter?.updateData(allData)
         }
 
         allSellers.setOnClickListener {
@@ -296,7 +296,7 @@ class HomeFragment: Fragment() {
                 ?.getHomeAdd()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe (
+                ?.subscribe(
                         { result ->
                             var imageList = result.data.data.adList.map {
                                 it.url

@@ -1,6 +1,7 @@
 package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -11,6 +12,7 @@ import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import android.text.InputFilter
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import ordertaking.itaobuxiu.com.ordertaking.MainActivity
 import ordertaking.itaobuxiu.com.ordertaking.engine.*
 
@@ -357,6 +359,13 @@ class NewRequestActivity : BaseActivity() {
 
     override fun finish() {
         super.finish()
+
+        try {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm!!.hideSoftInputFromWindow(comment.getWindowToken(), 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 

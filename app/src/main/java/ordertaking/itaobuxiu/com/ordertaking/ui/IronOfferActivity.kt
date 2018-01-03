@@ -89,9 +89,9 @@ class IronOfferActivity : BaseActivity() {
             image.layoutParams = params
 
             when (level) {
-                1 -> image.setImageResource(R.drawable.ic_level_one)
+                1 -> image.setImageResource(R.drawable.ic_level_three)
                 2 -> image.setImageResource(R.drawable.ic_level_two)
-                3 -> image.setImageResource(R.drawable.ic_level_three)
+                3 -> image.setImageResource(R.drawable.ic_level_one)
             }
 
             layout.addView(image)
@@ -248,6 +248,21 @@ class IronOfferActivity : BaseActivity() {
                     })
         }
 
+
+        offerDetailCompanyLayout.setOnClickListener {
+            if (data?.offerStatus != 2) {
+                return@setOnClickListener
+            }
+            gotoSellerInfoPage(this, ironOffer?.companyName, ironOffer?.level,
+                    ironOffer?.isFaithUser,
+                    ironOffer?.isGuaranteeUser
+                    ,ironOffer?.contact
+                    ,ironOffer?.contactNum
+                    ,ironOffer?.proInfo
+                    ,ironOffer?.storeHouseName
+            )
+        }
+
         resetIronSellers()
         updateActions()
 
@@ -311,17 +326,6 @@ class IronOfferActivity : BaseActivity() {
                 normalPriceLayout.visibility = View.VISIBLE
                 donePriceLayout.visibility = View.GONE
                 normalFill()
-
-                offerDetailCompanyLayout.setOnClickListener {
-                    gotoSellerInfoPage(this, ironOffer?.companyName, ironOffer?.level,
-                            ironOffer?.isFaithUser,
-                            ironOffer?.isGuaranteeUser
-                            ,ironOffer?.contact
-                            ,ironOffer?.contactNum
-                            ,ironOffer?.proInfo
-                            ,ironOffer?.storeHouseName
-                    )
-                }
             }
             2 -> {
                 changeEnable(true)
@@ -336,22 +340,10 @@ class IronOfferActivity : BaseActivity() {
                 doneTimeBig.text = "成交时间 ${SimpleDateFormat("yyyy-MM-dd HH:mm").format(data?.updateTime)}"
 
                 doneContact.setOnClickListener {
-                    showCall(data?.contactNum)
+                    showCall(data?.contactNum, data?.contact)
                 }
 
                 doneFill()
-                offerDetailCompanyLayout.setOnClickListener {
-                    gotoSellerInfoPage(this,
-                            ironOffer?.companyName,
-                            ironOffer?.level,
-                            ironOffer?.isFaithUser,
-                            ironOffer?.isGuaranteeUser
-                            ,ironOffer?.contact
-                            ,ironOffer?.contactNum
-                            ,ironOffer?.proInfo
-                            ,ironOffer?.storeHouseName
-                    )
-                }
             }
             else -> {
                 buyerCompanyName?.text = "买家公司"

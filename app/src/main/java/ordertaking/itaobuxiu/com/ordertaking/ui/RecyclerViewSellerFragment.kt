@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +18,13 @@ import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 /**
  * A simple [Fragment] subclass.
  */
-class RecyclerViewSellerFragment(val buyStatus:Int, val today: Int) : Fragment() {
+class RecyclerViewSellerFragment : Fragment() {
 
     var adapter: IronOfferInfoAdapter? = null
     var data: MutableList<SellerOfferInfoListItem> = mutableListOf()
 
+    var buyStatus:Int = 0
+    var today:Int = 0
     var currentPage = 1
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -31,6 +34,12 @@ class RecyclerViewSellerFragment(val buyStatus:Int, val today: Int) : Fragment()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        buyStatus = arguments.getInt("buyStatus")
+        today = arguments.getInt("today")
+
+        Log.e("RecyclerViewSellerFragment", "$today $buyStatus")
+
         var mLayoutManager = LinearLayoutManager(context)
         ironInfoDataRecyclerSeller.layoutManager = mLayoutManager
         adapter = IronOfferInfoAdapter()

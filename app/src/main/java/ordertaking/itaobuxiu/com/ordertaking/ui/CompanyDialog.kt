@@ -34,9 +34,9 @@ class CompanyDialog(val name: String?, val lavel: String?, context: Context?) : 
             image.layoutParams = params
 
             when (level) {
-                1 -> image.setImageResource(R.drawable.ic_level_one)
+                1 -> image.setImageResource(R.drawable.ic_level_three)
                 2 -> image.setImageResource(R.drawable.ic_level_two)
-                3 -> image.setImageResource(R.drawable.ic_level_three)
+                3 -> image.setImageResource(R.drawable.ic_level_one)
             }
 
             layout.addView(image)

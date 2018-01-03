@@ -84,7 +84,7 @@ class IronBuyDetailActivity : BaseActivity() {
             }
 
             override fun onContact(seller: IronBuySellerInfo) {
-                showCall(seller.contactNum)
+                showCall(seller.contactNum, seller.contact)
             }
         })
 

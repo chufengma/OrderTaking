@@ -37,7 +37,7 @@ class LoginActivity : BaseActivity() {
                     },
                     {
                         error ->
-                        TastyToast.makeText(this, "登陆失败：" + error.message, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
+                        toastInfo("登陆失败，请输入正确的帐号和密码")
                         hideLoading()
                     })
         }

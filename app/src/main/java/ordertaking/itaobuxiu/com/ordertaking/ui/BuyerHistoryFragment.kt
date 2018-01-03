@@ -14,9 +14,9 @@ import ordertaking.itaobuxiu.com.ordertaking.R
  */
 class BuyerHistoryFragment : Fragment() {
 
-    var doingFragment: RecyclerViewFragment = RecyclerViewFragment(1, 0)
-    var doneFragment: RecyclerViewFragment = RecyclerViewFragment(2, 0)
-    var outFragment: RecyclerViewFragment = RecyclerViewFragment(3, 0)
+    var doingFragment: RecyclerViewFragment = RecyclerViewFragment()
+    var doneFragment: RecyclerViewFragment = RecyclerViewFragment()
+    var outFragment: RecyclerViewFragment = RecyclerViewFragment()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -25,6 +25,21 @@ class BuyerHistoryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        var bundle = Bundle()
+        bundle.putInt("buyStatus", 1)
+        bundle.putInt("today", 0)
+        doingFragment.arguments = bundle
+
+        var bundle2 = Bundle()
+        bundle2.putInt("buyStatus", 2)
+        bundle2.putInt("today", 0)
+        doneFragment.arguments = bundle2
+
+        var bundle3 = Bundle()
+        bundle3.putInt("buyStatus", 3)
+        bundle3.putInt("today", 0)
+        outFragment.arguments = bundle3
 
         contentViewPagerHistory.offscreenPageLimit = 3
         contentViewPagerHistory.adapter = object : FragmentPagerAdapter(fragmentManager) {

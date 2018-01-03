@@ -98,8 +98,8 @@
                 android:layout_height="10dip" />
 
             <TextView
-                android:id="@+id/to"
-                android:text="公差"
+                android:id="@+id/spec"
+                android:text="规格"
                 android:textColor="#333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -113,8 +113,8 @@
                 android:layout_height="10dip" />
 
             <TextView
-                android:id="@+id/spec"
-                android:text="规格"
+                android:id="@+id/to"
+                android:text="公差"
                 android:textColor="#333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

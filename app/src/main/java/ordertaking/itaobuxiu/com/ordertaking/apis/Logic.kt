@@ -1,5 +1,7 @@
 package ordertaking.itaobuxiu.com.ordertaking.apis
 
+import android.app.Notification
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -238,4 +240,7 @@ fun doEditIronBuy(request: PostRequestBean?): Observable<Response<Object>>? {
 
 fun id(): String {
     return UUID.randomUUID().toString()
+}
+
+fun jiaobiao(context: Context) {
 }

@@ -199,10 +199,18 @@ class HomeFragment : Fragment() {
         }
 
         offer.setOnClickListener {
+            if (!isLogin()) {
+                (context as BaseActivity).showLoginDialog()
+                return@setOnClickListener
+            }
             (context as MainActivity).gotoPage(2)
         }
 
         qu.setOnClickListener {
+            if (!isLogin()) {
+                (context as BaseActivity).showLoginDialog()
+                return@setOnClickListener
+            }
             startActivity(Intent(context, QuHelperActivity::class.java))
         }
     }

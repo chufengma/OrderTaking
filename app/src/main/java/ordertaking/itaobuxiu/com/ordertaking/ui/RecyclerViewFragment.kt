@@ -2,6 +2,7 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -22,12 +23,19 @@ import ordertaking.itaobuxiu.com.ordertaking.apis.*
 /**
  * A simple [Fragment] subclass.
  */
-class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
+class RecyclerViewFragment : Fragment() {
 
     var adapter: IronBuyInfoAdapter? = null
     var data: MutableList<IronBuyInfo> = mutableListOf()
-
     var currentPage = 1
+    var buyStatus:Int = 0
+    var today:Int = 0
+
+    var needRefresh = true
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,6 +44,9 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        buyStatus = arguments.getInt("buyStatus")
+        today = arguments.getInt("today")
+
         var mLayoutManager = LinearLayoutManager(context)
         ironInfoDataRecycler.layoutManager = mLayoutManager
         adapter = IronBuyInfoAdapter()
@@ -93,6 +104,7 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
             }
 
             override fun onItemClick(request: IronBuyInfo) {
+                needRefresh = false
                 gotoIronBuyDetail(context, request)
             }
 
@@ -119,7 +131,11 @@ class RecyclerViewFragment(val buyStatus:Int, val today: Int) : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        refreshData()
+        if (needRefresh) {
+            refreshData()
+        } else {
+            needRefresh = true
+        }
     }
 
     fun fetchData(withLoading: Boolean) {

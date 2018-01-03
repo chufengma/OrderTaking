@@ -20,9 +20,9 @@ import org.jetbrains.anko.find
  */
 class BuyerTodayFragment : Fragment() {
 
-    var doingFragment: RecyclerViewFragment = RecyclerViewFragment(1, 1)
-    var doneFragment: RecyclerViewFragment = RecyclerViewFragment(2, 1)
-    var outFragment: RecyclerViewFragment = RecyclerViewFragment(3, 1)
+    var doingFragment: RecyclerViewFragment = RecyclerViewFragment()
+    var doneFragment: RecyclerViewFragment = RecyclerViewFragment()
+    var outFragment: RecyclerViewFragment = RecyclerViewFragment()
 
     var todayViewPager :View? = null
     var todayTabLayout :View?  = null
@@ -39,6 +39,21 @@ class BuyerTodayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        var bundle = Bundle()
+        bundle.putInt("buyStatus", 1)
+        bundle.putInt("today", 1)
+        doingFragment.arguments = bundle
+
+        var bundle2 = Bundle()
+        bundle2.putInt("buyStatus", 2)
+        bundle2.putInt("today", 1)
+        doneFragment.arguments = bundle2
+
+        var bundle3 = Bundle()
+        bundle3.putInt("buyStatus", 3)
+        bundle3.putInt("today", 1)
+        outFragment.arguments = bundle3
 
         var todayViewPager = view?.find<ViewPager>(R.id.contentViewPager)
         var todayTabLayout = view?.find<TabLayout>(R.id.statusTabLayout)

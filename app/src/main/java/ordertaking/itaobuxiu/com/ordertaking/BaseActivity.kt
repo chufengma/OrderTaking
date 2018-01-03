@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.kaopiz.kprogresshud.KProgressHUD
 import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
+import ordertaking.itaobuxiu.com.ordertaking.engine.MessageReceiver
 import ordertaking.itaobuxiu.com.ordertaking.ui.LoginActivity
 import org.jetbrains.anko.find
 
@@ -27,6 +28,7 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // 系统 6.0 以上 状态栏白底黑字的实现方法
         this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        MessageReceiver.count = 0
     }
 
     override fun setContentView(layoutResID: Int) {

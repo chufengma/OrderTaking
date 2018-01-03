@@ -290,9 +290,9 @@ class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
             image.layoutParams = params
 
             when(level) {
-                1 -> image.setImageResource(R.drawable.ic_level_one)
+                1 -> image.setImageResource(R.drawable.ic_level_three)
                 2 -> image.setImageResource(R.drawable.ic_level_two)
-                3 -> image.setImageResource(R.drawable.ic_level_three)
+                3 -> image.setImageResource(R.drawable.ic_level_one)
             }
 
             layout.addView(image)

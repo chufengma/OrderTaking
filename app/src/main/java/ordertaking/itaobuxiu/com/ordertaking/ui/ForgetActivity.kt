@@ -55,7 +55,7 @@ class ForgetActivity : BaseActivity() {
 
                 codeBtn.isEnabled = false
                 lastGetTime = System.currentTimeMillis()
-                var countDown = object: CountDownTimer(lastGetTime + 1000 * 60, 1000) {
+                var countDown = object: CountDownTimer(1000 * 60, 1000) {
                     override fun onFinish() {
                         codeBtn.isEnabled = true
                     }

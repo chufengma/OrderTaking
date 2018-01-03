@@ -16,10 +16,10 @@ import org.jetbrains.anko.find
  */
 class SellerTodayFragment : Fragment() {
 
-    var neverFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment(0, 1)
-    var offerFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment(1, 1)
-    var doneFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment(2, 1)
-    var missFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment(3, 1)
+    var neverFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment()
+    var offerFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment()
+    var doneFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment()
+    var missFragment: RecyclerViewSellerFragment = RecyclerViewSellerFragment()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,6 +29,26 @@ class SellerTodayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        var bundle = Bundle()
+        bundle.putInt("buyStatus", 0)
+        bundle.putInt("today", 1)
+        neverFragment.arguments = bundle
+
+        var bundle2 = Bundle()
+        bundle2.putInt("buyStatus", 1)
+        bundle2.putInt("today", 1)
+        offerFragment.arguments = bundle2
+
+        var bundle3 = Bundle()
+        bundle3.putInt("buyStatus", 2)
+        bundle3.putInt("today", 1)
+        doneFragment.arguments = bundle3
+
+        var bundle4 = Bundle()
+        bundle4.putInt("buyStatus", 3)
+        bundle4.putInt("today", 1)
+        missFragment.arguments = bundle4
 
         var contentViewPagerSellerToday = view?.find<ViewPager>(R.id.contentViewPagerSellerToday)
         var statusTabLayoutSellerToday = view?.find<TabLayout>(R.id.statusTabLayoutSellerToday)

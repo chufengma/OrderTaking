@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearSmoothScroller
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -107,6 +108,17 @@ class RecyclerViewSellerFragment : Fragment() {
 
         SellerFragment.addRefreshListener {
             refreshData()
+        }
+
+
+        backToTop.setOnClickListener {
+            val smoothScroller = object : LinearSmoothScroller(context) {
+                override fun getVerticalSnapPreference(): Int {
+                    return LinearSmoothScroller.SNAP_TO_START
+                }
+            }
+            smoothScroller.setTargetPosition(0)
+            mLayoutManager.startSmoothScroll(smoothScroller)
         }
     }
 

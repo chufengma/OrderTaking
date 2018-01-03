@@ -24,6 +24,7 @@ class ForgetActivity : BaseActivity() {
             var countDown = object: CountDownTimer(1000 * 60, 1000) {
                 override fun onFinish() {
                     codeBtn.isEnabled = true
+                    codeBtn.setText("获取验证码")
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
@@ -58,6 +59,7 @@ class ForgetActivity : BaseActivity() {
                 var countDown = object: CountDownTimer(1000 * 60, 1000) {
                     override fun onFinish() {
                         codeBtn.isEnabled = true
+                        codeBtn.setText("获取验证码")
                     }
 
                     override fun onTick(millisUntilFinished: Long) {

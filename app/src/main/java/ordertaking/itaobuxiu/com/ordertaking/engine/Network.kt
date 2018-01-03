@@ -6,6 +6,8 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okio.Buffer
+import ordertaking.itaobuxiu.com.ordertaking.BuildConfig
 import ordertaking.itaobuxiu.com.ordertaking.apis.USER_LOGIN_INFO
 import ordertaking.itaobuxiu.com.ordertaking.apis.UserLoginData
 import retrofit2.Retrofit
@@ -34,10 +36,18 @@ object Network {
                                 var loginData: UserLoginData? = Hawk.get(USER_LOGIN_INFO)
                                 var request = chain?.request()
                                         ?.newBuilder()
-                                        ?.addHeader("loginId", loginData?.loginId)
-                                        ?.addHeader("authorization", loginData?.authorization)
+                                        ?.addHeader("loginId", if (loginData?.loginId == null) "" else loginData?.loginId)
+                                        ?.addHeader("authorization", if (loginData?.authorization == null) "" else loginData?.authorization)
                                         ?.build()
-                                Log.e("HTTPResponseRequest", "${request?.url()} ${request?.body().toString()}")
+                                if (BuildConfig.DEBUG) {
+                                    try {
+                                        val copy = request?.newBuilder()?.build()
+                                        val buffer = Buffer()
+                                        copy?.body()!!.writeTo(buffer)
+                                        Log.e("HTTPResponseRequest", "${request?.url()} ${buffer.readUtf8()}")
+                                    } catch (e: Exception) {
+                                    }
+                                }
                                 chain?.proceed(request)!!
                             } catch (e: Exception) {
                                 e.printStackTrace()

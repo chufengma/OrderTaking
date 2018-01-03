@@ -17,6 +17,9 @@ import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import android.support.v7.widget.RecyclerView
 import ordertaking.itaobuxiu.com.ordertaking.apis.*
+import android.support.v7.widget.LinearSmoothScroller
+
+
 
 
 @SuppressLint("ValidFragment")
@@ -121,6 +124,16 @@ class RecyclerViewFragment : Fragment() {
 
         BuyerFragment.addRefreshListener {
             refreshData()
+        }
+
+        backToTop.setOnClickListener {
+            val smoothScroller = object : LinearSmoothScroller(context) {
+                override fun getVerticalSnapPreference(): Int {
+                    return LinearSmoothScroller.SNAP_TO_START
+                }
+            }
+            smoothScroller.setTargetPosition(0)
+            mLayoutManager.startSmoothScroll(smoothScroller)
         }
     }
 

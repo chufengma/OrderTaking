@@ -2,6 +2,7 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_forget.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
@@ -52,6 +53,7 @@ class ForgetActivity : BaseActivity() {
             }
             networkWrap(Network.create(UserApiService::class.java)?.getSMSCode(mobile))?.subscribe({ result ->
                 toastInfo("获取验证码成功")
+                Hawk.put("SessionID", "JSESSIONID=" + result)
                 hideLoading()
 
                 codeBtn.isEnabled = false

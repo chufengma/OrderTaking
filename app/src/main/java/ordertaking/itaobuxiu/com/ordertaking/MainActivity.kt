@@ -32,6 +32,12 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (Hawk.get<String>("hasShowSplash") == null) {
+            startActivity(Intent(this, SplashActivity::class.java))
+            finish()
+            return
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = window
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
@@ -49,7 +55,6 @@ class MainActivity : BaseActivity() {
             dealWithPushIntent(intent)
         }, 300)
 
-//        startActivity(Intent(this, SplashActivity::class.java))
     }
 
 

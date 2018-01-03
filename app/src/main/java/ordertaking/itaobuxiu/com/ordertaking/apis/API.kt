@@ -129,7 +129,7 @@ interface UserApiService {
 
     @FormUrlEncoded
     @POST("/login/smsCode")
-    fun getSMSCode(@Field("mobile") mobile: String): Observable<Response<Object>>
+    fun getSMSCode(@Field("mobile") mobile: String): Observable<Response<String>>
 
     @FormUrlEncoded
     @POST("/login/validateMobile")

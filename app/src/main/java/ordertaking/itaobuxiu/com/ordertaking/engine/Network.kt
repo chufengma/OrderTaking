@@ -34,11 +34,16 @@ object Network {
                         .addInterceptor { chain ->
                             try {
                                 var loginData: UserLoginData? = Hawk.get(USER_LOGIN_INFO)
-                                var request = chain?.request()
+                                var builder = chain?.request()
                                         ?.newBuilder()
                                         ?.addHeader("loginId", if (loginData?.loginId == null) "" else loginData?.loginId)
                                         ?.addHeader("authorization", if (loginData?.authorization == null) "" else loginData?.authorization)
-                                        ?.build()
+
+                                if (Hawk.get<String>("SessionID") != null) {
+                                    builder?.addHeader("Cookie", Hawk.get<String>("SessionID"))
+                                }
+
+                                var request = builder?.build()
                                 if (BuildConfig.DEBUG) {
                                     try {
                                         val copy = request?.newBuilder()?.build()

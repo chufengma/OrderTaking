@@ -34,6 +34,7 @@ class EnterActivity : BaseActivity() {
                 Thread.sleep(100)
             }
             gotoMainActivity()
+            finish()
         }).start()
     }
 }

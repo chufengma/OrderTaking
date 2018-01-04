@@ -53,7 +53,7 @@ class ForgetActivity : BaseActivity() {
             }
             networkWrap(Network.create(UserApiService::class.java)?.getSMSCode(mobile))?.subscribe({ result ->
                 toastInfo("获取验证码成功")
-                Hawk.put("SessionID", "JSESSIONID=" + result)
+                Hawk.put("SessionID", "JSESSIONID=" + result.data)
                 hideLoading()
 
                 codeBtn.isEnabled = false

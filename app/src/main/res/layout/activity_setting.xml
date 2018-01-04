@@ -111,6 +111,7 @@
         <View
             android:layout_width="match_parent"
             android:background="#dddddd"
+            android:visibility="gone"
             android:layout_marginLeft="10dip"
             android:layout_height="1dip" />
 
@@ -120,6 +121,7 @@
             android:background="#fff"
             android:id="@+id/help"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:layout_height="45dip">
 
 =
@@ -157,7 +159,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="关于我们"
+                android:text="联系我们"
                 android:layout_weight="1"
                 android:textColor="#333"
                 android:layout_marginLeft="10dip"

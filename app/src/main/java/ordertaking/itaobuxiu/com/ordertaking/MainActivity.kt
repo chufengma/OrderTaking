@@ -32,7 +32,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Hawk.get<String>("hasShowSplash") == null) {
+        if (Hawk.get<String>("hasShowSplash_" + this.packageManager.getPackageInfo(
+                this.getPackageName(), 0).versionName) == null) {
             startActivity(Intent(this, SplashActivity::class.java))
             finish()
             return

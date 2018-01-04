@@ -56,9 +56,7 @@ class SplashActivity : BaseActivity() {
 
                 if (position == 3 ) {
                     view.setOnClickListener {
-                        finish()
-                        Hawk.put("hasShowSplash", "has")
-                        gotoMainActivity()
+                        saveHasShowSplash()
                     }
                 }
                 return view
@@ -108,9 +106,7 @@ class SplashActivity : BaseActivity() {
         })
 
         skip.setOnClickListener {
-            finish()
-            Hawk.put("hasShowSplash", "has")
-            gotoMainActivity()
+            saveHasShowSplash()
         }
 
 
@@ -127,6 +123,13 @@ class SplashActivity : BaseActivity() {
 //                        },
 //                        { error -> Log.e("Network", "failed:" + error.message) }
 //                )
+    }
+
+    fun saveHasShowSplash() {
+        finish()
+        gotoMainActivity()
+        Hawk.put("hasShowSplash_" + this.packageManager.getPackageInfo(
+                this.getPackageName(), 0).versionName, "has")
     }
 
 }

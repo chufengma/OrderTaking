@@ -30,8 +30,10 @@ class ForgetActivity : BaseActivity() {
 
                 override fun onTick(millisUntilFinished: Long) {
                     codeBtn.text = "剩余${(lastGetTime + 1000 * 60 - System.currentTimeMillis())/1000}秒"
-                    if ((lastGetTime + 1000 * 60 - System.currentTimeMillis()/1000) <= 0) {
+                    if ((lastGetTime + 1000 * 60 - System.currentTimeMillis()) <= 0) {
                         codeBtn.isEnabled = true
+                        codeBtn.setText("获取验证码")
+                        this.cancel()
                     }
                 }
             }

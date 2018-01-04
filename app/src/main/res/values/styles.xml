@@ -8,9 +8,8 @@
         <item name="colorAccent">@color/main_blue</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
-        <item name="android:background">#00000000</item>
-        <item name="android:windowBackground">@drawable/ic_bg</item>
-        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:background">#00000000</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
 
         <item name="android:checkboxStyle">@style/CheckBoxSel</item>
     </style>

@@ -513,6 +513,7 @@ class VHIronBuyOffer(itemView: View) : RecyclerView.ViewHolder(itemView) {
             else -> {
                 changeEnable(false)
 
+                choose?.visibility = View.GONE
                 actionLine?.visibility = View.GONE
                 offerHolder?.visibility = View.VISIBLE
                 offerDoneFlag?.visibility = View.GONE

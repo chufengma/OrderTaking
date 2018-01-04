@@ -18,20 +18,26 @@ class MainApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Hawk.init(this).build()
         instance = this
+        Thread({
+            Hawk.init(this).build()
 
-        JPushInterface.setDebugMode(false)
-        JPushInterface.init(this)
+            JPushInterface.setDebugMode(false)
+            JPushInterface.init(this)
 
-        var user: UserInfo? = Hawk.get(LOGIN_USER)
-        if (user != null) {
-            JPushInterface.setAlias(this, 909090, user?.id)
-        } else {
-            JPushInterface.stopPush(this)
-        }
+            var user: UserInfo? = Hawk.get(LOGIN_USER)
+            if (user != null) {
+                JPushInterface.setAlias(this, 909090, user?.id)
+            } else {
+                JPushInterface.stopPush(this)
+            }
 
-        CrashReport.initCrashReport(getApplicationContext(), "0c5aad9c7c", false)
+            CrashReport.initCrashReport(getApplicationContext(), "0c5aad9c7c", false)
+
+            Thread.sleep(1000)
+
+            isReady = true
+        }).start()
     }
 
 
@@ -55,6 +61,7 @@ class MainApplication: Application() {
 
         var instance: MainApplication? = null
         var activityCount = 0
+        var isReady = false
 
         fun instance(): MainApplication? {
             return instance
@@ -63,6 +70,7 @@ class MainApplication: Application() {
         fun isForeground(context: Context): Boolean {
             return activityCount == 0
         }
+
     }
 
 }

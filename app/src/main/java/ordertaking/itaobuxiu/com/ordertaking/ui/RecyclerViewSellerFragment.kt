@@ -147,12 +147,16 @@ class RecyclerViewSellerFragment : Fragment() {
                     }
                     updateData()
 
-                    ironBuySwipeLayoutSeller.isRefreshing = false
-                    (activity as BaseActivity).hideLoading()
+                    ironBuySwipeLayoutSeller?.isRefreshing = false
+                    if(activity != null) {
+                        (activity as BaseActivity).hideLoading()
+                    }
                 },
                 { error ->
-                    (activity as BaseActivity).hideLoading()
-                    ironBuySwipeLayoutSeller.isRefreshing = false
+                    if(activity != null) {
+                        (activity as BaseActivity).hideLoading()
+                    }
+                    ironBuySwipeLayoutSeller?.isRefreshing = false
                 })
     }
 
@@ -163,11 +167,11 @@ class RecyclerViewSellerFragment : Fragment() {
 
     fun updateData() {
         if (data == null || data.isEmpty()) {
-            emptyViewSeller.visibility = View.VISIBLE
-            ironInfoDataRecyclerSeller.visibility = View.GONE
+            emptyViewSeller?.visibility = View.VISIBLE
+            ironInfoDataRecyclerSeller?.visibility = View.GONE
         } else {
-            emptyViewSeller.visibility = View.GONE
-            ironInfoDataRecyclerSeller.visibility = View.VISIBLE
+            emptyViewSeller?.visibility = View.GONE
+            ironInfoDataRecyclerSeller?.visibility = View.VISIBLE
             adapter?.updateData(data)
         }
     }

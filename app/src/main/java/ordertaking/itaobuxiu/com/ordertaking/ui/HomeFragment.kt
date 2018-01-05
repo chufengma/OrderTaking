@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
 
     var refreshTodayData = {
-        priceLoading.visibility = View.VISIBLE
+        priceLoading?.visibility = View.VISIBLE
         networkWrap(Network.create(HomeApiService::class.java)?.getPriceToday())
                 ?.subscribe(
                         { result ->
@@ -67,18 +67,18 @@ class HomeFragment : Fragment() {
                                     return SimpleDateFormat("HH:mm").format(data?.createTime)
                                 }
                             }
-                            priceLoading.visibility = View.GONE
+                            priceLoading?.visibility = View.GONE
                             chart.invalidate()
                         },
                         { error ->
-                            priceLoading.visibility = View.GONE
+                            priceLoading?.visibility = View.GONE
                             TastyToast.makeText(context, error.message, TastyToast.LENGTH_SHORT, TastyToast.ERROR)
                         }
                 )
     }
 
     var refreshMonthData = {
-        priceLoading.visibility = View.VISIBLE
+        priceLoading?.visibility = View.VISIBLE
         Network.create(HomeApiService::class.java)
                 ?.getPriceMonth()
                 ?.subscribeOn(Schedulers.io())
@@ -99,12 +99,12 @@ class HomeFragment : Fragment() {
                             }
                             chartMonth.xAxis.setLabelCount(4, false)
 
-                            priceLoading.visibility = View.GONE
+                            priceLoading?.visibility = View.GONE
                             chartMonth.invalidate()
                         },
                         {
                             Log.e("TEST4", "error")
-                            priceLoading.visibility = View.GONE
+                            priceLoading?.visibility = View.GONE
                         }
                 )
     }

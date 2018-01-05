@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_buyer_history.*
+import kotlinx.android.synthetic.main.fragment_buyer.*
 
 import ordertaking.itaobuxiu.com.ordertaking.R
 import org.jetbrains.anko.find
@@ -96,6 +96,12 @@ class BuyerTodayFragment : Fragment() {
                 } else {
                     todayTabLayout?.getTabAt(2)?.setText("已失效")
                 }
+            }
+        }
+
+        BuyerFragment.addRefreshListener { ironInfo, position ->
+            if (position != -1) {
+                todayViewPager?.setCurrentItem(position, false)
             }
         }
     }

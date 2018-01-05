@@ -74,7 +74,7 @@ class DataActivity : BaseActivity() {
             configCircle(todayRate)
             configCircle(todayDoneRate)
 
-            networkWrap(Network.create(UserApiService::class.java)?.getBuyerData(""))?.subscribe { result ->
+            networkWrap(Network.create(UserApiService::class.java)?.getBuyerData(""))?.subscribe({ result ->
                 result.data.cooperation.forEachIndexed { index, buyerCompany ->
                     sellerLayout.addView(createSellerItem(buyerCompany, index))
                 }
@@ -116,7 +116,7 @@ class DataActivity : BaseActivity() {
                 }
 
                 today.performClick()
-            }
+            }, {})
         }
 
         fun createSellerItem(buyerCompany: BuyerCompany, i: Int): View {
@@ -160,7 +160,7 @@ class DataActivity : BaseActivity() {
             configCircle(quotaRate)
             configCircle(offerRate)
 
-            networkWrap(Network.create(UserApiService::class.java)?.getSellerData(""))?.subscribe { result ->
+            networkWrap(Network.create(UserApiService::class.java)?.getSellerData(""))?.subscribe({ result ->
 
                 todayQuote.setOnClickListener {
                     quotaRate.showValue(result.data.todaySellRate.toFloat(), 100f, true)
@@ -225,7 +225,7 @@ class DataActivity : BaseActivity() {
 
                 todayQuote.performClick()
                 todayOffer.performClick()
-            }
+            }, {})
         }
 
     }

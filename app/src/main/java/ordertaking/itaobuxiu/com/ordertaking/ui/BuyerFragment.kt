@@ -85,7 +85,7 @@ class BuyerFragment: Fragment() {
 
     companion object {
         var listeners: MutableList<((ing:String?, get:String?, end:String?, status: Int) -> Unit)?> = mutableListOf()
-        var refreshListeners: MutableList<((ironInfo: IronBuyInfo?) -> Unit)?> = mutableListOf()
+        var refreshListeners: MutableList<((ironInfo: IronBuyInfo?, position: Int) -> Unit)?> = mutableListOf()
 
         fun addListener(listener: (ing:String?, get:String?, end:String?, status: Int) -> Unit) {
             this.listeners.add(listener)
@@ -97,13 +97,13 @@ class BuyerFragment: Fragment() {
             }
         }
 
-        fun addRefreshListener(listener: ((ironInfo: IronBuyInfo?) -> Unit)?) {
+        fun addRefreshListener(listener: ((ironInfo: IronBuyInfo?, position: Int) -> Unit)?) {
             this.refreshListeners.add(listener)
         }
 
-        fun notifyRefrsh(ironInfo: IronBuyInfo?) {
+        fun notifyRefrsh(ironInfo: IronBuyInfo?, position: Int = -1) {
             this.refreshListeners.forEach {
-                it?.invoke(ironInfo)
+                it?.invoke(ironInfo, position)
             }
         }
     }

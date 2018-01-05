@@ -76,7 +76,8 @@ class IronBuyDetailActivity : BaseActivity() {
                         ?.subscribe({
                             hideLoading()
                             toastInfo("选标成功")
-                            BuyerFragment.notifyRefrsh(null)
+                            BuyerFragment.notifyRefrsh(null, 1)
+                            finish()
                         }, { error ->
                             hideLoading()
                             toastInfo("选标失败：" + error.message)
@@ -101,7 +102,7 @@ class IronBuyDetailActivity : BaseActivity() {
 
         updateData()
 
-        BuyerFragment.addRefreshListener {
+        BuyerFragment.addRefreshListener { ironInfo, position ->
             finish()
         }
 

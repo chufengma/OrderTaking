@@ -122,7 +122,7 @@ class RecyclerViewFragment : Fragment() {
             fetchData(true)
         }
 
-        BuyerFragment.addRefreshListener {
+        BuyerFragment.addRefreshListener { ironInfo, position ->
             refreshData()
         }
 
@@ -170,22 +170,26 @@ class RecyclerViewFragment : Fragment() {
                     }
                     updateData()
 
-                    ironBuySwipeLayout.isRefreshing = false
-                    (activity as BaseActivity).hideLoading()
+                    ironBuySwipeLayout?.isRefreshing = false
+                    if(activity != null) {
+                        (activity as BaseActivity).hideLoading()
+                    }
                 },
                 { error ->
-                    (activity as BaseActivity).hideLoading()
-                    ironBuySwipeLayout.isRefreshing = false
+                    if(activity != null) {
+                        (activity as BaseActivity).hideLoading()
+                    }
+                    ironBuySwipeLayout?.isRefreshing = false
                 })
     }
 
     fun updateData() {
         if (data == null || data.isEmpty()) {
-            emptyView.visibility = View.VISIBLE
-            ironInfoDataRecycler.visibility = View.GONE
+            emptyView?.visibility = View.VISIBLE
+            ironInfoDataRecycler?.visibility = View.GONE
         } else {
-            emptyView.visibility = View.GONE
-            ironInfoDataRecycler.visibility = View.VISIBLE
+            emptyView?.visibility = View.GONE
+            ironInfoDataRecycler?.visibility = View.VISIBLE
             adapter?.updateData(data)
         }
     }

@@ -38,9 +38,9 @@ class SelectStoreDialog(context: Context?) : Dialog(context, R.style.Dialog) {
         stores.adapter = storeAdapter
         stores.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        networkWrap(Network.create(UserApiService::class.java)?.getStoreHouse(""))?.subscribe { result ->
+        networkWrap(Network.create(UserApiService::class.java)?.getStoreHouse(""))?.subscribe({ result ->
             storeAdapter?.updateData(result.data)
-        }
+        }, {})
 
         storeAdapter?.setOnStoreListener(object : OnStoreItemClickListener {
             override fun onStore(store: StoreData?) {

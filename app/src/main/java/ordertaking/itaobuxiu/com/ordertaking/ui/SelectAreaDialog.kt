@@ -49,12 +49,12 @@ class SelectAreaDialog(context: Context?) : Dialog(context, R.style.Dialog) {
         dis.adapter = areaAdapter
         dis.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        networkWrap(Network.create(UserApiService::class.java)?.getCityDatas(""))?.subscribe { result ->
+        networkWrap(Network.create(UserApiService::class.java)?.getCityDatas(""))?.subscribe({ result ->
             provicesAdapter?.updateData(result.data)
             p.isSelected = true
             c.isSelected = false
             q.isSelected = false
-        }
+        }, {})
 
         provicesAdapter?.setOnCitySelectedListener(object : OnCityDescItemClickListener {
             override fun citySelected(cityModel: CityDescData?) {

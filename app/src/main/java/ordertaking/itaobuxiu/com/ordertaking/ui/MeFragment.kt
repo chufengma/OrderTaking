@@ -107,7 +107,7 @@ class MeFragment: Fragment() {
                user = result.data
 
                updateRezhen()
-           })
+           }, {})
 
        } else {
            unLoginLayout.visibility = View.VISIBLE

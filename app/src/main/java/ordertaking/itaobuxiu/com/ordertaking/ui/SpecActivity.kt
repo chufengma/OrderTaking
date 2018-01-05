@@ -128,14 +128,14 @@ class SpecActivity : BaseActivity() {
                         height.text.toString(),
                         length.text.toString()
                         ))
-                        ?.subscribe { result ->
+                        ?.subscribe({ result ->
                             adpater?.updateData(result.data)
-                        }
+                        }, {})
             } else {
                 networkWrap(Network.create(IronRequestService::class.java)?.getSuggestSpec2(surfaceId, ironid))
-                        ?.subscribe { result ->
+                        ?.subscribe({ result ->
                             adpater?.updateData(result.data)
-                        }
+                        }, {})
             }
         }
     }

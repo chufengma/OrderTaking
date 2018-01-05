@@ -34,7 +34,7 @@ class BaseUserInfoActivity : BaseActivity() {
         networkWrap(Network.create(UserApiService::class.java)?.getUserInfo("123"))?.subscribe({ result: Response<UserInfo> ->
             Hawk.put(LOGIN_USER, result.data)
             updateViews()
-        })
+        }, {})
     }
 
     fun updateViews() {

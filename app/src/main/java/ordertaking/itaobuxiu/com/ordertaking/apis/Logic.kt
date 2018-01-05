@@ -39,7 +39,7 @@ fun doLogin(mobile: String, password: String): Observable<Response<UserLoginData
                     Hawk.put(LAST_USER_MOBILE, result.data.mobile)
                     JPushInterface.resumePush(MainApplication.instance)
                     JPushInterface.setAlias(MainApplication.instance, 909090, result.data?.id)
-                })
+                }, {})
 
                 response
             }

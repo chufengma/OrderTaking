@@ -57,11 +57,11 @@ class SelectTagDialog(val index: Int, context: Context?) : Dialog(context, R.sty
             }
         }
 
-        ob?.subscribe { result ->
+        ob?.subscribe({ result ->
             for (ironType in result.data) {
                 tagGroup.addView(createTag(ironType))
             }
-        }
+        }, {})
     }
 
     fun createTag(ironType: BaseIronInfo): View {

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_buyer.*
 import kotlinx.android.synthetic.main.fragment_buyer_history.*
 import ordertaking.itaobuxiu.com.ordertaking.R
 
@@ -68,6 +69,12 @@ class BuyerHistoryFragment : Fragment() {
                 statusTabLayoutHistory?.getTabAt(0)?.setText("进行中($ing)")
                 statusTabLayoutHistory?.getTabAt(1)?.setText("已完成($get)")
                 statusTabLayoutHistory?.getTabAt(2)?.setText("已失效($end)")
+            }
+        }
+
+        BuyerFragment.addRefreshListener { ironInfo, position ->
+            if (position != -1) {
+                contentViewPagerHistory?.setCurrentItem(position, false)
             }
         }
     }

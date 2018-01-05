@@ -43,11 +43,11 @@ class SelectCityDialog(context: Context?) : Dialog(context, R.style.Dialog) {
         cities.adapter = cityAdapter
         cities.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        networkWrap(Network.create(IronRequestService::class.java)?.getProvices())?.subscribe { result ->
+        networkWrap(Network.create(IronRequestService::class.java)?.getProvices())?.subscribe({ result ->
             provicesAdapter?.updateData(result.data)
             p.isSelected = true
             c.isSelected = false
-        }
+        }, {})
 
         provicesAdapter?.setOnCitySelectedListener(object : OnCityItemClickListener {
             override fun citySelected(cityModel: CityModel?) {
@@ -73,11 +73,11 @@ class SelectCityDialog(context: Context?) : Dialog(context, R.style.Dialog) {
         if (currentProvice == null) {
             return
         }
-        networkWrap(Network.create(IronRequestService::class.java)?.getCity(currentProvice?.id!!))?.subscribe { result ->
+        networkWrap(Network.create(IronRequestService::class.java)?.getCity(currentProvice?.id!!))?.subscribe({ result ->
             cityAdapter?.updateData(result.data)
             p.isSelected = false
             c.isSelected = true
-        }
+        }, {})
     }
 
     override fun show() {

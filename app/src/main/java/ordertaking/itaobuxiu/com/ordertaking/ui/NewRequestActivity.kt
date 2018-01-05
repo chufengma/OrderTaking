@@ -107,13 +107,13 @@ class NewRequestActivity : BaseActivity() {
                     spec.setText("")
 
 
-                    networkWrap(Network.create(IronRequestService::class.java)?.getUnits(ironType?.id!!))?.subscribe { result ->
+                    networkWrap(Network.create(IronRequestService::class.java)?.getUnits(ironType?.id!!))?.subscribe({ result ->
                         this@NewRequestActivity.postRequestBean?.unitModel = result.data
                          weightUnit.text = result.data.weightUnitCName
                          numUnit.text = result.data.numUnitCName
                          weightUnit.isEnabled = true
                          numUnit.isEnabled = true
-                    }
+                    }, {})
                 }
             })
         }

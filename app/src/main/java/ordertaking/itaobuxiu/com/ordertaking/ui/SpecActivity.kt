@@ -13,6 +13,7 @@ import ordertaking.itaobuxiu.com.ordertaking.R
 import ordertaking.itaobuxiu.com.ordertaking.apis.IronRequestService
 import ordertaking.itaobuxiu.com.ordertaking.apis.SuggestSpecModel
 import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
+import ordertaking.itaobuxiu.com.ordertaking.engine.EmojiFilter
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 
 class SpecActivity : BaseActivity() {
@@ -44,6 +45,7 @@ class SpecActivity : BaseActivity() {
         weight.setText(weightStr)
         length.setText(lengthStr)
 
+        spec.filters = arrayOf<EmojiFilter>(EmojiFilter())
         spec.setText(otherStr)
 
         banjuan = intent.getBooleanExtra("banjuan", banjuan)
@@ -113,6 +115,8 @@ class SpecActivity : BaseActivity() {
                 updateValues(height.text.toString())
             }
         }
+
+        length.filters = arrayOf<EmojiFilter>(EmojiFilter())
 
         length.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {

@@ -184,6 +184,7 @@ class NewRequestActivity : BaseActivity() {
             startActivityForResult(intent, 1000)
         }
 
+        to.filters = arrayOf<EmojiFilter>(EmojiFilter())
 
         comment.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(35))
 

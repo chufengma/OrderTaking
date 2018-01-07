@@ -14,7 +14,7 @@ import retrofit2.http.*
  */
 interface HomeApiService {
 
-    @GET("/api/ad/findByGroupId?groupId=5795")
+    @GET("/api/ad/findByGroupId?groupId=23568")
     fun getHomeAdd(): Observable<Response<HomeAdsModelData>>
 
 

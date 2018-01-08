@@ -39,7 +39,7 @@ interface HomeApiService {
 interface UserApiService {
 
     @FormUrlEncoded
-    @POST("/login/userLogin")
+    @POST("/login/userMobileLogin ")
     fun login(@Field("mobile") mobile: String , @Field("password") password: String): Observable<Response<UserLoginData>>
 
     @FormUrlEncoded

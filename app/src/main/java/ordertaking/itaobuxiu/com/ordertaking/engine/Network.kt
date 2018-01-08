@@ -30,7 +30,7 @@ object Network {
 //        .baseUrl("http://jiedan8.cn/")
 //        120.55.63.70
 //        111.231.134.170
-                .baseUrl("http://120.55.63.70/")
+                .baseUrl("http://111.231.134.170/")
                 .addConverterFactory(GsonConvert.create())
                 .client(OkHttpClient.Builder()
                         .addInterceptor { chain ->

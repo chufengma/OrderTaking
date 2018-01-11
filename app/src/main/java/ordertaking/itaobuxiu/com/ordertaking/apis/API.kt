@@ -139,6 +139,11 @@ interface UserApiService {
     @POST("/demands/query/findAllPro")
     fun findAllPro(@Field("mobile") mobile: String): Observable<Response<List<Youhui>>>
 
+
+    @FormUrlEncoded
+    @POST("/login/removePush")
+    fun removePush(@Field("reId") reId: String): Observable<Response<Object>>
+
     @FormUrlEncoded
     @POST("/api/main/applyQualityControl")
     fun postQu(@Field("inDoorTime") inDoorTime: String,
@@ -292,10 +297,12 @@ fun <T> networkWrap(observable: Observable<Response<T>>?) : Observable<Response<
                 Log.e("HTTPResponse", Gson().toJson(response))
                 when(response.code) {
                     "403","401" -> {
+                        Log.e("LOGINOUT_CHECK_RESPONSE_Inner", "${response.code}")
                         if (isLogin()) {
-                            MainApplication.instance()?.getCurrentActivity()?.gotoLoginActivity()
+                            if (clearLogin()) {
+                                MainApplication.instance()?.getCurrentActivity()?.gotoLoginActivity()
+                            }
                         }
-                        clearLogin()
                         throw ResponseReturnErrorException(response.code, "请先登录")
                     }
                     "1002" -> {

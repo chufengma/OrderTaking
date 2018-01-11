@@ -13,7 +13,7 @@ import ordertaking.itaobuxiu.com.ordertaking.R
 object GlideImageLoader : ImageLoader() {
 
     override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-        Glide.with(context).load(path).placeholder(R.drawable.home_ad_defalut).into(imageView)
+        Glide.with(context).load(path).placeholder(R.drawable.home_ad_defalut).centerCrop().into(imageView)
     }
 
 

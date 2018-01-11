@@ -33,6 +33,7 @@ class LoginActivity : BaseActivity() {
             showLoading()
             doLogin(mobileText, passwordText)?.subscribe({ result: Response<UserLoginData> ->
                         hideLoading()
+                        Hawk.put("lastLoginTime", System.currentTimeMillis())
                         gotoHome()
                     },
                     {

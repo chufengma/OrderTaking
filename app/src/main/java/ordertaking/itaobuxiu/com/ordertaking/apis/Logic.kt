@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
+import android.util.Log
 import cn.jpush.android.api.JPushInterface
 import com.google.gson.Gson
 import ordertaking.itaobuxiu.com.ordertaking.engine.MainApplication
@@ -50,9 +51,23 @@ fun isLogin(): Boolean {
     return Hawk.get<UserLoginData>(USER_LOGIN_INFO) != null
 }
 
-fun clearLogin() {
+fun clearLogin():Boolean {
+    var lastLoginTime = Hawk.get("lastLoginTime", 0L)
+    if (System.currentTimeMillis() <= lastLoginTime) {
+        Log.e("LOGINOUT_CHECK", "not clearLogin")
+        return false
+    }
+    Log.e("LOGINOUT_CHECK", "clearLogin")
     Hawk.delete(USER_LOGIN_INFO)
     Hawk.delete(LOGIN_USER)
+    Hawk.delete(LOCAL_REQUESTS)
+    networkWrap(Network.create(UserApiService::class.java)?.removePush(JPushInterface.getRegistrationID(MainApplication.instance())))?.subscribe({
+        Log.e("removePush", "success")
+    }, {
+        Log.e("removePush", "error")
+    })
+    JPushInterface.stopPush(MainApplication.instance())
+    return true
 }
 
 fun gotoPostRequest(context: Context) {

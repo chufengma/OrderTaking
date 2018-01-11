@@ -2,15 +2,14 @@ package ordertaking.itaobuxiu.com.ordertaking.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import cn.jpush.android.api.JPushInterface
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_setting.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
-import ordertaking.itaobuxiu.com.ordertaking.apis.LOCAL_REQUESTS
-import ordertaking.itaobuxiu.com.ordertaking.apis.LOGIN_USER
-import ordertaking.itaobuxiu.com.ordertaking.apis.USER_LOGIN_INFO
-import ordertaking.itaobuxiu.com.ordertaking.apis.gotoWebView
+import ordertaking.itaobuxiu.com.ordertaking.apis.*
+import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 
 class SettingActivity : BaseActivity() {
 
@@ -20,13 +19,9 @@ class SettingActivity : BaseActivity() {
         useNormalBack()
 
         quit.setOnClickListener {
-            Hawk.delete(USER_LOGIN_INFO)
-            Hawk.delete(LOGIN_USER)
-            Hawk.delete(LOCAL_REQUESTS)
-
-            JPushInterface.stopPush(this)
-
-            gotoMainActivity()
+            if (clearLogin()) {
+                gotoMainActivity()
+            }
         }
 
         baseInfo.setOnClickListener {

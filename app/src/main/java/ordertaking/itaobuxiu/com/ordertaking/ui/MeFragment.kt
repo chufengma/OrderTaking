@@ -159,7 +159,7 @@ class MeFragment: Fragment() {
                 (context as BaseActivity).showLoginDialog()
                 return@setOnClickListener
             }
-            gotoWebView(context, "权益说明", "http://jiedan8.cn/apphtml/rights.html")
+            gotoWebView(context, "权益说明", "http://tbxoss.oss-cn-hangzhou.aliyuncs.com/html/rights.html")
         }
 
         myAsset.setOnClickListener {

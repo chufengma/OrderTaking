@@ -34,7 +34,7 @@ class SettingActivity : BaseActivity() {
         }
 
         about.setOnClickListener {
-            gotoWebView(this, "联系我们", "http@ //jiedan8.cn/apphtml/aboutus.html")
+            gotoWebView(this, "联系我们", "http://tbxoss.oss-cn-hangzhou.aliyuncs.com/html/aboutus.html")
 
         }
 

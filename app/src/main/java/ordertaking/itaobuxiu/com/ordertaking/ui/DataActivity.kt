@@ -58,7 +58,7 @@ class DataActivity : BaseActivity() {
         tab.setupWithViewPager(viewPager)
 
         right.setOnClickListener {
-            gotoWebView(this, "指标释义", "http://jiedan8.cn/apphtml/datadefinition.html")
+            gotoWebView(this, "指标释义", "http://tbxoss.oss-cn-hangzhou.aliyuncs.com/html/datadefinition.html\n")
         }
     }
 

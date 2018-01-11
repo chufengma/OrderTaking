@@ -57,6 +57,8 @@ class IronBuyDetailActivity : BaseActivity() {
         adapter = IronBuyOfferAdapter(ironBuyInfo?.buyStatus!!)
         offerRecycler.adapter = adapter
 
+        offerRecycler.isNestedScrollingEnabled = false
+
         configSwipe(dataSwipe)
         dataSwipe.isEnabled = ironBuyInfo?.buyStatus == 1
 

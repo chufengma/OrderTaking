@@ -300,6 +300,8 @@ class HomeFragment : Fragment() {
         banner.setImages(mutableListOf("http://tbxoss.oss-cn-hangzhou.aliyuncs.com/2017/11/20/20171120111338025417.jpg"))
         banner.start()
 
+        banner.layoutParams.height = resources.displayMetrics.widthPixels / 2
+
         Network.create(HomeApiService::class.java)
                 ?.getHomeAdd()
                 ?.subscribeOn(Schedulers.io())

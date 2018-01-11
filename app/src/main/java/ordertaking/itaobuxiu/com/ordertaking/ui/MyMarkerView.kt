@@ -45,7 +45,7 @@ class MyMarkerView(context: Context, layoutResource: Int) : MarkerView(context, 
             kaipan.text = "开盘：￥" + (e.data as HomePriceMonthData).startPrice
             zuigao.text = "最高：￥" + (e.data as HomePriceMonthData).maxPrice
             zuidi.text = "最低：￥" + (e.data as HomePriceMonthData).minPrice
-            shoupan.text = "最低：￥" + (e.data as HomePriceMonthData).endPrice
+            shoupan.text = "收盘：￥" + (e.data as HomePriceMonthData).endPrice
         }
         super.refreshContent(e, highlight)
     }

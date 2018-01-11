@@ -12,10 +12,7 @@ import kotlinx.android.synthetic.main.fragment_data_buyer.*
 import kotlinx.android.synthetic.main.fragment_data_seller.*
 import ordertaking.itaobuxiu.com.ordertaking.BaseActivity
 import ordertaking.itaobuxiu.com.ordertaking.R
-import ordertaking.itaobuxiu.com.ordertaking.apis.BuyerCompany
-import ordertaking.itaobuxiu.com.ordertaking.apis.UserApiService
-import ordertaking.itaobuxiu.com.ordertaking.apis.configCircle
-import ordertaking.itaobuxiu.com.ordertaking.apis.networkWrap
+import ordertaking.itaobuxiu.com.ordertaking.apis.*
 import ordertaking.itaobuxiu.com.ordertaking.engine.Network
 import org.jetbrains.anko.find
 
@@ -59,6 +56,10 @@ class DataActivity : BaseActivity() {
 
 
         tab.setupWithViewPager(viewPager)
+
+        right.setOnClickListener {
+            gotoWebView(this, "指标释义", "http://jiedan8.cn/apphtml/datadefinition.html")
+        }
     }
 
     class DataBuyerFragment : Fragment() {

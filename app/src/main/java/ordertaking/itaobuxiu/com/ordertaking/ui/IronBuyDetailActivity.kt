@@ -113,7 +113,7 @@ class IronBuyDetailActivity : BaseActivity() {
 
         right.postDelayed({
             mainContent.scrollTo(0, 0)
-        }, 100)
+        }, 300)
     }
 
     fun updateData() {

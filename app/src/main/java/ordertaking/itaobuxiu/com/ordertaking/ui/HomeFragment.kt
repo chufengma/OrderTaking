@@ -56,8 +56,10 @@ class HomeFragment : Fragment() {
         networkWrap(Network.create(HomeApiService::class.java)?.getPriceToday())
                 ?.subscribe(
                         { result ->
-                            var todayData: MutableList<Entry> = mutableListOf();
-                            todayDataList = result.data.subList(result.data.size - 20, result.data.size)
+                            var todayData: MutableList<Entry> = mutableListOf()
+                            var max = if (result.data.size >= 20) 20 else result.data.size
+                            max = 3
+                            todayDataList = result.data.subList(result.data.size - max, result.data.size)
                             todayDataList!!.mapIndexedTo(todayData) { index, value -> Entry(index.toFloat(), value.currentPrice.toFloat(), value) }
 
                             configChart(chart, todayData)
@@ -86,8 +88,10 @@ class HomeFragment : Fragment() {
                 ?.subscribe(
                         { result ->
                             Log.e("TEST4", "success")
-                            var todayData: MutableList<Entry> = mutableListOf();
-                            monthDataList = result.data.subList(result.data.size - 20, result.data.size)
+                            var todayData: MutableList<Entry> = mutableListOf()
+                            var max = if (result.data.size >= 20) 20 else result.data.size
+                            max = 7
+                            monthDataList = result.data.subList(result.data.size - max, result.data.size)
                             monthDataList!!.mapIndexedTo(todayData) { index, value -> Entry(index.toFloat(), value.endPrice.toFloat(), value) }
 
                             configChart(chartMonth, todayData)

@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
                         { result ->
                             var todayData: MutableList<Entry> = mutableListOf()
                             var max = if (result.data.size >= 20) 20 else result.data.size
+                            max = 15
                             todayDataList = result.data.subList(result.data.size - max, result.data.size)
                             todayDataList!!.mapIndexedTo(todayData) { index, value -> Entry(index.toFloat(), value.currentPrice.toFloat(), value) }
 
@@ -68,6 +69,13 @@ class HomeFragment : Fragment() {
                                     return SimpleDateFormat("HH:mm").format(data?.createTime)
                                 }
                             }
+
+                            if (max < 6) {
+                                chartMonth.xAxis.setLabelCount(max, true)
+                            } else {
+                                chartMonth.xAxis.setLabelCount(4, false)
+                            }
+
                             priceLoading?.visibility = View.GONE
                             chart.invalidate()
                         },
@@ -92,14 +100,19 @@ class HomeFragment : Fragment() {
                             monthDataList = result.data.subList(result.data.size - max, result.data.size)
                             monthDataList!!.mapIndexedTo(todayData) { index, value -> Entry(index.toFloat(), value.endPrice.toFloat(), value) }
 
-                            configChart(chartMonth, todayData)
                             chartMonth.xAxis.valueFormatter = object : DefaultAxisValueFormatter(0) {
                                 override fun getFormattedValue(value: Float, axis: AxisBase?): String {
                                     var data: HomePriceMonthData? = monthDataList?.get(value.toInt())
+                                    Log.e("TEST----------", "success:" + value + "," + data)
                                     return SimpleDateFormat("yyyy-MM-dd").format(data?.logTime)
                                 }
                             }
-                            chartMonth.xAxis.setLabelCount(4, false)
+                            if (max < 6) {
+                                chartMonth.xAxis.setLabelCount(max, true)
+                            } else {
+                                chartMonth.xAxis.setLabelCount(4, false)
+                            }
+                            configChart(chartMonth, todayData)
 
                             priceLoading?.visibility = View.GONE
                             chartMonth.invalidate()
